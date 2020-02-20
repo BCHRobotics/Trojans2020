@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("GyroISet", 0);
     SmartDashboard.putNumber("GyroDSet", 0);
 
-    //Resets all devices test
+    //Resets all devices
     mClimber.resetEncoder();
     mColorWheel.resetEncoderExtend();
     mColorWheel.resetEncoderSpinner();
