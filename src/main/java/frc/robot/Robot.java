@@ -27,21 +27,21 @@ import frc.robot.subsystems.Shooter;
  */
 public class Robot extends TimedRobot {
 
-  private final boolean newBot = true; 
+  private static final boolean newBot = true; 
 
-  private AHRS ahrs = new AHRS(Port.kUSB);
+  public static AHRS ahrs = new AHRS(Port.kUSB);
 
-  private Drivetrain mDrivetrain = new Drivetrain(newBot);
-  private OI mOi = new OI();
-  private BallHandler mBallHandler = new BallHandler();
-  private Shooter mShooter = new Shooter();
-  private Retriever mRetriever = new Retriever();
-  private Climber mClimber = new Climber();
-  private ColorWheel mColorWheel = new ColorWheel();
+  public static Drivetrain mDrivetrain = new Drivetrain(newBot);
+  public static OI mOi = new OI();
+  public static BallHandler mBallHandler = new BallHandler();
+  public static Shooter mShooter = new Shooter();
+  public static Retriever mRetriever = new Retriever();
+  public static Climber mClimber = new Climber();
+  public static ColorWheel mColorWheel = new ColorWheel();
 
-  private Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel);
-  private AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
-  private Autonomous mAutonomous = new Autonomous(mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel, mAutoCommands, ahrs);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel);
+  public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
+  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel, mAutoCommands, ahrs);
 
 
   @Override
