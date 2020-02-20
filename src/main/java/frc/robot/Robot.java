@@ -124,9 +124,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
-    //mAutoCommands.gyroTurn(90, 2, 250, 2000);
+    mAutoCommands.gyroTurn(90, 2, 250, 2000);
 
-    mDrivetrain.arcade(0, 0.25 * testPID.run(90, ahrs.getAngle()));
+    //mDrivetrain.arcade(0, 0.25 * testPID.run(90, ahrs.getAngle()));
 
   }
 }

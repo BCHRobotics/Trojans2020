@@ -99,7 +99,6 @@ public class Autonomous {
     /**
      * MISSING CODES:
      * 
-     * Start 1 High Trench
      * Start 2 High RDV
      * Start 3 High RDV
      */
@@ -109,7 +108,7 @@ public class Autonomous {
                 mRyan.S1highRendezvous();
                 break;
             case kstart1HighTrench:
-
+                mMatthew.start1HighTrench();
                 break;
             case kstart1HighHome:
                 mRyan.S1HighHome();
@@ -129,7 +128,6 @@ public class Autonomous {
                 break;
             case kstart2HighTrench:
                 mMatthew.start2HighTrench();
-                //mMatthew.start1HighTrenchN();
                 break;
             case kstart2HighHome:
                 mAyrton.start2HighHome();

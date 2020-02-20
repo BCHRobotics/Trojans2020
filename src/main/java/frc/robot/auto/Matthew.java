@@ -66,7 +66,7 @@ public class Matthew {
     6: Drive backwards 1 foot
     7: Shoot
      */
-    public void start1HighTrenchN(){
+    public void start1HighTrench(){
 
         ahrs.reset();
         mDrivetrain.resetEncoders();
