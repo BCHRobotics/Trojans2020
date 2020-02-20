@@ -25,127 +25,141 @@ public class Autonomous {
 
     private static final String kDefaultAuto = "Default";
 
-    private static final String kstart1shootHendRend = "Start 1, Shoot High, End Rendez-vous";
-    private static final String kstart1shootHendTrench = "Start 1, Shoot High, End Trench";
-    private static final String kstart1shootHendHome = "Start 1, Shoot High, End Home";
-    private static final String kstart1shootLendRend = "Start 1, Shoot Low, End Rendez-vous";
-    private static final String kstart1shootLendTrench = "Start 1, Shoot Low, End Trench";
-    private static final String kstart1shootLendHome = "Start 1, Shoot Low, End Home";
+    private static final String kstart1HighRDV = "Start 1, Shoot High, End Rendez-vous";
+    private static final String kstart1HighTrench = "Start 1, Shoot High, End Trench";
+    private static final String kstart1HighHome = "Start 1, Shoot High, End Home";
+    private static final String kstart1LowRDV = "Start 1, Shoot Low, End Rendez-vous";
+    private static final String kstart1LowTrench = "Start 1, Shoot Low, End Trench";
+    private static final String kstart1LowHome = "Start 1, Shoot Low, End Home";
 
-    private static final String kstart2shootHendRend = "Start 2, Shoot High, End Rendez-vous";
-    private static final String kstart2shootHendTrench = "Start 2, Shoot High, End Trench";
-    private static final String kstart2shootHendHome = "Start 2, Shoot High, End Home";
-    private static final String kstart2shootLendRend = "Start 2, Shoot Low, End Rendez-vous";
-    private static final String kstart2shootLendTrench = "Start 2, Shoot Low, End Trench";
-    private static final String kstart2shootLendHome = "Start 2, Shoot Low, End Home";
+    private static final String kstart2HighRDV = "Start 2, Shoot High, End Rendez-vous";
+    private static final String kstart2HighTrench = "Start 2, Shoot High, End Trench";
+    private static final String kstart2HighHome = "Start 2, Shoot High, End Home";
+    private static final String kstart2LowRDV = "Start 2, Shoot Low, End Rendez-vous";
+    private static final String kstart2LowTrench = "Start 2, Shoot Low, End Trench";
+    private static final String kstart2LowHome = "Start 2, Shoot Low, End Home";
 
-    private static final String kstart3shootHendRend = "Start 3, Shoot High, End Rendez-vous";
-    private static final String kstart3shootHendTrench = "Start 3, Shoot High, End Trench";
-    private static final String kstart3shootHendHome = "Start 3, Shoot High, End Home";
-    private static final String kstart3shootLendRend = "Start 3, Shoot Low, End Rendez-vous";
-    private static final String kstart3shootLendTrench = "Start 3, Shoot Low, End Trench";
-    private static final String kstart3shootLendHome = "Start 3, Shoot Low, End Home";
+    private static final String kstart3HighRDV = "Start 3, Shoot High, End Rendez-vous";
+    private static final String kstart3HighTrench = "Start 3, Shoot High, End Trench";
+    private static final String kstart3HighHome = "Start 3, Shoot High, End Home";
+    private static final String kstart3LowRDV = "Start 3, Shoot Low, End Rendez-vous";
+    private static final String kstart3LowTrench = "Start 3, Shoot Low, End Trench";
+    private static final String kstart3LowHome = "Start 3, Shoot Low, End Home";
 
-    private String m_autoSelected;
-    private final SendableChooser<String> m_chooser = new SendableChooser<>();
+    private String mAutoSelected;
+    private final SendableChooser<String> mChooser = new SendableChooser<>();
 
     private VohnPhillip mVohnPhillip;
     private Ryan mRyan;
     private Ayrton mAyrton;
+    private Matthew mMatthew;
+    private Kamren mKamren;
 
     public Autonomous(Drivetrain mDrivetrain, Shooter mShooter, Retriever mRetriever, Climber mClimber, BallHandler mBallHandler, ColorWheel mColorWheel, AutoCommands mAutoCommands, AHRS ahrs){
 
         mVohnPhillip = new VohnPhillip(mAutoCommands, ahrs, mDrivetrain);
         mRyan = new Ryan(mAutoCommands, ahrs, mDrivetrain);
         mAyrton = new Ayrton(mAutoCommands, ahrs, mDrivetrain);
+        mMatthew = new Matthew(mAutoCommands, ahrs, mDrivetrain);
+        mKamren = new Kamren(mAutoCommands); //MISSING RESETS???
 
-        m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+        mChooser.setDefaultOption("Default Auto", kDefaultAuto);
 
-        m_chooser.addOption("Start 1, Shoot High, End Rendez-vous", kstart1shootHendRend);
-        m_chooser.addOption("Start 1, Shoot High, End Trench", kstart1shootHendTrench);
-        m_chooser.addOption("Start 1, Shoot High, End Home", kstart1shootHendHome);
-        m_chooser.addOption("Start 1, Shoot Low, End Rendez-vous", kstart1shootLendRend);
-        m_chooser.addOption("Start 1, Shoot Low, End Trench", kstart1shootLendTrench);
-        m_chooser.addOption("Start 1, Shoot Low, End Home", kstart1shootLendHome);
+        mChooser.addOption("Start 1, Shoot High, End Rendez-vous", kstart1HighRDV);
+        mChooser.addOption("Start 1, Shoot High, End Trench", kstart1HighTrench);
+        mChooser.addOption("Start 1, Shoot High, End Home", kstart1HighHome);
+        mChooser.addOption("Start 1, Shoot Low, End Rendez-vous", kstart1LowRDV);
+        mChooser.addOption("Start 1, Shoot Low, End Trench", kstart1LowTrench);
+        mChooser.addOption("Start 1, Shoot Low, End Home", kstart1LowHome);
 
-        m_chooser.addOption("Start 2, Shoot High, End Rendez-vous", kstart2shootHendRend);
-        m_chooser.addOption("Start 2, Shoot High, End Trench", kstart2shootHendTrench);
-        m_chooser.addOption("Start 2, Shoot High, End Home", kstart2shootHendHome);
-        m_chooser.addOption("Start 2, Shoot Low, End Rendez-vous", kstart2shootLendRend);
-        m_chooser.addOption("Start 2, Shoot Low, End Trench", kstart2shootLendTrench);
-        m_chooser.addOption("Start 2, Shoot Low, End Home", kstart2shootLendHome);
+        mChooser.addOption("Start 2, Shoot High, End Rendez-vous", kstart2HighRDV);
+        mChooser.addOption("Start 2, Shoot High, End Trench", kstart2HighTrench);
+        mChooser.addOption("Start 2, Shoot High, End Home", kstart2HighHome);
+        mChooser.addOption("Start 2, Shoot Low, End Rendez-vous", kstart2LowRDV);
+        mChooser.addOption("Start 2, Shoot Low, End Trench", kstart2LowTrench);
+        mChooser.addOption("Start 2, Shoot Low, End Home", kstart2LowHome);
 
-        m_chooser.addOption("Start 3, Shoot High, End Rendez-vous", kstart3shootHendRend);
-        m_chooser.addOption("Start 3, Shoot High, End Trench", kstart3shootHendTrench);
-        m_chooser.addOption("Start 3, Shoot High, End Home", kstart3shootHendHome);
-        m_chooser.addOption("Start 3, Shoot Low, End Rendez-vous", kstart3shootLendRend);
-        m_chooser.addOption("Start 3, Shoot Low, End Trench", kstart3shootLendTrench);
-        m_chooser.addOption("Start 3, Shoot Low, End Home",kstart3shootLendHome);
+        mChooser.addOption("Start 3, Shoot High, End Rendez-vous", kstart3HighRDV);
+        mChooser.addOption("Start 3, Shoot High, End Trench", kstart3HighTrench);
+        mChooser.addOption("Start 3, Shoot High, End Home", kstart3HighHome);
+        mChooser.addOption("Start 3, Shoot Low, End Rendez-vous", kstart3LowRDV);
+        mChooser.addOption("Start 3, Shoot Low, End Trench", kstart3LowTrench);
+        mChooser.addOption("Start 3, Shoot Low, End Home",kstart3LowHome);
 
-        SmartDashboard.putData("Auto choices", m_chooser);
+        SmartDashboard.putData("Auto choices", mChooser);
         SmartDashboard.putNumber("gyro", -1);
     }
 
     public void init(){
-        m_autoSelected = m_chooser.getSelected();
+        mAutoSelected = mChooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-        System.out.println("Auto selected: " + m_autoSelected);
+        System.out.println("Auto selected: " + mAutoSelected);
     }
 
+    /**
+     * MISSING CODES:
+     * 
+     * Start 1 High Trench
+     * Start 2 High RDV
+     * Start 3 High RDV
+     */
     public void periodic(){
-        switch (m_autoSelected) {
-            case kstart1shootHendRend:
+        switch (mAutoSelected) {
+            case kstart1HighRDV:
                 mRyan.S1highRendezvous();
                 break;
-            case kstart1shootHendTrench:
+            case kstart1HighTrench:
 
                 break;
-            case kstart1shootHendHome:
+            case kstart1HighHome:
                 mRyan.S1HighHome();
                 break;
-            case  kstart1shootLendRend:
+            case  kstart1LowRDV:
                 mVohnPhillip.S1LowRendezvous();
+                //mMatthew.start2LowRVP();
                 break;
-            case kstart1shootLendTrench:
+            case kstart1LowTrench:
                 mVohnPhillip.S1LowTrench();
                 break;
-            case kstart1shootLendHome:
+            case kstart1LowHome:
                 mAyrton.start1LowHome();
                 break;
-            case kstart2shootHendRend:
+            case kstart2HighRDV:
                 
                 break;
-            case kstart2shootHendTrench:
-
+            case kstart2HighTrench:
+                mMatthew.start2HighTrench();
+                //mMatthew.start1HighTrenchN();
                 break;
-            case kstart2shootHendHome:
+            case kstart2HighHome:
                 mAyrton.start2HighHome();
+                //mKamren.start2HighHome();
                 break;
-            case kstart2shootLendRend:
+            case kstart2LowRDV:
                 mVohnPhillip.S2LowRVP();
                 break;
-            case kstart2shootLendTrench:
+            case kstart2LowTrench:
                 mAyrton.start2LowTrench();
                 break;
-            case kstart2shootLendHome:
+            case kstart2LowHome:
                 mAyrton.start2LowHome();
                 break;
-            case kstart3shootHendRend:
+            case kstart3HighRDV:
 
                 break;
-            case kstart3shootHendTrench:
+            case kstart3HighTrench:
                 mVohnPhillip.S3HighTrench();
                 break;
-            case kstart3shootHendHome:
-
+            case kstart3HighHome:
+                mKamren.start3HighHome();
                 break;
-            case kstart3shootLendRend:
+            case kstart3LowRDV:
                 mAyrton.start3LowRendezVous();
                 break;
-            case kstart3shootLendTrench:
-
+            case kstart3LowTrench:
+                mKamren.start3LowTrench();
                 break;
-            case kstart3shootLendHome:
+            case kstart3LowHome:
                 mVohnPhillip.S3LowHome();
                 break;
             case kDefaultAuto:
