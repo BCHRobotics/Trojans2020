@@ -27,6 +27,7 @@ import frc.robot.subsystems.Shooter;
  * 
  * @author Noah Tomkins
  * @author Luc Suzuki
+ * @author Kyla Rowan
  */
 public class Robot extends TimedRobot {
 
