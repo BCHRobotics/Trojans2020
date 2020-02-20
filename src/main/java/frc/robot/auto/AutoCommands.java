@@ -62,8 +62,8 @@ public class AutoCommands {
         //Run until you reach the timeout or are within the range for a set amount of time.
         while(runLoop){
 
-            if(System.currentTimeMillis() >= this.endTime) runLoop = false;
-            if(this.inRange >= this.inRangeSet) runLoop = false;
+            if(System.currentTimeMillis() > this.endTime) runLoop = false;
+            if(this.inRange > this.inRangeSet) runLoop = false;
 
             /**
             * when the error is within the range of the setpoint then start counting 
@@ -106,8 +106,8 @@ public class AutoCommands {
         //Run until you reach the timeout or are within the range for a set amount of time.
         while(runLoop){
 
-            if(System.currentTimeMillis() >= this.endTime) runLoop = false;
-            if(this.inRange >= this.inRangeSet) runLoop = false;
+            if(System.currentTimeMillis() > this.endTime) runLoop = false;
+            if(this.inRange > this.inRangeSet) runLoop = false;
 
             /**
             * when the error is within the range of the setpoint then start counting 
@@ -151,8 +151,8 @@ public class AutoCommands {
         //Run until you reach the timeout or are within the range for a set amount of time.
         while(runLoop){
 
-            if(System.currentTimeMillis() >= this.endTime) runLoop = false;
-            if(this.inRange >= this.inRangeSet) runLoop = false;
+            if(System.currentTimeMillis() > this.endTime) runLoop = false;
+            if(this.inRange > this.inRangeSet) runLoop = false;
 
             /**
             * when the error is within the range of the setpoint then start counting 
