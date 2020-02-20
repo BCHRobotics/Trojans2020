@@ -15,12 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.AutoCommands;
 import frc.robot.auto.Autonomous;
 import frc.robot.auto.PID;
-import frc.robot.subsystems.BallHandler;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Retriever;
-import frc.robot.subsystems.Shooter;
 
 /**
  * This is FRC team 2386 code
@@ -33,15 +28,15 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain mDrivetrain = new Drivetrain(newBot);
   public static OI mOi = new OI();
-  public static BallHandler mBallHandler = new BallHandler();
-  public static Shooter mShooter = new Shooter();
-  public static Retriever mRetriever = new Retriever();
-  public static Climber mClimber = new Climber();
-  public static ColorWheel mColorWheel = new ColorWheel();
+  //public static BallHandler mBallHandler = new BallHandler();
+  //public static Shooter mShooter = new Shooter();
+  //public static Retriever mRetriever = new Retriever();
+  //public static Climber mClimber = new Climber();
+  //public static ColorWheel mColorWheel = new ColorWheel();
 
-  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
-  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mShooter, mRetriever, mClimber, mBallHandler, mColorWheel, mAutoCommands, ahrs);
+  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs);
 
 
   @Override
@@ -56,12 +51,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("GyroDSet", 0);
 
     //Resets all devices
-    mClimber.resetEncoder();
-    mColorWheel.resetEncoderExtend();
-    mColorWheel.resetEncoderSpinner();
+    //mClimber.resetEncoder();
+    //mColorWheel.resetEncoderExtend();
+    //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    mShooter.resetEncoderTurret();
-    mShooter.resetEncoderWheel();
+    //mShooter.resetEncoderTurret();
+    //mShooter.resetEncoderWheel();
     ahrs.reset();
   }
 
@@ -69,12 +64,12 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
 
     //Resets all devices
-    mClimber.resetEncoder();
-    mColorWheel.resetEncoderExtend();
-    mColorWheel.resetEncoderSpinner();
+    //mClimber.resetEncoder();
+    //mColorWheel.resetEncoderExtend();
+    //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    mShooter.resetEncoderTurret();
-    mShooter.resetEncoderWheel();
+    //mShooter.resetEncoderTurret();
+    //mShooter.resetEncoderWheel();
     ahrs.reset();
 
     SmartDashboard.putBoolean("ENDLOOP", false);
@@ -91,12 +86,12 @@ public class Robot extends TimedRobot {
     if(SmartDashboard.getBoolean("resetEncoders", false)) mDrivetrain.resetEncoders();
     if(SmartDashboard.getBoolean("resetNavX", false)) ahrs.reset();
 
-    mBallHandler.periodic();
+    //mBallHandler.periodic();
     mDrivetrain.periodic();
-    mShooter.periodic();
-    mRetriever.periodic();
-    mClimber.periodic();
-    mColorWheel.periodic();
+    //mShooter.periodic();
+    //mRetriever.periodic();
+    //mClimber.periodic();
+    //mColorWheel.periodic();
   }
 
 

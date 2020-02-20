@@ -8,12 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import frc.robot.subsystems.BallHandler;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Retriever;
-import frc.robot.subsystems.Shooter;
 
 /**
  * Takes the user input from the controllers and applies it to each of the subsystems
@@ -22,11 +17,11 @@ public class Teleop {
 
     private OI mOi;
     private Drivetrain mDrivetrain;
-    private Shooter mShooter;
-    private Retriever mRetriever;
-    private Climber mClimber;
-    private BallHandler mBallHandler;
-    private ColorWheel mColorWheel;
+    //private Shooter mShooter;
+    //private Retriever mRetriever;
+    //private Climber mClimber;
+    //private BallHandler mBallHandler;
+    //private ColorWheel mColorWheel;
 
     /**
      * Creates a new Teleop`
@@ -34,19 +29,19 @@ public class Teleop {
      * @param mOi Robot.java mOi instance
      * @param mDrivetrain Robot.java mDrivetrain instance
      */
-    public Teleop(OI mOi, Drivetrain mDrivetrain, Shooter mShooter, Retriever mRetriever, Climber mClimber, BallHandler mBallHandler, ColorWheel mColorWheel){
+    public Teleop(OI mOi, Drivetrain mDrivetrain){
         this.mOi = mOi;
         this.mDrivetrain = mDrivetrain;
-        this.mShooter = mShooter;
-        this.mRetriever = mRetriever;
-        this.mClimber = mClimber;
-        this.mBallHandler = mBallHandler;
-        this.mColorWheel = mColorWheel;
+        //this.mShooter = mShooter;
+        //this.mRetriever = mRetriever;
+        //this.mClimber = mClimber;
+        //this.mBallHandler = mBallHandler;
+        //this.mColorWheel = mColorWheel;
     }
 
     // initiate drive stick variables
     private double y = 0, turn = 0, speed = 0;
-    private double intakeSpeed = 0;
+    //private double intakeSpeed = 0;
 
     /**
      * Drivestick teleop control. Once called it will let you drive.
@@ -92,15 +87,15 @@ public class Teleop {
             }
 
             //Lock and unlock climber system
-            if(mOi.buttonClimbLock.get()) mClimber.lockClimber();
-            if(mOi.buttonClimbUnlock.get()) mClimber.unlockClimber();
+            //if(mOi.buttonClimbLock.get()) mClimber.lockClimber();
+            //if(mOi.buttonClimbUnlock.get()) mClimber.unlockClimber();
 
             //Sets the speed of the lift winch motor
-            mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
+            //mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
 
             //Lock and Unlock ratchet on lift
-            if(mOi.buttonRatchetLock.get()) mClimber.lockRatchet();
-            if(mOi.buttonRatchetUnlock.get()) mClimber.unlockRatchet();
+            //if(mOi.buttonRatchetLock.get()) mClimber.lockRatchet();
+            //if(mOi.buttonRatchetUnlock.get()) mClimber.unlockRatchet();
 
             //Turn off eveything else
 
@@ -127,40 +122,42 @@ public class Teleop {
                 
             } else {
                 //Manual shooter control
-                mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
-                mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+                //mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
+                //mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
 
+                /*
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(0.5);
                 } else {
                     mBallHandler.load(0.5);
                 }
+                */
             }
             
             //Color wheel controls
             if(mOi.buttonAutoWheel.get()) {
                //mColorWheel.automaticSpin(0.5);
             } else {
-                mColorWheel.manualSpin(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_MANUALWHEEL));
+                //mColorWheel.manualSpin(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_MANUALWHEEL));
             }
 
-            if(mOi.buttonWheelIn.get()) mColorWheel.retract(0.5);
-            if(mOi.buttonWheelOut.get()) mColorWheel.extend(0.5);
+            //if(mOi.buttonWheelIn.get()) mColorWheel.retract(0.5);
+            //if(mOi.buttonWheelOut.get()) mColorWheel.extend(0.5);
 
             //Intake Control
-            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT);
-            mRetriever.intake(intakeSpeed);
+            //intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT);
+            //mRetriever.intake(intakeSpeed);
 
             //Intake up/down
-            if(mOi.buttonRetriverDown.get()) mRetriever.lower(0.5);
-            if(mOi.buttonRetriverUp.get()) mRetriever.raise(0.5);
+            //if(mOi.buttonRetriverDown.get()) mRetriever.lower(0.5);
+            //if(mOi.buttonRetriverUp.get()) mRetriever.raise(0.5);
 
         }
     }
 
     public void prostick(){
 
-        if(mOi.buttonUnload.get()) mBallHandler.reverseUnload(0.5);
+        //if(mOi.buttonUnload.get()) mBallHandler.reverseUnload(0.5);
 
     }
 

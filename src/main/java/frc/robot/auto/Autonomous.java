@@ -11,12 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.BallHandler;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Retriever;
-import frc.robot.subsystems.Shooter;
 
 /**
  * Add your docs here.
@@ -55,7 +50,7 @@ public class Autonomous {
     private Matthew mMatthew;
     private Kamren mKamren;
 
-    public Autonomous(Drivetrain mDrivetrain, Shooter mShooter, Retriever mRetriever, Climber mClimber, BallHandler mBallHandler, ColorWheel mColorWheel, AutoCommands mAutoCommands, AHRS ahrs){
+    public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs){
 
         mVohnPhillip = new VohnPhillip(mAutoCommands, ahrs, mDrivetrain);
         mRyan = new Ryan(mAutoCommands, ahrs, mDrivetrain);
@@ -84,7 +79,7 @@ public class Autonomous {
         mChooser.addOption("Start 3, Shoot High, End Home", kstart3HighHome);
         mChooser.addOption("Start 3, Shoot Low, End Rendez-vous", kstart3LowRDV);
         mChooser.addOption("Start 3, Shoot Low, End Trench", kstart3LowTrench);
-        mChooser.addOption("Start 3, Shoot Low, End Home",kstart3LowHome);
+        mChooser.addOption("Start 3, Shoot Low, End Home", kstart3LowHome);
 
         SmartDashboard.putData("Auto choices", mChooser);
         SmartDashboard.putNumber("gyro", -1);
