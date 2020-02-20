@@ -22,6 +22,11 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Retriever;
 import frc.robot.subsystems.Shooter;
 
+/**
+ * This is FRC team 2386 code
+ * 
+ * @author Noah Tomkins
+ */
 public class Robot extends TimedRobot {
 
   private final boolean newBot = true; 
