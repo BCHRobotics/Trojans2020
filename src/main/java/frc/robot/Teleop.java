@@ -69,6 +69,13 @@ public class Teleop {
     public void funstick(){
 
         if(climbMode){
+
+            /**
+             * NOTE!!!!!!!!!!!!!!!!!
+             * 
+             * MAKE THE SHOOTER HOME BEFORE CLIMBING
+             */
+
             if(mOi.buttonChangeMode.get()){
 
                 mOi.prostick.setRumble(RumbleType.kLeftRumble, 1);

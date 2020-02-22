@@ -22,13 +22,13 @@ import frc.robot.RobotMap;
  */
 public class BallHandler extends SubsystemBase {
 
-  TalonSRX[] TALON_BALLS = {
+  private TalonSRX[] TALON_BALLS = {
     new TalonSRX(RobotMap.TALON_BALLHANDLE0),
     new TalonSRX(RobotMap.TALON_BALLHANDLE1),
     new TalonSRX(RobotMap.TALON_BALLHANDLE2),
   };
 
-  DigitalInput[] BALLSENSE = {
+  private DigitalInput[] BALLSENSE = {
     new DigitalInput(RobotMap.DIO_BALLSENSE0),
     new DigitalInput(RobotMap.DIO_BALLSENSE1),
     new DigitalInput(RobotMap.DIO_BALLSENSE2),

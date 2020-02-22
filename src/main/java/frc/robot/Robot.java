@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
     mTeleop.prostick();
   }
 
-  PID testPID = new PID(0,0,0);
+  //PID testPID = new PID(0,0,0);
 
   @Override
   public void testPeriodic() {

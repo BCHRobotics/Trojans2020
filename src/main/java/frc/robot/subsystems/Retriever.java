@@ -21,10 +21,11 @@ import frc.robot.RobotMap;
  */
 public class Retriever extends SubsystemBase {
 
-  TalonSRX TALON_ARM = new TalonSRX(RobotMap.TALON_ARM);
-  TalonSRX TALON_BAR = new TalonSRX(RobotMap.TALON_BAR);
+  private TalonSRX TALON_ARM = new TalonSRX(RobotMap.TALON_ARM);
+  private TalonSRX TALON_BAR = new TalonSRX(RobotMap.TALON_BAR);
 
-  int topLimit = -1, bottomLimit = -1;
+  private int topLimit = -1, bottomLimit = -1;
+  private double rampRate = 1;
 
   /**
    * Creates a new Retriever.
@@ -33,6 +34,9 @@ public class Retriever extends SubsystemBase {
 
     TALON_ARM.setInverted(false);
     TALON_BAR.setInverted(false);
+
+    TALON_ARM.configClosedloopRamp(rampRate);
+    TALON_BAR.configClosedloopRamp(rampRate);
 
   }
 
