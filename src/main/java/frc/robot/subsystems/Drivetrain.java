@@ -42,10 +42,10 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain(Boolean newBot) {
 
-      SPARK_FRONTLEFT.setInverted(false);
-      SPARK_FRONTRIGHT.setInverted(true);
-      SPARK_BACKLEFT.setInverted(false);
-      SPARK_BACKRIGHT.setInverted(true);
+      //SPARK_FRONTLEFT.setInverted(false);
+      //SPARK_FRONTRIGHT.setInverted(true);
+      //SPARK_BACKLEFT.setInverted(false);
+      //SPARK_BACKRIGHT.setInverted(true);
 
     //Sets ramprate for drive train
     SPARK_FRONTLEFT.setClosedLoopRampRate(rampRate);
@@ -104,7 +104,7 @@ public class Drivetrain extends SubsystemBase {
    * 
    * @return Distance wheel moved in inches
    */
-  public double getEncoderBR(){
+   public double getEncoderBR(){
     return encoderBR.getPosition() * -encoderCal;
   }
 
