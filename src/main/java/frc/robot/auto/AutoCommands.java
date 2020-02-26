@@ -21,7 +21,7 @@ public class AutoCommands {
     private AHRS ahrs;
     private Drivetrain mDrivetrain;
 
-    private double speedENCO = -0.25, speedGYRO = 0.25;
+    private double speedENCO = -1, speedGYRO = 1;
 
     private double endTime = 0, inRange = 0, inRangeSet = 0;
 
@@ -86,6 +86,8 @@ public class AutoCommands {
         }
 
         mDrivetrain.arcade(0, 0);
+        drivePID.resetPID();
+
     }
 
     /**
@@ -130,6 +132,7 @@ public class AutoCommands {
         }
 
         mDrivetrain.arcade(0, 0);
+        gyroPID.resetPID();
         SmartDashboard.putBoolean("ENDLOOP", true);
     }
 
@@ -176,6 +179,8 @@ public class AutoCommands {
         }
 
         mDrivetrain.arcade(0, 0);
+        drivePID.resetPID();
+        gyroPID.resetPID();
     }
 
     public void printPID(){

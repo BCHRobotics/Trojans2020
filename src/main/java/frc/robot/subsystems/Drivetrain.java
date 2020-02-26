@@ -34,8 +34,10 @@ public class Drivetrain extends SubsystemBase {
   private CANEncoder encoderBL = new CANEncoder(SPARK_BACKLEFT);
   private CANEncoder encoderBR = new CANEncoder(SPARK_BACKRIGHT);
 
-  private double rampRate = 1;
+  //private double rampRate = 1;
   private double encoderCal = 2.1628959;
+
+  double leftSpeed, rightSpeed;
 
   /**
    * Creates a new DriveTrain.
@@ -48,10 +50,10 @@ public class Drivetrain extends SubsystemBase {
       //SPARK_BACKRIGHT.setInverted(true);
 
     //Sets ramprate for drive train
-    SPARK_FRONTLEFT.setClosedLoopRampRate(rampRate);
-    SPARK_FRONTRIGHT.setClosedLoopRampRate(rampRate);
-    SPARK_BACKLEFT.setClosedLoopRampRate(rampRate);
-    SPARK_BACKRIGHT.setClosedLoopRampRate(rampRate);
+    //SPARK_FRONTLEFT.setClosedLoopRampRate(rampRate);
+    //SPARK_FRONTRIGHT.setClosedLoopRampRate(rampRate);
+    //SPARK_BACKLEFT.setClosedLoopRampRate(rampRate);
+    //SPARK_BACKRIGHT.setClosedLoopRampRate(rampRate);
 
   }
 
@@ -63,11 +65,20 @@ public class Drivetrain extends SubsystemBase {
    */
   public void arcade(double speedY, double speedTurn){
 
-    SPARK_FRONTLEFT.set(speedY - speedTurn);
-    SPARK_BACKLEFT.set(speedY - speedTurn);
+    rightSpeed = speedY + speedTurn;
+    leftSpeed = speedY - speedTurn;
 
-    SPARK_FRONTRIGHT.set(speedY + speedTurn);
-    SPARK_BACKRIGHT.set(speedY + speedTurn);
+    SPARK_FRONTLEFT.set(leftSpeed);
+    SPARK_BACKLEFT.set(leftSpeed);
+
+    SPARK_FRONTRIGHT.set(rightSpeed);
+    SPARK_BACKRIGHT.set(rightSpeed);
+
+    SmartDashboard.putNumber("rightSpeed", rightSpeed);
+    SmartDashboard.putNumber("leftSpeed", leftSpeed);
+
+    SmartDashboard.putNumber("rightVelosity", encoderFR.getVelocity());
+    SmartDashboard.putNumber("leftVelosity", encoderFL.getVelocity());
     
   }
 
@@ -126,6 +137,12 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("encoderFR", getEncoderFR());
     SmartDashboard.putNumber("encoderBL", getEncoderBL());
     SmartDashboard.putNumber("encoderBR", getEncoderBR());
+
+    SmartDashboard.putNumber("rightSpeed", rightSpeed);
+    SmartDashboard.putNumber("leftSpeed", leftSpeed);
+
+    SmartDashboard.putNumber("rightVelosity", encoderFR.getVelocity());
+    SmartDashboard.putNumber("leftVelosity", encoderFL.getVelocity());
 
   }
 }

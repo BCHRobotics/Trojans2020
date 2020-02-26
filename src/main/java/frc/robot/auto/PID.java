@@ -57,4 +57,12 @@ public class PID {
         this.kD = kD;
     }
 
+    public void resetPID(){
+        error = 0;
+        integral = 0;
+        derivative = 0;
+        previous_error = 0;
+        rcw = 0;
+    }
+
 }
