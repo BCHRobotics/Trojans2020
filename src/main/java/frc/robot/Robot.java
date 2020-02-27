@@ -14,8 +14,10 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.AutoCommands;
 import frc.robot.auto.Autonomous;
-import frc.robot.auto.PID;
+import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.vision.VisionTracking;
 
 /**
  * This is FRC team 2386 code
@@ -29,15 +31,16 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain mDrivetrain = new Drivetrain(newBot);
   public static OI mOi = new OI();
-  //public static BallHandler mBallHandler = new BallHandler();
-  //public static Shooter mShooter = new Shooter();
+  public static BallHandler mBallHandler = new BallHandler();
+  public static Shooter mShooter = new Shooter();
   //public static Retriever mRetriever = new Retriever();
   //public static Climber mClimber = new Climber();
   //public static ColorWheel mColorWheel = new ColorWheel();
 
-  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain);
+  public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
-  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs);
+  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
 
 
   @Override
@@ -56,8 +59,8 @@ public class Robot extends TimedRobot {
     //mColorWheel.resetEncoderExtend();
     //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    //mShooter.resetEncoderTurret();
-    //mShooter.resetEncoderWheel();
+    mShooter.resetEncoderTurret();
+    mShooter.resetEncoderWheel();
     ahrs.reset();
   }
 
@@ -69,8 +72,8 @@ public class Robot extends TimedRobot {
     //mColorWheel.resetEncoderExtend();
     //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    //mShooter.resetEncoderTurret();
-    //mShooter.resetEncoderWheel();
+    mShooter.resetEncoderTurret();
+    mShooter.resetEncoderWheel();
     ahrs.reset();
 
     SmartDashboard.putBoolean("ENDLOOP", false);
@@ -89,10 +92,11 @@ public class Robot extends TimedRobot {
 
     //mBallHandler.periodic();
     mDrivetrain.periodic();
-    //mShooter.periodic();
+    mShooter.periodic();
     //mRetriever.periodic();
     //mClimber.periodic();
     //mColorWheel.periodic();
+    mVisionTracking.periodic();
   }
 
 
@@ -115,14 +119,10 @@ public class Robot extends TimedRobot {
     mTeleop.prostick();
   }
 
-  //PID testPID = new PID(0.018,0,0);
-
   @Override
   public void testPeriodic() {
     
     mAutoCommands.gyroTurn(-90, 2, 250, 2000);
-
-    //mDrivetrain.arcade(0, 0.25 * testPID.run(90, ahrs.getAngle()));
 
   }
 }

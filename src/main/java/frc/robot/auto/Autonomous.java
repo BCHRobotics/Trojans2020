@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.vision.VisionTracking;
 
 /**
  * Add your docs here.
@@ -50,11 +51,11 @@ public class Autonomous {
     private Matthew mMatthew;
     private Kamren mKamren;
 
-    public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs){
+    public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs, VisionTracking mVisionTracking){
 
         mVohnPhillip = new VohnPhillip(mAutoCommands, ahrs, mDrivetrain);
         mRyan = new Ryan(mAutoCommands, ahrs, mDrivetrain);
-        mAyrton = new Ayrton(mAutoCommands, ahrs, mDrivetrain);
+        mAyrton = new Ayrton(mAutoCommands, ahrs, mDrivetrain, mVisionTracking);
         mMatthew = new Matthew(mAutoCommands, ahrs, mDrivetrain);
         mKamren = new Kamren(mAutoCommands); //MISSING RESETS???
 

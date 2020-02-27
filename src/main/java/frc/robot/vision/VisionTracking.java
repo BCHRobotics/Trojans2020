@@ -9,6 +9,7 @@ package frc.robot.vision;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -19,27 +20,58 @@ public class VisionTracking {
     private double tv,tx,thor,spin;
     private double range = 1.75;
 
+    private boolean goodToShoot = false;
+
     private Shooter mShooter;
+    private BallHandler mBallHandler;
 
-    public VisionTracking(Shooter mShooter){
-
+    public VisionTracking(Shooter mShooter, BallHandler mBallHandler){
         this.mShooter = mShooter;
-
+        this.mBallHandler = mBallHandler;
     }
     
-    public void turretFun(double speed){
+    public void turretFun(){
 
         if(tv == 1){
             if(tx > range || tx < -range){
                 mShooter.turretSpeed(tx * spin);
+                mShooter.wheelSpeed(0.5);
+                goodToShoot = false;
             }else{
                 mShooter.turretSpeed(0);
                 mShooter.wheelSpeed(1/thor * 27.5);
+                goodToShoot = true;
             }
         }else{
             mShooter.turretSpeed(0);
+            mShooter.wheelSpeed(0);
+            goodToShoot = false; 
+        }
+    }  
+
+    public void shoot(double unloadSpeed, double shootTime){
+
+        shootTime = shootTime + System.currentTimeMillis();
+
+        while(shootTime < System.currentTimeMillis()){
+
+            turretFun();
+
+            if(goodToShoot){
+                mBallHandler.unload(unloadSpeed);
+            }
         }
     }
+
+    public void shoot(double unloadSpeed){
+
+        turretFun();
+
+        if(goodToShoot){
+                mBallHandler.unload(unloadSpeed);
+        }
+    }
+
     public void periodic(){
 
         tv = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tv").getDouble(0);

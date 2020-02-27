@@ -10,6 +10,7 @@ package frc.robot.auto;
 import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.vision.VisionTracking;
 
     /**
     * @author Ayrton Mercer. 
@@ -19,11 +20,13 @@ import frc.robot.subsystems.Drivetrain;
     private AutoCommands mAutoCommands;
     private AHRS ahrs;
     private Drivetrain mDrivetrain;
+    private VisionTracking mVisionTracking;
 
-    public Ayrton(AutoCommands mAutoCommands, AHRS ahrs, Drivetrain mDrivetrain){
+    public Ayrton(AutoCommands mAutoCommands, AHRS ahrs, Drivetrain mDrivetrain, VisionTracking mVisionTracking){
         this.mAutoCommands = mAutoCommands;
         this.ahrs = ahrs;
         this.mDrivetrain = mDrivetrain;
+        this.mVisionTracking = mVisionTracking;
     }
  
     /**
@@ -45,21 +48,21 @@ import frc.robot.subsystems.Drivetrain;
         ahrs.reset();
         mDrivetrain.resetEncoders();
 
+        //Pause robot for 1 sec
         try{
             Thread.sleep(1000);
         }  catch(Exception e){
             //Do Nothing
         }
+
         mAutoCommands.straightDrive(12, 2, 200, 1500);
         mAutoCommands.gyroTurn(12, 2, 125, 1500);
         mAutoCommands.straightDrive(221.8, 2, 200, 1500);
         mAutoCommands.gyroTurn(78, 2, 125, 1500);
+        
         //Shoot Now
-        try{
-            Thread.sleep(500);
-        } catch(Exception e){
-            //Don't Sleep
-        }
+        mVisionTracking.shoot(0.5, 1000);
+
         mAutoCommands.gyroTurn(156.6, 2, 125, 1500);
         mAutoCommands.straightDrive(48, 2, 200, 1500);
         mAutoCommands.gyroTurn(28, 1, 125, 500);
@@ -86,12 +89,10 @@ import frc.robot.subsystems.Drivetrain;
         mDrivetrain.resetEncoders();
       
         mAutoCommands.straightDrive(-48, 2, 200, 2500);
+
         //Shoot Now
-        try{
-            Thread.sleep(500);
-        } catch(Exception e){
-            //Don't Sleep
-        }
+        mVisionTracking.shoot(0.5, 3000);
+
         mAutoCommands.gyroTurn(66, 2, 125, 1500);
         mAutoCommands.straightDrive(48, 2, 200, 1500);
         mAutoCommands.gyroTurn(28, 1, 125, 500);
@@ -114,12 +115,10 @@ import frc.robot.subsystems.Drivetrain;
         mDrivetrain.resetEncoders();
 
         mAutoCommands.straightDrive(-80, 2, 200, 2500);
+
         //Shoot Now
-        try{
-            Thread.sleep(500);
-        } catch(Exception e){
-            //Don't Sleep
-        }
+        mVisionTracking.shoot(0.5, 3000);
+        
         mAutoCommands.gyroTurn(66.6, 2, 125, 2000);
         mAutoCommands.straightDrive(168.5, 2, 200, 2500);
         mAutoCommands.gyroTurn(23.4, 2, 100, 500);
@@ -142,12 +141,10 @@ import frc.robot.subsystems.Drivetrain;
         mDrivetrain.resetEncoders();
 
         mAutoCommands.straightDrive(-80, 2, 200, 2500);
+
         //Shoot Now
-        try{
-            Thread.sleep(500);
-        } catch(Exception e){
-            //Don't Sleep
-        }
+        mVisionTracking.shoot(0.5, 3000);
+
         mAutoCommands.gyroTurn(66.6, 2, 125, 1500);
         mAutoCommands.straightDrive(48, 2, 200, 1500);
         mAutoCommands.gyroTurn(28, 1, 125, 500);
@@ -172,21 +169,21 @@ import frc.robot.subsystems.Drivetrain;
         ahrs.reset();
         mDrivetrain.resetEncoders();
 
+        //Pause for 1 sec
         try{
             Thread.sleep(1000);
         }  catch(Exception e){
             //Do Nothing
         }
+        
         mAutoCommands.straightDrive(12, 2, 200, 1500);
         mAutoCommands.gyroTurn(44, 0.5, 200, 1000);
         mAutoCommands.straightDrive(115, 2, 200, 1500);
         mAutoCommands.gyroTurn(46, 0.5, 200, 1000);
+
         //Shoot Now
-        try{
-            Thread.sleep(500);
-        } catch(Exception e){
-            //Don't Sleep
-        }
+        mVisionTracking.shoot(0.5, 3000);
+
         mAutoCommands.gyroTurn(61, 3, 200, 1000);
         mAutoCommands.straightDrive(188, 2, 200, 2000);
         mAutoCommands.gyroTurn(29, 3, 100, 500);

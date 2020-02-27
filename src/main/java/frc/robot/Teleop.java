@@ -8,7 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.vision.VisionTracking;
 
 /**
  * Takes the user input from the controllers and applies it to each of the subsystems
@@ -17,11 +20,12 @@ public class Teleop {
 
     private OI mOi;
     private Drivetrain mDrivetrain;
-    //private Shooter mShooter;
+    private Shooter mShooter;
     //private Retriever mRetriever;
     //private Climber mClimber;
-    //private BallHandler mBallHandler;
+    private BallHandler mBallHandler;
     //private ColorWheel mColorWheel;
+    private VisionTracking mVisionTracking;
 
     /**
      * Creates a new Teleop`
@@ -29,14 +33,15 @@ public class Teleop {
      * @param mOi Robot.java mOi instance
      * @param mDrivetrain Robot.java mDrivetrain instance
      */
-    public Teleop(OI mOi, Drivetrain mDrivetrain){
+    public Teleop(OI mOi, Drivetrain mDrivetrain, Shooter mShooter, BallHandler mBallHandler, VisionTracking mVisionTracking){
         this.mOi = mOi;
         this.mDrivetrain = mDrivetrain;
-        //this.mShooter = mShooter;
+        this.mShooter = mShooter;
         //this.mRetriever = mRetriever;
         //this.mClimber = mClimber;
-        //this.mBallHandler = mBallHandler;
+        this.mBallHandler = mBallHandler;
         //this.mColorWheel = mColorWheel;
+        this.mVisionTracking = mVisionTracking;
     }
 
     // initiate drive stick variables
@@ -126,19 +131,19 @@ public class Teleop {
 
             if(mOi.buttonVision.get()){
                 //Run vision code
+                mVisionTracking.shoot(0.5);
                 
             } else {
                 //Manual shooter control
-                //mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
-                //mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+                mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
+                mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
 
-                /*
+                
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(0.5);
                 } else {
                     mBallHandler.load(0.5);
                 }
-                */
             }
             
             //Color wheel controls
