@@ -143,7 +143,7 @@ public class Teleop {
             
             //Color wheel controls
             if(mOi.buttonAutoWheel.get()) {
-               //mColorWheel.automaticSpin(0.5);
+                //mColorWheel.automaticSpin(0.5);
             } else {
                 //mColorWheel.manualSpin(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_MANUALWHEEL));
             }

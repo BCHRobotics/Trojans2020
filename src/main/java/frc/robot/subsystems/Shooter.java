@@ -32,11 +32,13 @@ public class Shooter extends SubsystemBase {
   private double rampRateTurret = 0.5;
   private double rampRateWheel = 0.5;
  
-  private final double encoderCalTurret = 360 / 42;
-  private final double encoderCalWheel = 1 / 42;
+  private final double encoderCalTurret = 1;
+  private final double encoderCalWheel = 1;
   
   private final int minTurret = -45;
   private final int maxTurret = 45;
+
+  private final double[] deathSpeeds = {0,0};
 
   private PID turretPID = new PID(RobotMap.P_TURRET, RobotMap.I_TURRET, RobotMap.D_TURRET);
   private PID wheelPID = new PID(RobotMap.P_WHEEL, RobotMap.I_WHEEL, RobotMap.D_WHEEL);
@@ -76,7 +78,15 @@ public class Shooter extends SubsystemBase {
    * @param speed The speed of the shooter wheel 
    */
   public void wheelSpeed(double speed){
+
+    for(int i = 0; i < deathSpeeds.length; i += 2){
+      if(speed >= deathSpeeds[i] && speed <= deathSpeeds[i + 1]){
+        speed = deathSpeeds[i+1];
+      }
+    }
+
     SPARK_SHOOTERWHEEL.set(speed);
+
   }
 
  
@@ -127,7 +137,7 @@ public class Shooter extends SubsystemBase {
    * @return the angle of the turret 
    */
   public double getEncoderTurret(){
-    return encoderTurret.getPosition() / encoderCalTurret;
+    return encoderTurret.getPosition() * encoderCalTurret;
   }
 
   /**
