@@ -32,11 +32,15 @@ public class Shooter extends SubsystemBase {
   private double rampRateTurret = 0.5;
   private double rampRateWheel = 0.5;
  
-  private final double encoderCalTurret = 1;
+  private final double encoderCalTurret = 1.162325;
   private final double encoderCalWheel = 1;
   
-  private final int minTurret = -45;
-  private final int maxTurret = 45;
+  private final int minTurret = -75;
+  private final int minSafeTurret = -45;
+  private final int minVerySafeTurret = -15;
+  private final int maxTurret = 190;
+  private final int maxSafeTurret = 160;
+  private final int maxVerySafeTurret = 130;
 
   private final double[] deathSpeeds = {0,0};
 
@@ -63,13 +67,16 @@ public class Shooter extends SubsystemBase {
    */
   public void turretSpeed(double speed){
 
-    if((getEncoderTurret() <= minTurret) && speed > 0){
-      SPARK_SHOOTERTURRET.set(speed);
-    } else if((getEncoderTurret() >= maxTurret) && speed < 0){
-      SPARK_SHOOTERTURRET.set(speed);
-    } else {
+    if((getEncoderTurret() <= minTurret && speed < 0) || (getEncoderTurret() >= maxTurret && speed > 0)){
       SPARK_SHOOTERTURRET.set(0);
+    } else if((getEncoderTurret() <= minSafeTurret && speed < 0) || (getEncoderTurret() >= maxSafeTurret && speed > 0)){
+      SPARK_SHOOTERTURRET.set(speed * 0.1);
+    } else if((getEncoderTurret() <= minVerySafeTurret && speed < 0) || (getEncoderTurret() >= maxVerySafeTurret && speed > 0)){
+      SPARK_SHOOTERTURRET.set(speed * 0.2);
+    } else{
+      SPARK_SHOOTERTURRET.set(speed);
     }
+
   }
 
   /**

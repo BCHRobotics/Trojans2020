@@ -43,7 +43,7 @@ public class BallHandler extends SubsystemBase {
   public BallHandler() {
 
     for(int i = 0; i < 3; i++){
-      TALON_BALLS[i].setInverted(false);
+      TALON_BALLS[i].setInverted(true);
     } 
 
   }

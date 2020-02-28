@@ -140,9 +140,9 @@ public class Teleop {
 
                 
                 if(mOi.buttonShoot.get()){
-                    mBallHandler.unload(0.5);
+                    mBallHandler.unload(1);
                 } else {
-                    mBallHandler.load(0.5);
+                    mBallHandler.load(0);
                 }
             }
             

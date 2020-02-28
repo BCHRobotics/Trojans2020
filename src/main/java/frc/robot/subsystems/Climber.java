@@ -11,7 +11,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -24,16 +23,13 @@ import frc.robot.RobotMap;
  */
 public class Climber extends SubsystemBase {
 
-  private Solenoid PCM_LEFTLOCK = new Solenoid(RobotMap.PCM_LEFTLOCK);
-  private Solenoid PCM_RIGHTLOCK = new Solenoid(RobotMap.PCM_RIGHTLOCK);
-  private Solenoid PCM_RATCHET = new Solenoid(RobotMap.PCM_RATCHET);
-
   private CANSparkMax SPARK_LIFT = new CANSparkMax(RobotMap.SPARK_LIFT, MotorType.kBrushless);
   private CANEncoder encoderLift = new CANEncoder(SPARK_LIFT);
 
   private double encoderCal = 1;
 
-  private double min = 0, max = 0;
+  //Max extend 79 inches
+  private double min = 0, max = 1000000;
   
   /**
    * Creates a new Climber.
@@ -51,11 +47,15 @@ public class Climber extends SubsystemBase {
    */
   public void lift(double speed){
    
+    /*
     if((getEncoder() <= min && speed < 0) || (getEncoder() >= max && speed > 0)){
       SPARK_LIFT.set(0);
     } else {
       SPARK_LIFT.set(speed);
     }
+    */
+
+    SPARK_LIFT.set(speed);
 
   }
 
@@ -72,35 +72,6 @@ public class Climber extends SubsystemBase {
     encoderLift.setPosition(0);
   }
 
-  /**
-   * Applies power to retract the solenoid
-   */
-  public void lockClimber(){
-    PCM_LEFTLOCK.set(true);
-    PCM_RIGHTLOCK.set(true);
-  }
-
-  /**
-   * Turns off power to extend the solenoid
-   */
-  public void unlockClimber(){
-    PCM_LEFTLOCK.set(false);
-    PCM_RIGHTLOCK.set(false);
-  }
-
-  /**
-   * Applies power to retract the solenoid
-   */
-  public void lockRatchet(){
-    PCM_RATCHET.set(true);
-  }
-
-  /**
-   * Turns off power to extend the solenoid
-   */
-  public void unlockRatchet(){
-    PCM_RATCHET.set(false);
-  }
 
   @Override
   public void periodic() {

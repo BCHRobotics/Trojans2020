@@ -59,8 +59,8 @@ public class Robot extends TimedRobot {
     //mColorWheel.resetEncoderExtend();
     //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    mShooter.resetEncoderTurret();
     mShooter.resetEncoderWheel();
+    mShooter.resetEncoderTurret();
     ahrs.reset();
   }
 
@@ -72,7 +72,6 @@ public class Robot extends TimedRobot {
     //mColorWheel.resetEncoderExtend();
     //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
-    mShooter.resetEncoderTurret();
     mShooter.resetEncoderWheel();
     ahrs.reset();
 

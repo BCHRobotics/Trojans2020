@@ -92,11 +92,11 @@ public class RobotMap {
     //FunStick Buttons
     public static int BTN_FUNSTICK_VISION = 3;
 
-    public static int BTN_FUNSTICK_SHOOT = 0; //Unmapped
+    public static int BTN_FUNSTICK_SHOOT = 1; 
 
-    public static int BTN_FUNSTICK_AUTOWHEEL = 1;
-    public static int BTN_FUNSTICK_WHEELIN = 2;
-    public static int BTN_FUNSTICK_WHEELOUT = 4;
+    public static int BTN_FUNSTICK_AUTOWHEEL = 0; //Unmapped
+    public static int BTN_FUNSTICK_WHEELIN = 0; //Unmapped
+    public static int BTN_FUNSTICK_WHEELOUT = 0; //Unmapped
 
     public static int BTN_FUNSTICK_CHANGEMODE = 7;
 
