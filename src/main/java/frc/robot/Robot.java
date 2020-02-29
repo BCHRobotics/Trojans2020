@@ -123,7 +123,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
-    mAutoCommands.gyroTurn(-90, 2, 250, 2000);
+    //mAutoCommands.gyroTurn(-90, 2, 250, 2000);
+    mAutoCommands.gyroTune(-90);
 
   }
 }

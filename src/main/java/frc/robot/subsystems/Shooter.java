@@ -41,8 +41,8 @@ public class Shooter extends SubsystemBase {
 
   private final double[] deathSpeeds = {0,0};
 
-  private PID turretPID = new PID(RobotMap.P_TURRET, RobotMap.I_TURRET, RobotMap.D_TURRET);
-  private PID wheelPID = new PID(RobotMap.P_WHEEL, RobotMap.I_WHEEL, RobotMap.D_WHEEL);
+  private PID turretPID = new PID(RobotMap.P_TURRET, RobotMap.I_TURRET, RobotMap.D_TURRET, "turretPID");
+  private PID wheelPID = new PID(RobotMap.P_WHEEL, RobotMap.I_WHEEL, RobotMap.D_WHEEL, "wheelPID");
 
   /**
    * Creates a new Shooter.

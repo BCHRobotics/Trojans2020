@@ -33,8 +33,8 @@ public class AutoCommands {
         this.ahrs = ahrs;
         this.mDrivetrain = mDrivetrain;
 
-        drivePID = new PID(RobotMap.P_DRIVETRAIN, RobotMap.I_DRIVETRAIN, RobotMap.D_DRIVETRAIN);
-        gyroPID = new PID(RobotMap.P_NAVX, RobotMap.I_NAVX, RobotMap.D_NAVX);
+        drivePID = new PID(RobotMap.P_DRIVETRAIN, RobotMap.I_DRIVETRAIN, RobotMap.D_DRIVETRAIN, "drivePID");
+        gyroPID = new PID(RobotMap.P_NAVX, RobotMap.I_NAVX, RobotMap.D_NAVX, "gyroPID");
 
     }
 
@@ -47,6 +47,9 @@ public class AutoCommands {
      * @param timeoutMs Max time you want this command to run
      */
     public void encoderDrive(double setpoint, double range, double rangeTimeMs, double timeoutMs){
+
+        ahrs.reset();
+        mDrivetrain.resetEncoders();
 
         this.endTime = System.currentTimeMillis() + timeoutMs;
         this.inRange = 0;
@@ -94,6 +97,9 @@ public class AutoCommands {
      */
     public void gyroTurn(double setpoint, double range, double rangeTimeMs, double timeoutMs){
 
+        ahrs.reset();
+        mDrivetrain.resetEncoders();
+
         this.endTime = System.currentTimeMillis() + timeoutMs;
         this.inRange = 0;
     
@@ -140,6 +146,9 @@ public class AutoCommands {
      */
     public void straightDrive(double setpoint, double range, double rangeTimeMs, double timeoutMs){
 
+        ahrs.reset();
+        mDrivetrain.resetEncoders();
+
         this.endTime = System.currentTimeMillis() + timeoutMs;
         this.inRange = 0;
     
@@ -175,6 +184,24 @@ public class AutoCommands {
         mDrivetrain.arcade(0, 0);
         drivePID.resetPID();
         gyroPID.resetPID();
+    }
+
+    public void gyroTune(double setpoint){
+
+        mDrivetrain.arcade(0, gyroPID.run(setpoint, ahrs.getAngle()));
+
+        SmartDashboard.putNumber("encoderBL", mDrivetrain.getEncoderBL());
+        SmartDashboard.putNumber("gyro", ahrs.getAngle());
+
+    }
+
+    public void encoderTune(double setpoint){
+
+        mDrivetrain.arcade(drivePID.run(setpoint, mDrivetrain.getEncoderBL()), 0);
+
+        SmartDashboard.putNumber("encoderBL", mDrivetrain.getEncoderBL());
+        SmartDashboard.putNumber("gyro", ahrs.getAngle());
+
     }
 
     public void printPID(){

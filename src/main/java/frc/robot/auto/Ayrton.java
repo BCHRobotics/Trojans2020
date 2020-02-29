@@ -7,9 +7,6 @@
 
 package frc.robot.auto;
 
-import com.kauailabs.navx.frc.AHRS;
-
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.vision.VisionTracking;
 
     /**
@@ -18,14 +15,10 @@ import frc.robot.vision.VisionTracking;
     public class Ayrton {
 
     private AutoCommands mAutoCommands;
-    private AHRS ahrs;
-    private Drivetrain mDrivetrain;
     private VisionTracking mVisionTracking;
 
-    public Ayrton(AutoCommands mAutoCommands, AHRS ahrs, Drivetrain mDrivetrain, VisionTracking mVisionTracking){
+    public Ayrton(AutoCommands mAutoCommands, VisionTracking mVisionTracking){
         this.mAutoCommands = mAutoCommands;
-        this.ahrs = ahrs;
-        this.mDrivetrain = mDrivetrain;
         this.mVisionTracking = mVisionTracking;
     }
  
@@ -44,9 +37,6 @@ import frc.robot.vision.VisionTracking;
     * 12: Turn 48 degrees.  
     */
     public void start1LowHome(){
-        
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
 
         //Pause robot for 1 sec
         try{
@@ -84,9 +74,6 @@ import frc.robot.vision.VisionTracking;
     * 9: Turn 48 degrees. 
     */
     public void start2HighHome(){
-
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
       
         mAutoCommands.straightDrive(-48, 2, 200, 2500);
 
@@ -111,9 +98,6 @@ import frc.robot.vision.VisionTracking;
     */
     public void start2LowTrench(){
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
-
         mAutoCommands.straightDrive(-80, 2, 200, 2500);
 
         //Shoot Now
@@ -136,9 +120,6 @@ import frc.robot.vision.VisionTracking;
     * 9: Turn 48 degrees. 
     */
     public void start2LowHome(){
-
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
 
         mAutoCommands.straightDrive(-80, 2, 200, 2500);
 
@@ -165,9 +146,6 @@ import frc.robot.vision.VisionTracking;
     * 8: Turn 29 degrees
     */
     public void start3LowRendezVous(){
-       
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
 
         //Pause for 1 sec
         try{

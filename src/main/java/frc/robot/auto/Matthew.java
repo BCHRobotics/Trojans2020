@@ -7,19 +7,12 @@
 
 package frc.robot.auto;
 
-import com.kauailabs.navx.frc.AHRS;
-import frc.robot.subsystems.Drivetrain;
-
 public class Matthew {
 
     private AutoCommands mAutoCommands;
-    private AHRS ahrs;
-    private Drivetrain mDrivetrain;
 
-    public Matthew(AutoCommands mAutoCommands, AHRS ahrs, Drivetrain mDrivetrain){
+    public Matthew(AutoCommands mAutoCommands){
         this.mAutoCommands = mAutoCommands;
-        this.ahrs = ahrs;
-        this.mDrivetrain = mDrivetrain;
     }
 
     /**
@@ -32,8 +25,8 @@ public class Matthew {
      */
     public void start2HighTrench(){
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.gyroTurn(54.09, 3, 250, 1500);
 
@@ -48,8 +41,8 @@ public class Matthew {
             //dont sleep    
        }
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
 
         mAutoCommands.gyroTurn(-15, 3, 250, 1500);
@@ -68,15 +61,15 @@ public class Matthew {
      */
     public void start1HighTrench(){
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.straightDrive(12, 3, 1000, 3000);
 
         mAutoCommands.gyroTurn(22.54, 3, 500, 1000);
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.straightDrive(319.93494, 3, 4000, 7000);
         
@@ -84,12 +77,12 @@ public class Matthew {
 
         mAutoCommands.gyroTurn(-67.46, 3, 500, 1000);
 
-        mDrivetrain.resetEncoders();
+        
 
         mAutoCommands.straightDrive(-12, 3, 3000, 5000);
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         //shoot now 
      try{
@@ -109,13 +102,13 @@ public class Matthew {
      * 5: Rotate 20 degrees clockwise 
      */
     public void start2LowRVP(){
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.straightDrive(80, 3, 1000, 3000);
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         //shoot now 
         try{
@@ -126,13 +119,13 @@ public class Matthew {
 
         mAutoCommands.gyroTurn(-122, 3, 500, 2000);
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.straightDrive(170, 3, 1000, 3000);
 
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
 
         mAutoCommands.gyroTurn(20, 3, 250, 2000);                    
     }

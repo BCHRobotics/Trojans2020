@@ -7,10 +7,6 @@
 
 package frc.robot.auto;
 
-import com.kauailabs.navx.frc.AHRS;
-
-import frc.robot.subsystems.Drivetrain;
-
 /*****
  * 
  * 
@@ -18,13 +14,9 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class VohnPhillip {
     private AutoCommands mAutoCommands;
-    private AHRS ahrs;
-    private Drivetrain mDrivetrain;
 
-    public VohnPhillip(AutoCommands mAutoCommands, AHRS ahrs, Drivetrain mDrivetrain){
+    public VohnPhillip(AutoCommands mAutoCommands){
         this.mAutoCommands = mAutoCommands;
-        this.ahrs = ahrs;
-        this.mDrivetrain = mDrivetrain;
     }
 
     /**
@@ -48,22 +40,22 @@ public class VohnPhillip {
     public void S1LowTrench(){
 
         //reseting everything
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
         //move forward 1 foot
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //turn towards shooting position
         mAutoCommands.gyroTurn(-20.36, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to shooting position
         mAutoCommands.straightDrive(230, 2, 500, 5000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards target
         mAutoCommands.gyroTurn(-70, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //shoot balls
         try{
             Thread.sleep(2000);
@@ -76,15 +68,15 @@ public class VohnPhillip {
         //turn to trench run
         mAutoCommands.gyroTurn(156.6, 2, 500, 2000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to trench run (we stop 1 foot in front of trench)
         mAutoCommands.straightDrive(168.49, 0.5, 500, 3000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn to face trench
         mAutoCommands.gyroTurn(33.4, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
 
     }
 
@@ -109,24 +101,24 @@ public class VohnPhillip {
     public void S1LowRendezvous(){
 
         //reseting everything
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
         //drive forward 1 foot
         mAutoCommands.straightDrive(12, 0.5, 500, 1000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards shooting position
         mAutoCommands.gyroTurn(11.86, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to shooting position
         mAutoCommands.straightDrive(233.58, 0.5, 500, 5000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards target
         mAutoCommands.gyroTurn(78.14, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //shoot balls
         try{
             Thread.sleep(2000);
@@ -136,15 +128,15 @@ public class VohnPhillip {
         //turn to rvp
         mAutoCommands.gyroTurn(-159.47, 2, 500, 3000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to rvp (we stop 1 foot in front of rvp)
         mAutoCommands.straightDrive(187.75, 0.5, 500, 4000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn to face rvp
         mAutoCommands.gyroTurn(-20.53, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
 
     }
 
@@ -163,12 +155,12 @@ public class VohnPhillip {
     public void S2LowRVP(){
 
         //reseting everything
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
         //drive to shooting position
         mAutoCommands.straightDrive(80, 0.5, 500, 3000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //shoot balls
         try{
             Thread.sleep(2000);
@@ -178,15 +170,15 @@ public class VohnPhillip {
         //turn to rvp
         mAutoCommands.gyroTurn(-160.13, 2, 500, 3000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to rvp (we stop 1 foot in front of rvp)
         mAutoCommands.straightDrive(193.7, 0.5, 500, 4000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn to face rvp
         mAutoCommands.gyroTurn(-19.87, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
 
     }
 
@@ -222,24 +214,24 @@ public class VohnPhillip {
     public void S3LowHome(){
 
         //reseting everything
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
         //drive 1 foot forward so that we can turn
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //face shooting position
         mAutoCommands.gyroTurn(44.06, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to shooting position
         mAutoCommands.straightDrive(115, 2, 500, 1000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //face the target
         mAutoCommands.gyroTurn(55.84, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //shoot balls
         try{
             Thread.sleep(2000);
@@ -249,32 +241,32 @@ public class VohnPhillip {
         //turn to trench
         mAutoCommands.gyroTurn(148.53, 2, 500, 2000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to trench (we stop 1 foot away)
         mAutoCommands.straightDrive(181.3, 2, 500, 2000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //face trench
         mAutoCommands.gyroTurn(31.47, 2, 500, 2000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive through trench
        /* we might not be able to fit this 
         mAutoCommands.straightDrive(240, -0.004, 0.005, 2, 500, 4000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards home
         mAutoCommands.gyroTurn(41.88, 0.5, 2, 500, 1000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive towards home (we arent allowed to cross initiation line)
         mAutoCommands.straightDrive(80.23, -0.004, 0.005, 2, 500, 3000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards loading bay
         mAutoCommands.gyroTurn(-41.88, 0.5, 2, 500, 1000);   
         //reseting gyros
-        ahrs.reset(); */
+         */
     }
     
     /**
@@ -292,24 +284,24 @@ public class VohnPhillip {
     public void S3HighTrench(){
 
         //reseting everything
-        ahrs.reset();
-        mDrivetrain.resetEncoders();
+        
+        
         //drive 1 foot  to be able to turn
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //reset encoders
-        ahrs.reset();
+        
         //turn to shooting position
         mAutoCommands.gyroTurn(-82.68, 2, 500, 2000);
         //reseting gyros
-        ahrs.reset();
+        
         //drive to shooting position
         mAutoCommands.straightDrive(123.64, 2, 500, 4000);
         //reset encoders
-        mDrivetrain.resetEncoders();
+        
         //turn towards target
         mAutoCommands.gyroTurn(155.21, 2, 500, 2000);
         //reset gryos
-        ahrs.reset();
+        
         //shoot balls
         try{
             Thread.sleep(2000);

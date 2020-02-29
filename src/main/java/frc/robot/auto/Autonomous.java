@@ -53,11 +53,11 @@ public class Autonomous {
 
     public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs, VisionTracking mVisionTracking){
 
-        mVohnPhillip = new VohnPhillip(mAutoCommands, ahrs, mDrivetrain);
-        mRyan = new Ryan(mAutoCommands, ahrs, mDrivetrain);
-        mAyrton = new Ayrton(mAutoCommands, ahrs, mDrivetrain, mVisionTracking);
-        mMatthew = new Matthew(mAutoCommands, ahrs, mDrivetrain);
-        mKamren = new Kamren(mAutoCommands); //MISSING RESETS???
+        mVohnPhillip = new VohnPhillip(mAutoCommands);
+        mRyan = new Ryan(mAutoCommands);
+        mAyrton = new Ayrton(mAutoCommands, mVisionTracking);
+        mMatthew = new Matthew(mAutoCommands);
+        mKamren = new Kamren(mAutoCommands);
 
         mChooser.setDefaultOption("Default Auto", kDefaultAuto);
 

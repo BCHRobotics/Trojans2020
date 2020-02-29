@@ -27,12 +27,12 @@ public class Retriever extends SubsystemBase {
   private CANSparkMax SPARK_ARM = new CANSparkMax(RobotMap.SPARK_ARM, MotorType.kBrushless);
   private CANEncoder encoderArm = new CANEncoder(SPARK_ARM);
 
-  private double encoderCal = 1;
-
   private TalonSRX TALON_BAR = new TalonSRX(RobotMap.TALON_BAR);
 
+  private double encoderCal = 1;
+
   //Max is 100%
-  private int min = 0, max = 100;
+  private int min = -1000000, max = 1000000;
   private double rampRate = 1;
 
   /**

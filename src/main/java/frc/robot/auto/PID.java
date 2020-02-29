@@ -7,6 +7,8 @@
 
 package frc.robot.auto;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Add your docs here.
  */
@@ -15,11 +17,15 @@ public class PID {
     private double kP, kI, kD;
 
     private double error = 0, integral = 0, derivative = 0, previous_error = 0, rcw = 0;
+    private String name;
 
-    public PID(double kP, double kI, double kD){
+    public PID(double kP, double kI, double kD, String name){
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
+
+        SmartDashboard.putNumber(name + "-error:", -1);
+        SmartDashboard.putNumber(name + "-rcw:", -1);
     }
 
     public double run(double setpoint, double position){
@@ -29,6 +35,9 @@ public class PID {
         derivative = (error - previous_error) / 0.02;
         rcw = ( kP * error) + ( kI * integral) + ( kD * derivative);
         previous_error = error;
+
+        SmartDashboard.putNumber(name + "-error:", error);
+        SmartDashboard.putNumber(name + "-rcw:", rcw);
 
         return rcw;
     }

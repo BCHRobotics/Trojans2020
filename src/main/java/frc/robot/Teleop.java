@@ -31,7 +31,7 @@ public class Teleop {
     private VisionTracking mVisionTracking;
 
     /**
-     * Creates a new Teleop`
+     * Creates a new Teleop
      * 
      * @param mOi Robot.java mOi instance
      * @param mDrivetrain Robot.java mDrivetrain instance
@@ -142,9 +142,8 @@ public class Teleop {
                 
             } else {
                 //Manual shooter control
-                mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
+                //mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
                
-
                 if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.2){
                     mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
                 } else {
