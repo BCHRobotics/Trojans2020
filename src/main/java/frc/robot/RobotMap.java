@@ -28,7 +28,7 @@ public class RobotMap {
     public static int TALON_BALLHANDLE3 = 33;
 
     //Retriever
-    public static int TALON_ARM = 25;
+    public static int SPARK_ARM = 25;
     public static int TALON_BAR = 26;
 
     //Climber
@@ -106,7 +106,7 @@ public class RobotMap {
     public static int BTN_FUNSTICK_RATCHETLOCK = 1;
     public static int BTN_FUNSTICK_RATCHETUNLOCK = 2;
 
-    public static int BTN_FUNSTICK_RETRIEVERUP = 0; //Unmapped
+    public static int BTN_FUNSTICK_RETRIEVERUP = 2; //Unmapped
     public static int BTN_FUNSTICK_RETRIEVERDOWN = 0; //Unmapped
 
     //prostick button

@@ -8,8 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.BallHandler;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Retriever;
 import frc.robot.subsystems.Shooter;
 import frc.robot.vision.VisionTracking;
 
@@ -21,8 +24,8 @@ public class Teleop {
     private OI mOi;
     private Drivetrain mDrivetrain;
     private Shooter mShooter;
-    //private Retriever mRetriever;
-    //private Climber mClimber;
+    private Retriever mRetriever;
+    private Climber mClimber;
     private BallHandler mBallHandler;
     //private ColorWheel mColorWheel;
     private VisionTracking mVisionTracking;
@@ -33,12 +36,12 @@ public class Teleop {
      * @param mOi Robot.java mOi instance
      * @param mDrivetrain Robot.java mDrivetrain instance
      */
-    public Teleop(OI mOi, Drivetrain mDrivetrain, Shooter mShooter, BallHandler mBallHandler, VisionTracking mVisionTracking){
+    public Teleop(OI mOi, Drivetrain mDrivetrain, Shooter mShooter, BallHandler mBallHandler, VisionTracking mVisionTracking, Climber mClimber, Retriever mRetriever){
         this.mOi = mOi;
         this.mDrivetrain = mDrivetrain;
         this.mShooter = mShooter;
-        //this.mRetriever = mRetriever;
-        //this.mClimber = mClimber;
+        this.mRetriever = mRetriever;
+        this.mClimber = mClimber;
         this.mBallHandler = mBallHandler;
         //this.mColorWheel = mColorWheel;
         this.mVisionTracking = mVisionTracking;
@@ -46,7 +49,7 @@ public class Teleop {
 
     // initiate drive stick variables
     private double y = 0, turn = 0, speed = 0;
-    //private double intakeSpeed = 0;
+    private double intakeSpeed = 0;
 
     /**
      * Drivestick teleop control. Once called it will let you drive.
@@ -83,8 +86,8 @@ public class Teleop {
 
             if(mOi.buttonChangeMode.get()){
 
-                mOi.prostick.setRumble(RumbleType.kLeftRumble, 1);
-                mOi.prostick.setRumble(RumbleType.kRightRumble, 1);
+                mOi.funstick.setRumble(RumbleType.kLeftRumble, 1);
+                mOi.funstick.setRumble(RumbleType.kRightRumble, 1);
 
                 //PLEASE DO NOT USE THIS FOR FINAL CODE (It is trash, stops code for 250 mills)
                 try{
@@ -92,10 +95,10 @@ public class Teleop {
                 } catch(Exception e) {
                     System.out.println("UNABLE TO PAUSE FOR MODE CHANGE");
                 }
-                climbMode = true;
+                climbMode = false;
 
-                mOi.prostick.setRumble(RumbleType.kLeftRumble, 0);
-                mOi.prostick.setRumble(RumbleType.kRightRumble, 0);
+                mOi.funstick.setRumble(RumbleType.kLeftRumble, 0);
+                mOi.funstick.setRumble(RumbleType.kRightRumble, 0);
             }
 
             //Lock and unlock climber system
@@ -103,7 +106,7 @@ public class Teleop {
             //if(mOi.buttonClimbUnlock.get()) mClimber.unlockClimber();
 
             //Sets the speed of the lift winch motor
-            //mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
+            mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
 
             //Lock and Unlock ratchet on lift
             //if(mOi.buttonRatchetLock.get()) mClimber.lockRatchet();
@@ -114,8 +117,8 @@ public class Teleop {
         } else {
             if(mOi.buttonChangeMode.get()){
 
-                mOi.prostick.setRumble(RumbleType.kLeftRumble, 1);
-                mOi.prostick.setRumble(RumbleType.kRightRumble, 1);
+                mOi.funstick.setRumble(RumbleType.kLeftRumble, 1);
+                mOi.funstick.setRumble(RumbleType.kRightRumble, 1);
 
                 //PLEASE DO NOT USE THIS FOR FINAL CODE (It is trash, stops code for 250 mills)
                 try{
@@ -125,8 +128,8 @@ public class Teleop {
                 }
                 climbMode = true;
 
-                mOi.prostick.setRumble(RumbleType.kLeftRumble, 0);
-                mOi.prostick.setRumble(RumbleType.kRightRumble, 0);
+                mOi.funstick.setRumble(RumbleType.kLeftRumble, 0);
+                mOi.funstick.setRumble(RumbleType.kRightRumble, 0);
             }
 
             if(mOi.buttonVision.get()){
@@ -157,13 +160,16 @@ public class Teleop {
             //if(mOi.buttonWheelOut.get()) mColorWheel.extend(0.5);
 
             //Intake Control
-            //intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT);
-            //mRetriever.intake(intakeSpeed);
+            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT);
+            mRetriever.intake(intakeSpeed);
 
             //Intake up/down
             //if(mOi.buttonRetriverDown.get()) mRetriever.lower(0.5);
-            //if(mOi.buttonRetriverUp.get()) mRetriever.raise(0.5);
+            //if(mOi.buttonRetriverUp.get()) mRetriever.raise(0.5); //Need to have elses
 
+
+            //Print out modes
+            SmartDashboard.putBoolean("CLIMB MODE", climbMode);
         }
     }
 

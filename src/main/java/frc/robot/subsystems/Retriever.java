@@ -9,6 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,10 +24,14 @@ import frc.robot.RobotMap;
  */
 public class Retriever extends SubsystemBase {
 
-  private TalonSRX TALON_ARM = new TalonSRX(RobotMap.TALON_ARM);
+  private CANSparkMax SPARK_ARM = new CANSparkMax(RobotMap.SPARK_ARM, MotorType.kBrushless);
+  private CANEncoder encoderArm = new CANEncoder(SPARK_ARM);
+
+  private double encoderCal = 1;
+
   private TalonSRX TALON_BAR = new TalonSRX(RobotMap.TALON_BAR);
 
-  private int topLimit = -1, bottomLimit = -1;
+  private int min = -100000, max = 100000;
   private double rampRate = 1;
 
   /**
@@ -32,10 +39,8 @@ public class Retriever extends SubsystemBase {
    */
   public Retriever() {
 
-    TALON_ARM.setInverted(false);
     TALON_BAR.setInverted(false);
 
-    TALON_ARM.configClosedloopRamp(rampRate);
     TALON_BAR.configClosedloopRamp(rampRate);
 
   }
@@ -58,10 +63,10 @@ public class Retriever extends SubsystemBase {
    */
   public void lower(double speed){
 
-    if(bottomLimit == 0){
-      TALON_ARM.set(ControlMode.PercentOutput, speed);
-    } else{
-      TALON_ARM.set(ControlMode.PercentOutput, 0);
+    if(getEncoder() <= max){
+      SPARK_ARM.set(speed);
+    } else {
+      SPARK_ARM.set(0);
     }
 
   }
@@ -73,22 +78,22 @@ public class Retriever extends SubsystemBase {
    */
   public void raise(double speed){
 
-    if(topLimit == 0){
-      TALON_ARM.set(ControlMode.PercentOutput, -speed);
-    } else{
-      TALON_ARM.set(ControlMode.PercentOutput, 0);
+    if(getEncoder() >= min){
+      SPARK_ARM.set(-speed);
+    } else {
+      SPARK_ARM.set(0);
     }
 
   }
 
+  public double getEncoder(){
+    return encoderArm.getPosition() * encoderCal;
+  }
+
   @Override
   public void periodic() {
-    
-    topLimit = TALON_ARM.isRevLimitSwitchClosed();
-    bottomLimit = TALON_ARM.isFwdLimitSwitchClosed();
 
-    SmartDashboard.putNumber("retrieverTopLimit", topLimit);
-    SmartDashboard.putNumber("retrieverBottomLimit", bottomLimit);
+    SmartDashboard.putNumber("Retriever Encoder", getEncoder());
 
   }
 }

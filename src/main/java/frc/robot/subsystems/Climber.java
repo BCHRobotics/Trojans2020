@@ -29,7 +29,7 @@ public class Climber extends SubsystemBase {
   private double encoderCal = 1;
 
   //Max extend 79 inches
-  private double min = 0, max = 1000000;
+  private double min = -1000000, max = 1000000;
   
   /**
    * Creates a new Climber.

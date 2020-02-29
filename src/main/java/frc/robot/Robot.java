@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.AutoCommands;
 import frc.robot.auto.Autonomous;
 import frc.robot.subsystems.BallHandler;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Retriever;
 import frc.robot.subsystems.Shooter;
 import frc.robot.vision.VisionTracking;
 
@@ -27,18 +29,18 @@ public class Robot extends TimedRobot {
 
   private static final boolean newBot = true; 
 
-  public static AHRS ahrs = new AHRS(Port.kUSB);
+  public static AHRS ahrs = new AHRS(Port.kUSB); //NavX Gyro
 
   public static Drivetrain mDrivetrain = new Drivetrain(newBot);
   public static OI mOi = new OI();
   public static BallHandler mBallHandler = new BallHandler();
   public static Shooter mShooter = new Shooter();
-  //public static Retriever mRetriever = new Retriever();
-  //public static Climber mClimber = new Climber();
+  public static Retriever mRetriever = new Retriever();
+  public static Climber mClimber = new Climber();
   //public static ColorWheel mColorWheel = new ColorWheel();
 
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
-  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
 
@@ -53,6 +55,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("GyroPSet", 0);
     SmartDashboard.putNumber("GyroISet", 0);
     SmartDashboard.putNumber("GyroDSet", 0);
+
+    SmartDashboard.putBoolean("CLIMB MODE", false);
 
     //Resets all devices
     //mClimber.resetEncoder();
@@ -92,7 +96,7 @@ public class Robot extends TimedRobot {
     //mBallHandler.periodic();
     mDrivetrain.periodic();
     mShooter.periodic();
-    //mRetriever.periodic();
+    mRetriever.periodic();
     //mClimber.periodic();
     //mColorWheel.periodic();
     mVisionTracking.periodic();
