@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("GyroDSet", 0);
 
     SmartDashboard.putBoolean("CLIMB MODE", false);
+    SmartDashboard.putNumber("Tele: Shooter Speed", -1);
 
     //Resets all devices
     //mClimber.resetEncoder();

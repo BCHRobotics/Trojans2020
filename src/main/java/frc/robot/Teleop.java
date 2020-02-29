@@ -195,6 +195,9 @@ public class Teleop {
 
         //Print out modes
         SmartDashboard.putBoolean("CLIMB MODE", climbMode);
+
+        //Print shooter speed for drivers
+        SmartDashboard.putNumber("Tele: Shooter Speed", shooterSpeed);
     }
 
     /**
