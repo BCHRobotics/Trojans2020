@@ -77,22 +77,14 @@ public class Shooter extends SubsystemBase {
    */
   public void wheelSpeed(double speed){
 
-    for(int i = 0; i < deathSpeeds.length; i += 2){
-      if(speed >= deathSpeeds[i] && speed <= deathSpeeds[i + 1]){
-        if(deathSpeeds[i+1] == 1){
-          speed = deathSpeeds[i];
-        } else {
-          speed = deathSpeeds[i+1];
-        }
-      }
-    }
-
-    if(speed <= 0){
+    if(speed >= 0.4){
       SPARK_SHOOTERWHEEL.set(speed);
     } else {
-      SPARK_SHOOTERWHEEL.set(speed);
+      SPARK_SHOOTERWHEEL.set(0);
     }
-  
+
+    SmartDashboard.putNumber("Shooter speed:", speed);
+
   }
 
  

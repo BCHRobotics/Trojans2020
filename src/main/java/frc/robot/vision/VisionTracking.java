@@ -17,8 +17,9 @@ import frc.robot.subsystems.Shooter;
  */
 public class VisionTracking {
 
-    private double tv,tx,thor,spin;
+    private double tv,tx,thor;
     private double range = 1.75;
+    private double spin = 0.025;
 
     private boolean goodToShoot = false;
 
@@ -32,6 +33,8 @@ public class VisionTracking {
     
     public void turretFun(){
 
+        // limelight LED turn on
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         if(tv == 1){
             if(tx > range || tx < -range){
                 mShooter.turretSpeed(tx * spin);
@@ -39,7 +42,7 @@ public class VisionTracking {
                 goodToShoot = false;
             }else{
                 mShooter.turretSpeed(0);
-                mShooter.wheelSpeed(1/thor * 27.5);
+                mShooter.wheelSpeed(1/thor * 32.5);
                 goodToShoot = true;
             }
         }else{

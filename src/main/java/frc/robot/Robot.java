@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +57,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("CLIMB MODE", false);
     SmartDashboard.putNumber("Tele: Shooter Speed", -1);
+    SmartDashboard.putNumber("INTAKE:", -1);
+    SmartDashboard.putNumber("Shooter speed:", -1);
 
     //Resets all devices
     //mClimber.resetEncoder();
@@ -65,6 +68,7 @@ public class Robot extends TimedRobot {
     mShooter.resetEncoderWheel();
     mShooter.resetEncoderTurret();
     ahrs.reset();
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 
   @Override
@@ -77,6 +81,7 @@ public class Robot extends TimedRobot {
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
   }
@@ -118,6 +123,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     mTeleop.drivestick();
     mTeleop.funstick();
+    mTeleop.teststick();
   }
 
   @Override

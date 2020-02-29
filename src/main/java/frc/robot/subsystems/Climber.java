@@ -58,7 +58,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void lock(){
-    SPIKE_RELAY.set(Value.kOn);
+    SPIKE_RELAY.set(Value.kForward);
   }
 
   public void unlock(){

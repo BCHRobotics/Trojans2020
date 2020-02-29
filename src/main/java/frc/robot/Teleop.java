@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.BallHandler;
@@ -52,7 +53,7 @@ public class Teleop {
     private double intakeSpeed = 0;
     private double shooterSpeed = 0;
     private double shooterAcceleration = 0.01;
-    private double turretSpeed = 0.5;
+    private double turretSpeed = 0.25;
 
     /**
      * Drivestick teleop control. Once called it will let you drive.
@@ -111,7 +112,7 @@ public class Teleop {
             }
 
             //Sets the speed of the lift winch motor
-            mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
+            mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.07, 0.07));
 
             //Turn off eveything else
             mRetriever.intake(0);
@@ -138,14 +139,19 @@ public class Teleop {
 
             if(mOi.buttonVision.get()){
                 //Run vision code
-                mVisionTracking.shoot(0.5);
+                NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+                mVisionTracking.shoot(0.75);
                 
             } else {
+            
                 //Manual shooter control
                 //mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
                
-                if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.2){
-                    mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+                //limelight LED turn off - 3 = force On 1 = Force Off
+                NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+
+                if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) <= 0.2){
+                    mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
                 } else {
 
                     if(mOi.funstick.getPOV() == 90){ 
@@ -156,9 +162,11 @@ public class Teleop {
                         mShooter.turretSpeed(0);
                     }
 
-                    if(mOi.funstick.getPOV() == 0 && shooterSpeed != 1) shooterSpeed += shooterAcceleration;
-                    if(mOi.funstick.getPOV() == 180 && shooterSpeed != 0) shooterSpeed -= shooterAcceleration;
+                    //if(mOi.funstick.getPOV() == 0 && shooterSpeed != 1) shooterSpeed += shooterAcceleration;
+                    //if(mOi.funstick.getPOV() == 180 && shooterSpeed != 0) shooterSpeed -= shooterAcceleration;
                 }
+
+                
 
                 if(mOi.buttonStopShooter.get()){
                     shooterSpeed = 0;
@@ -167,14 +175,17 @@ public class Teleop {
                 mShooter.wheelSpeed(shooterSpeed);
                 
                 if(mOi.buttonShoot.get()){
-                    mBallHandler.unload(1);
+                    mBallHandler.unload(0.75);
                 } else {
-                    mBallHandler.load(0.5);
+                    mBallHandler.load(0);
                 }
             }
 
+            //mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) * 0.67);
+
             //Intake Control
-            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEOUT);
+            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEOUT) - mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEIN);
+            SmartDashboard.putNumber("INTAKE:", intakeSpeed);
             mRetriever.intake(intakeSpeed);
 
             //Intake up/down
@@ -197,6 +208,12 @@ public class Teleop {
 
         //Print shooter speed for drivers
         SmartDashboard.putNumber("Tele: Shooter Speed", shooterSpeed);
+    }
+
+    public void teststick(){
+
+        mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
+
     }
 
     /**
