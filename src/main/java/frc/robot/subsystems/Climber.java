@@ -11,6 +11,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -26,17 +28,17 @@ public class Climber extends SubsystemBase {
   private CANSparkMax SPARK_LIFT = new CANSparkMax(RobotMap.SPARK_LIFT, MotorType.kBrushless);
   private CANEncoder encoderLift = new CANEncoder(SPARK_LIFT);
 
+  private Relay SPIKE_RELAY = new Relay(0);
+
   private double encoderCal = 1;
 
-  //Max extend 79 inches
-  private double min = -1000000, max = 1000000;
+  //Max extend 100%
+  private double min = -1000000, max = 10000000; //Needs to be calibrated
   
   /**
    * Creates a new Climber.
    */
   public Climber() {
-
-    SPARK_LIFT.setInverted(false);
 
   }
 
@@ -47,16 +49,20 @@ public class Climber extends SubsystemBase {
    */
   public void lift(double speed){
    
-    /*
     if((getEncoder() <= min && speed < 0) || (getEncoder() >= max && speed > 0)){
       SPARK_LIFT.set(0);
     } else {
       SPARK_LIFT.set(speed);
     }
-    */
 
-    SPARK_LIFT.set(speed);
+  }
 
+  public void lock(){
+    SPIKE_RELAY.set(Value.kOn);
+  }
+
+  public void unlock(){
+    SPIKE_RELAY.set(Value.kOff);
   }
 
   /**
@@ -75,6 +81,6 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Lift Encoder", getEncoder());
+    SmartDashboard.putNumber("Climber: Lift Encoder", getEncoder());
   }
 }

@@ -28,21 +28,19 @@ public class OI {
     // funStick Buttons
     public JoystickButton buttonVision = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_VISION);
     public JoystickButton buttonShoot = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_SHOOT);
+    public JoystickButton buttonStopShooter = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_STOP_SHOOTER);
 
     public JoystickButton buttonAutoWheel = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_AUTOWHEEL);
     public JoystickButton buttonWheelIn = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_WHEELIN);
     public JoystickButton buttonWheelOut = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_WHEELOUT);
 
-    public JoystickButton buttonChangeMode = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CHANGEMODE);
+    public JoystickButton buttonRetriverUp = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RETRIVER_UP);
+    public JoystickButton buttonRetriverDown = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RETRIVER_DOWN);
 
-    public JoystickButton buttonClimbLock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CLIMBLOCK);
-    public JoystickButton buttonClimbUnlock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CLIMBUNLOCK);
+    public JoystickButton buttonChangeModeA = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CHANGEMODEA);
+    public JoystickButton buttonChangeModeB = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CHANGEMODEB);
 
-    public JoystickButton buttonRatchetLock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RATCHETLOCK);
-    public JoystickButton buttonRatchetUnlock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RATCHETUNLOCK);
-
-    public JoystickButton buttonRetriverUp = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RETRIEVERUP);
-    public JoystickButton buttonRetriverDown = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RETRIEVERDOWN);
+    public JoystickButton buttonClimberLock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CLIMBLOCK);
 
     // prostick buttons
     public JoystickButton buttonUnload = new JoystickButton(prostick, RobotMap.BTN_PROSTICK_UNLOAD);

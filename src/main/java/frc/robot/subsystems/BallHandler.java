@@ -35,6 +35,7 @@ public class BallHandler extends SubsystemBase {
     new DigitalInput(RobotMap.DIO_BALLSENSE3),
   };
 
+  //Ball sensor states
   private boolean[] balls = {false, false, false, false};
 
   /**
@@ -95,7 +96,7 @@ public class BallHandler extends SubsystemBase {
   public void periodic() {
     for(int i = 0; i <= 3; i++){
       balls[i] = !BALLSENSE[i].get();
-      SmartDashboard.putBoolean("Ball" + i, this.balls[i]);
+      SmartDashboard.putBoolean("Ball Handler: Ball " + i, this.balls[i]);
     }
   }
 }

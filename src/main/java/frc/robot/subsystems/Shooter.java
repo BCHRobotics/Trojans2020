@@ -28,9 +28,6 @@ public class Shooter extends SubsystemBase {
  
   private CANEncoder encoderTurret = new CANEncoder(SPARK_SHOOTERTURRET);
   private CANEncoder encoderWheel = new CANEncoder(SPARK_SHOOTERWHEEL);
-  
-  private double rampRateTurret = 0.5;
-  private double rampRateWheel = 0.5;
  
   private final double encoderCalTurret = 1.162325;
   private final double encoderCalWheel = 1;
@@ -51,12 +48,6 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   public Shooter() {
-
-    SPARK_SHOOTERTURRET.setInverted(false);
-    SPARK_SHOOTERWHEEL.setInverted(false);
-    
-    SPARK_SHOOTERTURRET.setClosedLoopRampRate(rampRateTurret);
-    SPARK_SHOOTERWHEEL.setClosedLoopRampRate(rampRateWheel);
     
   }
 
@@ -88,12 +79,20 @@ public class Shooter extends SubsystemBase {
 
     for(int i = 0; i < deathSpeeds.length; i += 2){
       if(speed >= deathSpeeds[i] && speed <= deathSpeeds[i + 1]){
-        speed = deathSpeeds[i+1];
+        if(deathSpeeds[i+1] == 1){
+          speed = deathSpeeds[i];
+        } else {
+          speed = deathSpeeds[i+1];
+        }
       }
     }
 
-    SPARK_SHOOTERWHEEL.set(speed);
-
+    if(speed <= 0){
+      SPARK_SHOOTERWHEEL.set(speed);
+    } else {
+      SPARK_SHOOTERWHEEL.set(speed);
+    }
+  
   }
 
  
@@ -122,12 +121,6 @@ public class Shooter extends SubsystemBase {
     setWheelSpeed(rcw);
 
   }
-
-  double startMills = 0;
-  double endMills = 0;
-  double startTicks = 0;
-  double endTicks = 0;
-  double rpm = 0;
 
   /**
    * The speed of the wheel
@@ -173,9 +166,9 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     
-    SmartDashboard.putNumber("encoderTurret", getEncoderTurret());
-    SmartDashboard.putNumber("encoderWheel", getEncoderWheel());
-    SmartDashboard.putNumber("rpmWheel", getWheelRpm());
+    SmartDashboard.putNumber("Shooter: encoderTurret", getEncoderTurret());
+    SmartDashboard.putNumber("Shooter: encoderWheel", getEncoderWheel());
+    SmartDashboard.putNumber("Shooter: rpmWheel", getWheelRpm());
 
   }
 }

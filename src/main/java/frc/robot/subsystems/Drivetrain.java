@@ -37,23 +37,13 @@ public class Drivetrain extends SubsystemBase {
   //private double rampRate = 1;
   private double encoderCal = 2.1628959;
 
+  //For debugging
   double leftSpeed, rightSpeed;
 
   /**
    * Creates a new DriveTrain.
    */
-  public Drivetrain(Boolean newBot) {
-
-      //SPARK_FRONTLEFT.setInverted(false);
-      //SPARK_FRONTRIGHT.setInverted(true);
-      //SPARK_BACKLEFT.setInverted(false);
-      //SPARK_BACKRIGHT.setInverted(true);
-
-    //Sets ramprate for drive train
-    //SPARK_FRONTLEFT.setClosedLoopRampRate(rampRate);
-    //SPARK_FRONTRIGHT.setClosedLoopRampRate(rampRate);
-    //SPARK_BACKLEFT.setClosedLoopRampRate(rampRate);
-    //SPARK_BACKRIGHT.setClosedLoopRampRate(rampRate);
+  public Drivetrain() {
 
   }
 
@@ -74,11 +64,11 @@ public class Drivetrain extends SubsystemBase {
     SPARK_FRONTRIGHT.set(rightSpeed);
     SPARK_BACKRIGHT.set(rightSpeed);
 
-    SmartDashboard.putNumber("rightSpeed", rightSpeed);
-    SmartDashboard.putNumber("leftSpeed", leftSpeed);
-
-    SmartDashboard.putNumber("rightVelosity", encoderFR.getVelocity());
-    SmartDashboard.putNumber("leftVelosity", encoderFL.getVelocity());
+    //Print the speeds of the motors for debuging
+    SmartDashboard.putNumber("Drivetrain: rightSpeed", rightSpeed);
+    SmartDashboard.putNumber("Drivetrain: leftSpeed", leftSpeed);
+    SmartDashboard.putNumber("Drivetrain: rightVelosity", encoderFR.getVelocity());
+    SmartDashboard.putNumber("Drivetrain: leftVelosity", encoderFL.getVelocity());
     
   }
 
@@ -127,22 +117,21 @@ public class Drivetrain extends SubsystemBase {
     encoderFR.setPosition(0);
     encoderBL.setPosition(0);
     encoderBR.setPosition(0);
-
   }
 
   @Override
   public void periodic() {
     
-    SmartDashboard.putNumber("encoderFL", getEncoderFL());
-    SmartDashboard.putNumber("encoderFR", getEncoderFR());
-    SmartDashboard.putNumber("encoderBL", getEncoderBL());
-    SmartDashboard.putNumber("encoderBR", getEncoderBR());
+    SmartDashboard.putNumber("Drivetrain: encoderFL", getEncoderFL());
+    SmartDashboard.putNumber("Drivetrain: encoderFR", getEncoderFR());
+    SmartDashboard.putNumber("Drivetrain: encoderBL", getEncoderBL());
+    SmartDashboard.putNumber("Drivetrain: encoderBR", getEncoderBR());
 
-    SmartDashboard.putNumber("rightSpeed", rightSpeed);
-    SmartDashboard.putNumber("leftSpeed", leftSpeed);
+    SmartDashboard.putNumber("Drivetrain: rightSpeed", rightSpeed);
+    SmartDashboard.putNumber("Drivetrain: leftSpeed", leftSpeed);
 
-    SmartDashboard.putNumber("rightVelosity", encoderFR.getVelocity());
-    SmartDashboard.putNumber("leftVelosity", encoderFL.getVelocity());
+    SmartDashboard.putNumber("Drivetrain: rightVelosity", encoderFR.getVelocity());
+    SmartDashboard.putNumber("Drivetrain: leftVelosity", encoderFL.getVelocity());
 
   }
 }

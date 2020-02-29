@@ -62,52 +62,73 @@ public class RobotMap {
 
     //CONTROLERS
 
+    /**
+     * AXIS
+     * 
+     * Left X: 0
+     * Left Y: 1
+     * Left Trigger: 2
+     * Right Trigger: 3
+     * Right X: 4
+     * Right Y: 5
+     * 
+     * 
+     * Buttons
+     * 
+     * A: 1
+     * B: 2
+     * X: 3
+     * Y: 4
+     * Left Trigger: 5
+     * Right Trigger: 6
+     * Back: 7
+     * Start: 8
+     * Left Stick: 9
+     * Right Stick: 10
+     * 
+     */
+
     public static int OI_DRIVESTICK_USB = 0;
     public static int OI_FUNSTICK_USB = 1;
     public static int OI_PROSTICK_USB = 2;
     public static int OI_TESTSTICK_USB = 3;
 
     //DriveStick Axis
-    public static int OI_DRIVESTICK_MOVEY = 1;
-    public static int OI_DRIVESTICK_TURN = 4;
-
-    public static int OI_DRIVESTICK_INTAKEIN = 3;
-    public static int OI_DRIVESTICK_INTAKEOUT = 2;
+    public static int OI_DRIVESTICK_MOVEY = 1; //Left Y
+    public static int OI_DRIVESTICK_TURN = 0; //Left X
 
     //DriveStick Buttons
-    public static int BTN_DRIVESTICK_SNAIL = 5;
-    public static int BTN_DRIVESTICK_TURBO = 6;
+    public static int BTN_DRIVESTICK_SNAIL = 5; //Left Trigger
+    public static int BTN_DRIVESTICK_TURBO = 6; //Right Trigger
     
     //FunStick Axis
-    public static int OI_FUNSTICK_TURRETTURN = 0;
-    public static int OI_FUNSTICK_SHOOTSPEED = 3;
+    public static int OI_FUNSTICK_TURRETTURN = 0; //Disabled
+    public static int OI_FUNSTICK_SHOOTSPEED = 1; //Left Y
 
-    public static int OI_FUNSTICK_INTAKEIN = 3;
-    public static int OI_FUNSTICK_INTAKEOUT = 2;
+    public static int OI_FUNSTICK_INTAKEIN = 3; //Right Trigger
+    public static int OI_FUNSTICK_INTAKEOUT = 2; //Left Trigger
 
-    public static int OI_FUNSTICK_MANUALWHEEL = 4;
+    public static int OI_FUNSTICK_MANUALWHEEL = 4; //Right X
 
-    public static int OI_FUNSTICK_LIFT = 1;
+    public static int OI_FUNSTICK_LIFT = 1; //Left Y
 
-    //FunStick Buttons
-    public static int BTN_FUNSTICK_VISION = 3;
+    //funstick buttons regular
+    public static int BTN_FUNSTICK_VISION = 1; //A
+    public static int BTN_FUNSTICK_SHOOT = 4; //Y
+    public static int BTN_FUNSTICK_STOP_SHOOTER = 9; //Left Stick
 
-    public static int BTN_FUNSTICK_SHOOT = 1; 
+    public static int BTN_FUNSTICK_AUTOWHEEL = 10; //Right Stick
+    public static int BTN_FUNSTICK_WHEELIN = 3; //X
+    public static int BTN_FUNSTICK_WHEELOUT = 2; //B
 
-    public static int BTN_FUNSTICK_AUTOWHEEL = 0; //Unmapped
-    public static int BTN_FUNSTICK_WHEELIN = 0; //Unmapped
-    public static int BTN_FUNSTICK_WHEELOUT = 0; //Unmapped
+    public static int BTN_FUNSTICK_RETRIVER_UP = 5; //Left Trigger
+    public static int BTN_FUNSTICK_RETRIVER_DOWN = 6; //Right Trigger
 
-    public static int BTN_FUNSTICK_CHANGEMODE = 7;
+    //Funstick buttons climb
+    public static int BTN_FUNSTICK_CHANGEMODEA = 7; //Back
+    public static int BTN_FUNSTICK_CHANGEMODEB = 8; //Start
 
-    public static int BTN_FUNSTICK_CLIMBLOCK = 1;
-    public static int BTN_FUNSTICK_CLIMBUNLOCK = 2;
-
-    public static int BTN_FUNSTICK_RATCHETLOCK = 1;
-    public static int BTN_FUNSTICK_RATCHETUNLOCK = 2;
-
-    public static int BTN_FUNSTICK_RETRIEVERUP = 2; //Unmapped
-    public static int BTN_FUNSTICK_RETRIEVERDOWN = 0; //Unmapped
+    public static int BTN_FUNSTICK_CLIMBLOCK = 1; //A
 
     //prostick button
     public static int BTN_PROSTICK_UNLOAD = 1; //Temp mapped 
@@ -122,14 +143,6 @@ public class RobotMap {
     public static double P_NAVX= 1;
     public static double I_NAVX = 0;
     public static double D_NAVX = 0;
-
-    public static double P_DRIVETRAIN_OLD = 2.25;
-    public static double I_DRIVETRAIN_OLD = 0.0001;
-    public static double D_DRIVETRAIN_OLD = 0;
-
-    public static double P_NAVX_OLD = 1.75;
-    public static double I_NAVX_OLD = 0.0001;
-    public static double D_NAVX_OLD = 0;
 
     public static double P_TURRET = 1;
     public static double I_TURRET = 0;

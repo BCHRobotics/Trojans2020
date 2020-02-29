@@ -28,19 +28,13 @@ public class AutoCommands {
     private PID drivePID;
     private PID gyroPID;
 
-    public AutoCommands(AHRS ahrs, Drivetrain mDrivetrain, boolean newBot){
+    public AutoCommands(AHRS ahrs, Drivetrain mDrivetrain){
 
         this.ahrs = ahrs;
         this.mDrivetrain = mDrivetrain;
 
-        // Set PID to the RobotMap varibales
-        if(newBot){
-            drivePID = new PID(RobotMap.P_DRIVETRAIN, RobotMap.I_DRIVETRAIN, RobotMap.D_DRIVETRAIN);
-            gyroPID = new PID(RobotMap.P_NAVX, RobotMap.I_NAVX, RobotMap.D_NAVX);
-        } else{ 
-            drivePID = new PID(RobotMap.P_DRIVETRAIN_OLD, RobotMap.I_DRIVETRAIN_OLD, RobotMap.D_DRIVETRAIN_OLD);
-            gyroPID = new PID(RobotMap.P_NAVX_OLD, RobotMap.I_NAVX_OLD, RobotMap.D_NAVX_OLD);
-        }
+        drivePID = new PID(RobotMap.P_DRIVETRAIN, RobotMap.I_DRIVETRAIN, RobotMap.D_DRIVETRAIN);
+        gyroPID = new PID(RobotMap.P_NAVX, RobotMap.I_NAVX, RobotMap.D_NAVX);
 
     }
 

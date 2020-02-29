@@ -31,7 +31,8 @@ public class Retriever extends SubsystemBase {
 
   private TalonSRX TALON_BAR = new TalonSRX(RobotMap.TALON_BAR);
 
-  private int min = -100000, max = 100000;
+  //Max is 100%
+  private int min = 0, max = 100;
   private double rampRate = 1;
 
   /**
@@ -86,6 +87,10 @@ public class Retriever extends SubsystemBase {
 
   }
 
+  public void arm(double speed){
+    SPARK_ARM.set(speed);
+  }
+
   public double getEncoder(){
     return encoderArm.getPosition() * encoderCal;
   }
@@ -93,7 +98,7 @@ public class Retriever extends SubsystemBase {
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Retriever Encoder", getEncoder());
+    SmartDashboard.putNumber("Retriever: Arm Encoder", getEncoder());
 
   }
 }

@@ -102,11 +102,11 @@ public class ColorWheel extends SubsystemBase {
   }
 
   public double getEncoderExtend(){
-    return encoderExtend.getPosition() / encoderExtendCal;
+    return encoderExtend.getPosition() * encoderExtendCal;
   }
 
   public double getEncoderSpinner(){
-    return encoderSpinner.getPosition() / encoderSpinnerCal;
+    return encoderSpinner.getPosition() * encoderSpinnerCal;
   }
 
   public void resetEncoderExtend(){
@@ -135,11 +135,11 @@ public class ColorWheel extends SubsystemBase {
       colorString = "Unknown";
     }
 
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("Color Wheel: Red", detectedColor.red);
+    SmartDashboard.putNumber("Color Wheel: Green", detectedColor.green);
+    SmartDashboard.putNumber("Color Wheel: Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Color Wheel: Confidence", match.confidence);
+    SmartDashboard.putString("Color Wheel: Detected Color", colorString);
 
   }
 }

@@ -50,6 +50,9 @@ public class Teleop {
     // initiate drive stick variables
     private double y = 0, turn = 0, speed = 0;
     private double intakeSpeed = 0;
+    private double shooterSpeed = 0;
+    private double shooterAcceleration = 0.01;
+    private double turretSpeed = 0.5;
 
     /**
      * Drivestick teleop control. Once called it will let you drive.
@@ -69,7 +72,6 @@ public class Teleop {
         
         mDrivetrain.arcade(y * speed, turn * speed * 0.7);
 
-        //intakeSpeed = -mOi.driveStick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT) + mOi.driveStick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN);
     }
 
     boolean climbMode = false;
@@ -84,7 +86,7 @@ public class Teleop {
              * MAKE THE SHOOTER HOME BEFORE CLIMBING
              */
 
-            if(mOi.buttonChangeMode.get()){
+            if(mOi.buttonChangeModeA.get() || mOi.buttonChangeModeB.get()){
 
                 mOi.funstick.setRumble(RumbleType.kLeftRumble, 1);
                 mOi.funstick.setRumble(RumbleType.kRightRumble, 1);
@@ -101,21 +103,23 @@ public class Teleop {
                 mOi.funstick.setRumble(RumbleType.kRightRumble, 0);
             }
 
-            //Lock and unlock climber system
-            //if(mOi.buttonClimbLock.get()) mClimber.lockClimber();
-            //if(mOi.buttonClimbUnlock.get()) mClimber.unlockClimber();
+            //Lock Climber
+            if(mOi.buttonClimberLock.get()){
+                mClimber.lock();
+            } else {
+                mClimber.unlock();
+            }
 
             //Sets the speed of the lift winch motor
             mClimber.lift(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT));
 
-            //Lock and Unlock ratchet on lift
-            //if(mOi.buttonRatchetLock.get()) mClimber.lockRatchet();
-            //if(mOi.buttonRatchetUnlock.get()) mClimber.unlockRatchet();
-
             //Turn off eveything else
+            mRetriever.intake(0);
+            mShooter.turretSpeed(0);
+            mShooter.wheelSpeed(0);
 
         } else {
-            if(mOi.buttonChangeMode.get()){
+            if(mOi.buttonChangeModeA.get() || mOi.buttonChangeModeB.get()){
 
                 mOi.funstick.setRumble(RumbleType.kLeftRumble, 1);
                 mOi.funstick.setRumble(RumbleType.kRightRumble, 1);
@@ -139,44 +143,58 @@ public class Teleop {
             } else {
                 //Manual shooter control
                 mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
-                mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+               
 
+                if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.2){
+                    mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+                } else {
+
+                    if(mOi.funstick.getPOV() == 90){ 
+                        mShooter.turretSpeed(turretSpeed);
+                    } else if(mOi.funstick.getPOV() == 270) {
+                        mShooter.turretSpeed(-turretSpeed);
+                    } else {
+                        mShooter.turretSpeed(0);
+                    }
+
+                    if(mOi.funstick.getPOV() == 0 && shooterSpeed != 1) shooterSpeed += shooterAcceleration;
+                    if(mOi.funstick.getPOV() == 180 && shooterSpeed != 0) shooterSpeed -= shooterAcceleration;
+                }
+
+                if(mOi.buttonStopShooter.get()){
+                    shooterSpeed = 0;
+                }
+
+                mShooter.wheelSpeed(shooterSpeed);
                 
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(1);
                 } else {
-                    mBallHandler.load(0);
+                    mBallHandler.load(0.5);
                 }
             }
-            
-            //Color wheel controls
-            if(mOi.buttonAutoWheel.get()) {
-                //mColorWheel.automaticSpin(0.5);
-            } else {
-                //mColorWheel.manualSpin(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_MANUALWHEEL));
-            }
-
-            //if(mOi.buttonWheelIn.get()) mColorWheel.retract(0.5);
-            //if(mOi.buttonWheelOut.get()) mColorWheel.extend(0.5);
 
             //Intake Control
-            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_DRIVESTICK_INTAKEOUT);
+            intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEIN) - mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEOUT);
             mRetriever.intake(intakeSpeed);
 
             //Intake up/down
-            //if(mOi.buttonRetriverDown.get()) mRetriever.lower(0.5);
-            //if(mOi.buttonRetriverUp.get()) mRetriever.raise(0.5); //Need to have elses
+            if(mOi.buttonRetriverDown.get()){
+                mRetriever.lower(0.25);
+            } else if(mOi.buttonRetriverUp.get()){
+                mRetriever.raise(0.25);
+            } else {
+                mRetriever.arm(0);
+            }
 
-
-            //Print out modes
-            SmartDashboard.putBoolean("CLIMB MODE", climbMode);
+            //Stop Climbing
+            mClimber.unlock();
+            mClimber.lift(0);
+            
         }
-    }
 
-    public void prostick(){
-
-        //if(mOi.buttonUnload.get()) mBallHandler.reverseUnload(0.5);
-
+        //Print out modes
+        SmartDashboard.putBoolean("CLIMB MODE", climbMode);
     }
 
     /**

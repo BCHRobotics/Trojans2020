@@ -27,11 +27,9 @@ import frc.robot.vision.VisionTracking;
  */
 public class Robot extends TimedRobot {
 
-  private static final boolean newBot = true; 
-
   public static AHRS ahrs = new AHRS(Port.kUSB); //NavX Gyro
 
-  public static Drivetrain mDrivetrain = new Drivetrain(newBot);
+  public static Drivetrain mDrivetrain = new Drivetrain();
   public static OI mOi = new OI();
   public static BallHandler mBallHandler = new BallHandler();
   public static Shooter mShooter = new Shooter();
@@ -41,7 +39,7 @@ public class Robot extends TimedRobot {
 
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
   public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
-  public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, newBot);
+  public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
 
 
@@ -119,7 +117,6 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     mTeleop.drivestick();
     mTeleop.funstick();
-    mTeleop.prostick();
   }
 
   @Override
