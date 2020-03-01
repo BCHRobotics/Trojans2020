@@ -102,7 +102,7 @@ public class RobotMap {
     public static int BTN_DRIVESTICK_TURBO = 6; //Right Trigger
     
     //FunStick Axis
-    public static int OI_FUNSTICK_TURRETTURN = 0; //Disabled
+    public static int OI_FUNSTICK_TURRETTURN = 0; //Left X
     public static int OI_FUNSTICK_SHOOTSPEED = 1; //Left Y
 
     public static int OI_FUNSTICK_INTAKEIN = 3; //Right Trigger

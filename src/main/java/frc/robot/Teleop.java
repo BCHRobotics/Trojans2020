@@ -52,8 +52,9 @@ public class Teleop {
     private double y = 0, turn = 0, speed = 0;
     private double intakeSpeed = 0;
     private double shooterSpeed = 0;
-    private double shooterAcceleration = 0.01;
     private double turretSpeed = 0.25;
+
+    private double[] shooterSpeeds = {0,50,55,60,65,70,75,80};
 
     /**
      * Drivestick teleop control. Once called it will let you drive.
@@ -105,14 +106,14 @@ public class Teleop {
             }
 
             //Lock Climber
-            if(mOi.buttonClimberLock.get()){
+            /*if(mOi.buttonClimberLock.get()){
                 mClimber.lock();
             } else {
                 mClimber.unlock();
-            }
+            }*/
 
             //Sets the speed of the lift winch motor
-            mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.07, 0.07));
+            //mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.07, 0.07));
 
             //Turn off eveything else
             mRetriever.intake(0);
@@ -150,29 +151,47 @@ public class Teleop {
                 //limelight LED turn off - 3 = force On 1 = Force Off
                 NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
+                mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
+
                 if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) <= 0.2){
                     mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
                 } else {
 
-                    if(mOi.funstick.getPOV() == 90){ 
-                        mShooter.turretSpeed(turretSpeed);
-                    } else if(mOi.funstick.getPOV() == 270) {
-                        mShooter.turretSpeed(-turretSpeed);
-                    } else {
-                        mShooter.turretSpeed(0);
+                    //Shooter speeds arround dpad
+                    switch(mOi.funstick.getPOV()){
+                        case 0:
+                            shooterSpeed = shooterSpeeds[0];
+                        break;
+                        case 45:
+                            shooterSpeed = shooterSpeeds[1];
+                        break;
+                        case 90:
+                            shooterSpeed = shooterSpeeds[2];
+                        break;
+                        case 135:
+                            shooterSpeed = shooterSpeeds[3];
+                        break;
+                        case 180:
+                            shooterSpeed = shooterSpeeds[4];
+                        break;
+                        case 225:
+                            shooterSpeed = shooterSpeeds[5];
+                        break;
+                        case 270:
+                            shooterSpeed = shooterSpeeds[6];
+                        break;
+                        case 315:
+                            shooterSpeed = shooterSpeeds[7];
+                        break;
                     }
 
-                    //if(mOi.funstick.getPOV() == 0 && shooterSpeed != 1) shooterSpeed += shooterAcceleration;
-                    //if(mOi.funstick.getPOV() == 180 && shooterSpeed != 0) shooterSpeed -= shooterAcceleration;
-                }
+                    if(mOi.buttonStopShooter.get()){
+                        shooterSpeed = 0;
+                    }
+    
+                    mShooter.wheelSpeed(shooterSpeed);
 
-                
-
-                if(mOi.buttonStopShooter.get()){
-                    shooterSpeed = 0;
-                }
-
-                mShooter.wheelSpeed(shooterSpeed);
+                } 
                 
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(0.75);
@@ -181,25 +200,24 @@ public class Teleop {
                 }
             }
 
-            //mShooter.wheelSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) * 0.67);
-
             //Intake Control
             intakeSpeed = mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEOUT) - mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_INTAKEIN);
             SmartDashboard.putNumber("INTAKE:", intakeSpeed);
             mRetriever.intake(intakeSpeed);
 
             //Intake up/down
+            /* DISABLED FOR SAFTEY
             if(mOi.buttonRetriverDown.get()){
                 mRetriever.lower(0.25);
             } else if(mOi.buttonRetriverUp.get()){
                 mRetriever.raise(0.25);
             } else {
                 mRetriever.arm(0);
-            }
+            }*/
 
             //Stop Climbing
-            mClimber.unlock();
-            mClimber.lift(0);
+            //mClimber.unlock();
+            //mClimber.lift(0);
             
         }
 
