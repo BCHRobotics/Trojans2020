@@ -8,7 +8,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,10 +26,12 @@ import frc.robot.auto.PID;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax SPARK_SHOOTERTURRET = new CANSparkMax(RobotMap.SPARK_SHOOTERTURRET, MotorType.kBrushless);
-  private CANSparkMax SPARK_SHOOTERWHEEL = new CANSparkMax(RobotMap.SPARK_SHOOTERWHEEL, MotorType.kBrushless);
+  //private CANSparkMax SPARK_SHOOTERWHEEL = new CANSparkMax(RobotMap.SPARK_SHOOTERWHEEL, MotorType.kBrushless);
+
+  //private CANPIDController wheelPIDcontroller = new CANPIDController(SPARK_SHOOTERWHEEL);
  
   private CANEncoder encoderTurret = new CANEncoder(SPARK_SHOOTERTURRET);
-  private CANEncoder encoderWheel = new CANEncoder(SPARK_SHOOTERWHEEL);
+  //private CANEncoder encoderWheel = new CANEncoder(SPARK_SHOOTERWHEEL);
  
   private final double encoderCalTurret = 1.162325;
   private final double encoderCalWheel = 1;
@@ -78,9 +82,9 @@ public class Shooter extends SubsystemBase {
   public void wheelSpeed(double speed){
 
     if(speed >= 0.4){
-      SPARK_SHOOTERWHEEL.set(speed);
+      //SPARK_SHOOTERWHEEL.set(speed);
     } else {
-      SPARK_SHOOTERWHEEL.set(0);
+      //SPARK_SHOOTERWHEEL.set(0);
     }
 
     SmartDashboard.putNumber("Shooter speed:", speed);
@@ -109,8 +113,7 @@ public class Shooter extends SubsystemBase {
    */
   public void setWheelSpeed(double rpm){
 
-    double rcw = wheelPID.run(rpm, getWheelRpm());
-    setWheelSpeed(rcw);
+    //wheelPIDcontroller.setReference(1000, ControlType.kVelocity);
 
   }
 
@@ -120,7 +123,8 @@ public class Shooter extends SubsystemBase {
    * @return Rpm of the motor
    */
   private double getWheelRpm(){
-    return encoderWheel.getVelocity();
+    return 0;
+    //encoderWheel.getVelocity();
   }
 
   /**
@@ -138,7 +142,8 @@ public class Shooter extends SubsystemBase {
    * @return the encoder value of wheel 
    */
   public double getEncoderWheel(){
-    return encoderWheel.getPosition() * encoderCalWheel;
+    return 0;
+    //encoderWheel.getPosition() * encoderCalWheel;
   }
 
   /**
@@ -152,7 +157,7 @@ public class Shooter extends SubsystemBase {
    * reset the encoder for the wheel
    */
   public void resetEncoderWheel(){
-    encoderWheel.setPosition(0);
+    //encoderWheel.setPosition(0);
   }
 
   @Override

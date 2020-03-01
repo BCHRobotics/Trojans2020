@@ -42,7 +42,7 @@ public class VisionTracking {
                 goodToShoot = false;
             }else{
                 mShooter.turretSpeed(0);
-                mShooter.wheelSpeed(1/thor * 32.5);
+                mShooter.wheelSpeed(1/thor * 32.5);// wheel spin rpm (1/60*210000)
                 goodToShoot = true;
             }
         }else{
@@ -77,9 +77,9 @@ public class VisionTracking {
 
     public void periodic(){
 
-        tv = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tv").getDouble(0);
-        tx = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tx").getDouble(0);
-        thor = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("thor").getDouble(0);
+        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + 1.87;
+        thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
 
         SmartDashboard.putNumber("tv",tv);
         SmartDashboard.putNumber("tx",tx);

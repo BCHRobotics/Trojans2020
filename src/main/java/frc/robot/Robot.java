@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
   }
