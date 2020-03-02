@@ -41,7 +41,6 @@ public class Retriever extends SubsystemBase {
   public Retriever() {
 
     TALON_BAR.setInverted(false);
-
     TALON_BAR.configClosedloopRamp(rampRate);
 
   }

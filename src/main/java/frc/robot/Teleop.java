@@ -54,7 +54,7 @@ public class Teleop {
     private double shooterSpeed = 0;
     private double turretSpeed = 0.25;
 
-    private double[] shooterSpeeds = {0,50,55,60,65,70,75,80};
+    private double[] shooterSpeeds = {0,0.50,0.55,0.60,0.65,0.70,0.75,0.80};
 
     /**
      * Drivestick teleop control. Once called it will let you drive.

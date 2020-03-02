@@ -37,6 +37,7 @@ public class BallHandler extends SubsystemBase {
 
   //Ball sensor states
   private boolean[] balls = {false, false, false, false};
+  private int[] speeds = {1, 1, 1};
 
   /**
    * Creates a new BallHandler
@@ -58,7 +59,7 @@ public class BallHandler extends SubsystemBase {
 
     for(int i = 0; i < 3; i++){
       if(!balls[i] && balls[i+1]){
-        TALON_BALLS[i].set(ControlMode.PercentOutput, speed);
+        TALON_BALLS[i].set(ControlMode.PercentOutput, speed * speeds[i]);
       } else {
         TALON_BALLS[i].set(ControlMode.PercentOutput, 0);
       }
@@ -74,10 +75,20 @@ public class BallHandler extends SubsystemBase {
   public void unload(double speed){
 
     for(int i = 0; i < 3; i++){
-      TALON_BALLS[i].set(ControlMode.PercentOutput, speed);
+      TALON_BALLS[i].set(ControlMode.PercentOutput, speed  * speeds[i]);
     }
 
   }
+
+  public void unload(){
+
+    for(int i = 0; i < 3; i++){
+      TALON_BALLS[i].set(ControlMode.PercentOutput, 1);
+    }
+
+  }
+
+
 
   /**
    * Lets out the balls from the ball handler
