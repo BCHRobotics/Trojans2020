@@ -46,7 +46,6 @@ public class Shooter extends SubsystemBase {
   //private final double[] deathSpeeds = {0,0};
 
   private PID turretPID = new PID(RobotMap.P_TURRET, RobotMap.I_TURRET, RobotMap.D_TURRET, "turretPID");
-  private PID wheelPID = new PID(RobotMap.P_WHEEL, RobotMap.I_WHEEL, RobotMap.D_WHEEL, "wheelPID");
 
   /**
    * Creates a new Shooter.
@@ -155,7 +154,7 @@ public class Shooter extends SubsystemBase {
    * reset the encoder for the wheel
    */
   public void resetEncoderWheel(){
-    //encoderWheel.setPosition(0);
+    encoderWheel.setPosition(0);
   }
 
   @Override

@@ -52,7 +52,6 @@ public class Teleop {
     private double y = 0, turn = 0, speed = 0;
     private double intakeSpeed = 0;
     private double shooterSpeed = 0;
-    private double turretSpeed = 0.25;
 
     private double[] shooterSpeeds = {0,0.50,0.55,0.60,0.65,0.70,0.75,0.80};
 
