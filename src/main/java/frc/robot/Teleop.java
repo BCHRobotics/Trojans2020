@@ -140,7 +140,7 @@ public class Teleop {
             if(mOi.buttonVision.get()){
                 //Run vision code
                 NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-                mVisionTracking.shoot(0.75);
+                mVisionTracking.shoot(1);
                 
             } else {
             
@@ -150,7 +150,7 @@ public class Teleop {
                 //limelight LED turn off - 3 = force On 1 = Force Off
                 NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
-                mShooter.turretSpeed(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN));
+                mShooter.turretSpeed(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN), 0.2, 0.2));
 
                 if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) <= 0.2){
                     mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
@@ -195,8 +195,10 @@ public class Teleop {
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(0.75);
                 } else {
-                    mBallHandler.load(0);
+                   // mBallHandler.unload(deadzone(mOi.drivestick.getRawAxis(5), 0.07, 0.07));
+                   mBallHandler.load(0.5);
                 }
+                
             }
 
             //Intake Control
@@ -205,11 +207,10 @@ public class Teleop {
             mRetriever.intake(intakeSpeed);
 
             //Intake up/down
-            /* DISABLED FOR SAFTEY
-            if(mOi.buttonRetriverDown.get()){
-                mRetriever.lower(0.25);
+            /*if(mOi.buttonRetriverDown.get()){
+                mRetriever.arm(0.25);
             } else if(mOi.buttonRetriverUp.get()){
-                mRetriever.raise(0.25);
+                mRetriever.arm(-0.25);
             } else {
                 mRetriever.arm(0);
             }*/
@@ -229,7 +230,7 @@ public class Teleop {
 
     public void teststick(){
 
-        mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
+        //mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
 
     }
 

@@ -16,8 +16,6 @@ public class Kamren {
     }
 
     public void start3LowTrench(){
-
-        /*
         mAutoCommands.straightDrive(12, 2, 250, 1700);
         mAutoCommands.gyroTurn(43, 3, 250, 1700);
         mAutoCommands.straightDrive(200, 2, 250, 1700);
@@ -30,13 +28,10 @@ public class Kamren {
 
         mAutoCommands.gyroTurn(71, 3, 250, 1700);
         mAutoCommands.straightDrive(211, 2, 250, 1700);
-        */
         
     }
     
     public void start2HighHome(){
-
-        /*
         //drive towardsgoal
         mAutoCommands.straightDrive(12, 2, 250, 1700);
         mAutoCommands.gyroTurn(45, 3, 250, 1700);  
@@ -55,11 +50,9 @@ public class Kamren {
         mAutoCommands.straightDrive(240, 2, 250, 1700);
         mAutoCommands.gyroTurn(42, 3, 250, 1700);
         mAutoCommands.straightDrive(80, 2, 250, 1400);
-        */
     }
 
     public void start3HighHome(){
-        /*
         mAutoCommands.straightDrive(12, 2, 250, 1700);
         mAutoCommands.gyroTurn(82, 3, 250, 1700);
         mAutoCommands.straightDrive(111, 2, 250, 1700);
@@ -74,6 +67,5 @@ public class Kamren {
         mAutoCommands.straightDrive(220, 2, 250, 1700);
         mAutoCommands.gyroTurn(42, 3, 250, 1700);
         mAutoCommands.straightDrive(80, 2, 250, 1400);
-        */
     }
 }

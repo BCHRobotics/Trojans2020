@@ -33,10 +33,11 @@ public class BallHandler extends SubsystemBase {
     new DigitalInput(RobotMap.DIO_BALLSENSE1),
     new DigitalInput(RobotMap.DIO_BALLSENSE2),
     new DigitalInput(RobotMap.DIO_BALLSENSE3),
+    new DigitalInput(RobotMap.DIO_BALLSENSE4)
   };
 
   //Ball sensor states
-  private boolean[] balls = {false, false, false, false};
+  private boolean[] balls = {false, false, false, false, false};
   private int[] speeds = {1, 1, 1};
 
   /**
@@ -57,12 +58,24 @@ public class BallHandler extends SubsystemBase {
    */
   public void load(double speed){
 
-    for(int i = 0; i < 3; i++){
-      if(!balls[i] && balls[i+1]){
-        TALON_BALLS[i].set(ControlMode.PercentOutput, speed * speeds[i]);
-      } else {
-        TALON_BALLS[i].set(ControlMode.PercentOutput, 0);
-      }
+    periodic();
+
+    if(balls[0] && !balls[1]){
+      TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speeds[0]);
+    } else {
+      TALON_BALLS[0].set(ControlMode.PercentOutput, 0);
+    }
+
+    if(balls[1] && !balls[2]){
+      TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speeds[0]);
+    } else {
+      TALON_BALLS[1].set(ControlMode.PercentOutput, 0);
+    }
+
+    if(balls[2] && !balls[3]){
+      TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speeds[0]);
+    } else {
+      TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
     }
 
   }
@@ -105,7 +118,7 @@ public class BallHandler extends SubsystemBase {
 
   @Override
   public void periodic() {
-    for(int i = 0; i <= 3; i++){
+    for(int i = 0; i < BALLSENSE.length; i++){
       balls[i] = !BALLSENSE[i].get();
       SmartDashboard.putBoolean("Ball Handler: Ball " + i, this.balls[i]);
     }

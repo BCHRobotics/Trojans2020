@@ -32,7 +32,7 @@ public class Retriever extends SubsystemBase {
   private double encoderCal = 1;
 
   //Max is 100%
-  private int min = -1000000, max = 1000000;
+  private int min = 2, max = 20;
   private double rampRate = 1;
 
   /**
@@ -56,42 +56,21 @@ public class Retriever extends SubsystemBase {
 
   }
 
-  /**
-   * Sets the retriever to the lower position
-   * 
-   * @param speed sets the speed of the arm motor when lowering
-   */
-  public void lower(double speed){
-
-    if(getEncoder() <= max){
-      SPARK_ARM.set(speed);
-    } else {
-      SPARK_ARM.set(0);
-    }
-
-  }
-
-  /**
-   * Sets the retriever to the raised position
-   * 
-   * @param speed sets the speed of the arm on the way up
-   */
-  public void raise(double speed){
-
-    if(getEncoder() >= min){
-      SPARK_ARM.set(-speed);
-    } else {
-      SPARK_ARM.set(0);
-    }
-
-  }
-
   public void arm(double speed){
-    SPARK_ARM.set(speed);
+
+    if((getEncoder() <= min && speed < 0) || (getEncoder() >= max && speed > 0)){
+      SPARK_ARM.set(0);
+    } else {
+      SPARK_ARM.set(speed);
+    }
   }
 
   public double getEncoder(){
-    return encoderArm.getPosition() * encoderCal;
+    return -encoderArm.getPosition() * encoderCal;
+  }
+
+  public void resetEncoder(){
+    encoderArm.setPosition(0);
   }
 
   @Override

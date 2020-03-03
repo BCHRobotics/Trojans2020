@@ -39,7 +39,9 @@ public class VohnPhillip {
      */
     public void S1LowTrench(){
 
-        /*
+        //reseting everything
+        
+        
         //move forward 1 foot
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //turn towards shooting position
@@ -74,7 +76,7 @@ public class VohnPhillip {
         //turn to face trench
         mAutoCommands.gyroTurn(33.4, 2, 500, 1000);
         //reseting gyros
-        */
+        
 
     }
 
@@ -98,7 +100,9 @@ public class VohnPhillip {
      */
     public void S1LowRendezvous(){
 
-        /*
+        //reseting everything
+        
+        
         //drive forward 1 foot
         mAutoCommands.straightDrive(12, 0.5, 500, 1000);
         //reset encoders
@@ -132,7 +136,7 @@ public class VohnPhillip {
         //turn to face rvp
         mAutoCommands.gyroTurn(-20.53, 2, 500, 1000);
         //reseting gyros
-        */
+        
 
     }
 
@@ -150,7 +154,9 @@ public class VohnPhillip {
      */
     public void S2LowRVP(){
 
-        /*
+        //reseting everything
+        
+        
         //drive to shooting position
         mAutoCommands.straightDrive(80, 0.5, 500, 3000);
         //reset encoders
@@ -172,7 +178,7 @@ public class VohnPhillip {
         //turn to face rvp
         mAutoCommands.gyroTurn(-19.87, 2, 500, 1000);
         //reseting gyros
-        */
+        
 
     }
 
@@ -207,7 +213,9 @@ public class VohnPhillip {
      */
     public void S3LowHome(){
 
-        /*
+        //reseting everything
+        
+        
         //drive 1 foot forward so that we can turn
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //reset encoders
@@ -275,7 +283,9 @@ public class VohnPhillip {
     */
     public void S3HighTrench(){
 
-        /*
+        //reseting everything
+        
+        
         //drive 1 foot  to be able to turn
         mAutoCommands.straightDrive(12, 2, 500, 500);
         //reset encoders
@@ -298,6 +308,5 @@ public class VohnPhillip {
         } catch(Exception e){
             //Dont sleep
         }
-        */
     }
 }

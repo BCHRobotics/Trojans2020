@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
   public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
-  public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain);
+  public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, mBallHandler, mRetriever);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
 
 
@@ -68,6 +68,7 @@ public class Robot extends TimedRobot {
     mShooter.resetEncoderWheel();
     mShooter.resetEncoderTurret();
     ahrs.reset();
+    mRetriever.resetEncoder();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 
@@ -81,7 +82,8 @@ public class Robot extends TimedRobot {
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    mRetriever.resetEncoder();
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
   }
@@ -89,15 +91,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    mAutoCommands.setPID();
-    mAutoCommands.printPID();
 
     SmartDashboard.putNumber("gyro", ahrs.getAngle());
 
     if(SmartDashboard.getBoolean("resetEncoders", false)) mDrivetrain.resetEncoders();
     if(SmartDashboard.getBoolean("resetNavX", false)) ahrs.reset();
 
-    //mBallHandler.periodic();
+    mBallHandler.periodic();
     mDrivetrain.periodic();
     mShooter.periodic();
     mRetriever.periodic();
@@ -128,9 +128,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    
-    //mAutoCommands.gyroTurn(-90, 2, 250, 2000);
-    mAutoCommands.gyroTune(-90);
 
   }
 }

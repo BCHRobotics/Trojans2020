@@ -42,7 +42,8 @@ public class VisionTracking {
                 goodToShoot = false;
             }else{
                 mShooter.turretSpeed(0);
-                mShooter.wheelSpeed(1/thor * 32.5);// wheel spin rpm (1/60*210000)
+                mShooter.wheelSpeed(1/thor * 32.5); //wheel spin rpm (1/60*210000)
+                //mShooter.setWheelSpeed(1/thor*210000);
                 goodToShoot = true;
             }
         }else{

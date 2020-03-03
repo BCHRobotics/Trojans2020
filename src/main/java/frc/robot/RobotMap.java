@@ -45,11 +45,11 @@ public class RobotMap {
     //SENSORS
    
     //Ballhandler
-    public static int DIO_BALLSENSE0 = 0;
-    public static int DIO_BALLSENSE1 = 1;
-    public static int DIO_BALLSENSE2 = 2;
+    public static int DIO_BALLSENSE0 = 2;
+    public static int DIO_BALLSENSE1 = 0;
+    public static int DIO_BALLSENSE2 = 4;
     public static int DIO_BALLSENSE3 = 3;
-    public static int DIO_BALLSENSE4 = 4;
+    public static int DIO_BALLSENSE4 = 1;
 
     /********************************** */
 
