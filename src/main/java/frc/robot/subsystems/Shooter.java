@@ -121,7 +121,7 @@ public class Shooter extends SubsystemBase {
    * 
    * @return Rpm of the motor
    */
-  private double getWheelRpm(){
+  public double getWheelRpm(){
     return encoderWheel.getVelocity();
   }
 

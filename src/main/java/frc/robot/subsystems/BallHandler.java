@@ -102,6 +102,19 @@ public class BallHandler extends SubsystemBase {
 
   }
 
+  /**
+   * Lets out the balls from the ball handler to the shooter
+   * 
+   * @param speed speed of unloading [0-1]
+   */
+  public void unload(double[] speed){
+
+    for(int i = 0; i < 3; i++){
+      TALON_BALLS[i].set(ControlMode.PercentOutput, speed[i]  * speedsUnload[i]);
+    }
+
+  }
+
   public void unload(){
 
     for(int i = 0; i < 3; i++){

@@ -20,6 +20,10 @@ public class VisionTracking {
     private double tv,tx,thor;
     private double range = 1.75;
     private double spin = 0.025;
+    private double wheelRpmSet = 0;
+    private double rpmRange = 500;
+    private double[] handlerDelayMs = {100, 100};
+    private double[] handleTime = {0, 0};
 
     private boolean goodToShoot = false;
 
@@ -41,10 +45,20 @@ public class VisionTracking {
                 mShooter.wheelSpeed(0.5);
                 goodToShoot = false;
             }else{
+
+                wheelRpmSet = 1/thor*210000;
+
                 mShooter.turretSpeed(0);
                 mShooter.wheelSpeed(1/thor * 32.5); //wheel spin rpm (1/60*210000)
                 //mShooter.setWheelSpeed(1/thor*210000);
-                goodToShoot = true;
+
+                if(wheelRpmSet > mShooter.getWheelRpm() - rpmRange && wheelRpmSet < mShooter.getWheelRpm() + wheelRpmSet){
+                    goodToShoot = true;
+                } else {
+                    goodToShoot = false;
+                    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0];
+                    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1];
+                }
             }
         }else{
             mShooter.turretSpeed(0);
@@ -62,7 +76,13 @@ public class VisionTracking {
             turretFun();
 
             if(goodToShoot){
-                //mBallHandler.unload(unloadSpeed);
+                if(System.currentTimeMillis() > handleTime[1]){
+                    mBallHandler.unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
+                } else if(System.currentTimeMillis() > handleTime[0]){
+                    mBallHandler.unload(new double[]{0, unloadSpeed, unloadSpeed});
+                } else {
+                    mBallHandler.unload(new double[]{0, 0, unloadSpeed});
+                }
             }
         }
     }
@@ -72,7 +92,13 @@ public class VisionTracking {
         turretFun();
 
         if(goodToShoot){
-                //mBallHandler.unload(unloadSpeed);
+                if(System.currentTimeMillis() > handleTime[1]){
+                    mBallHandler.unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
+                } else if(System.currentTimeMillis() > handleTime[0]){
+                    mBallHandler.unload(new double[]{0, unloadSpeed, unloadSpeed});
+                } else {
+                    mBallHandler.unload(new double[]{0, 0, unloadSpeed});
+                }
         }
     }
 
