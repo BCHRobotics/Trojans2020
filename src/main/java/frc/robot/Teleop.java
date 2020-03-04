@@ -105,14 +105,16 @@ public class Teleop {
             }
 
             //Lock Climber
-            /*if(mOi.buttonClimberLock.get()){
+            if(mOi.buttonClimberLock.get()){
                 mClimber.lock();
+                mClimber.releaseArms();
             } else {
                 mClimber.unlock();
-            }*/
+                mClimber.unreleaseArms();
+            }
 
             //Sets the speed of the lift winch motor
-            //mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.07, 0.07));
+            mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.15, 0.15));
 
             //Turn off eveything else
             mRetriever.intake(0);
@@ -141,6 +143,10 @@ public class Teleop {
                 //Run vision code
                 NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
                 mVisionTracking.shoot(1);
+                if(mOi.buttonShoot.get()){
+                    mBallHandler.unload(1);
+                }
+
                 
             } else {
             
@@ -194,9 +200,11 @@ public class Teleop {
                 
                 if(mOi.buttonShoot.get()){
                     mBallHandler.unload(0.75);
+                } else if(intakeSpeed != 0){
+                    // mBallHandler.unload(deadzone(mOi.drivestick.getRawAxis(5), 0.07, 0.07));
+                    mBallHandler.load(0.35);
                 } else {
-                   // mBallHandler.unload(deadzone(mOi.drivestick.getRawAxis(5), 0.07, 0.07));
-                   mBallHandler.load(0.5);
+                    mBallHandler.load(0);
                 }
                 
             }
@@ -207,13 +215,13 @@ public class Teleop {
             mRetriever.intake(intakeSpeed);
 
             //Intake up/down
-            /*if(mOi.buttonRetriverDown.get()){
-                mRetriever.arm(0.25);
+            if(mOi.buttonRetriverDown.get()){
+                mRetriever.arm(0.1);
             } else if(mOi.buttonRetriverUp.get()){
                 mRetriever.arm(-0.25);
             } else {
                 mRetriever.arm(0);
-            }*/
+            }
 
             //Stop Climbing
             //mClimber.unlock();
@@ -230,7 +238,8 @@ public class Teleop {
 
     public void teststick(){
 
-        //mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
+       //mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
+       mClimber.servoSet(mOi.teststick.getRawAxis(1));
 
     }
 

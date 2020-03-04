@@ -114,7 +114,7 @@ public class RobotMap {
 
     //funstick buttons regular
     public static int BTN_FUNSTICK_VISION = 1; //A
-    public static int BTN_FUNSTICK_SHOOT = 4; //Y
+    public static int BTN_FUNSTICK_SHOOT = 3; //X
     public static int BTN_FUNSTICK_STOP_SHOOTER = 9; //Left Stick
 
     public static int BTN_FUNSTICK_AUTOWHEEL = 10; //Right Stick

@@ -62,7 +62,7 @@ public class VisionTracking {
             turretFun();
 
             if(goodToShoot){
-                mBallHandler.unload(unloadSpeed);
+                //mBallHandler.unload(unloadSpeed);
             }
         }
     }
@@ -72,14 +72,14 @@ public class VisionTracking {
         turretFun();
 
         if(goodToShoot){
-                mBallHandler.unload(unloadSpeed);
+                //mBallHandler.unload(unloadSpeed);
         }
     }
 
     public void periodic(){
 
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-        tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + 1.87;
+        tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
         thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
 
         SmartDashboard.putNumber("tv",tv);

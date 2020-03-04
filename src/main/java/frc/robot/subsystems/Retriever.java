@@ -66,7 +66,7 @@ public class Retriever extends SubsystemBase {
   }
 
   public double getEncoder(){
-    return -encoderArm.getPosition() * encoderCal;
+    return encoderArm.getPosition() * encoderCal;
   }
 
   public void resetEncoder(){

@@ -59,9 +59,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Tele: Shooter Speed", -1);
     SmartDashboard.putNumber("INTAKE:", -1);
     SmartDashboard.putNumber("Shooter speed:", -1);
+    SmartDashboard.putNumber("liftSpeedTele", -1);
 
     //Resets all devices
-    //mClimber.resetEncoder();
+    mClimber.resetEncoder();
     //mColorWheel.resetEncoderExtend();
     //mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
@@ -82,7 +83,6 @@ public class Robot extends TimedRobot {
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
-    mRetriever.resetEncoder();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
     mDrivetrain.periodic();
     mShooter.periodic();
     mRetriever.periodic();
-    //mClimber.periodic();
+    mClimber.periodic();
     //mColorWheel.periodic();
     mVisionTracking.periodic();
   }
@@ -128,6 +128,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+
+    mClimber.releaseServo.set(0);
 
   }
 }

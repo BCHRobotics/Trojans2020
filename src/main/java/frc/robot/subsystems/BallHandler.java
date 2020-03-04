@@ -38,7 +38,8 @@ public class BallHandler extends SubsystemBase {
 
   //Ball sensor states
   private boolean[] balls = {false, false, false, false, false};
-  private int[] speeds = {1, 1, 1};
+  private double[] speedsLoad = {1, 1, 1.20};
+  private double[] speedsUnload = {0.25, 0.4, 1};
 
   /**
    * Creates a new BallHandler
@@ -60,22 +61,30 @@ public class BallHandler extends SubsystemBase {
 
     periodic();
 
-    if(balls[0] && !balls[1]){
-      TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speeds[0]);
+    /*
+    if(!balls[4]){
+      TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speeds[2]);
     } else {
-      TALON_BALLS[0].set(ControlMode.PercentOutput, 0);
+      TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
+    }
+    */
+
+    if(!balls[3]){
+      TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speedsLoad[2]);
+    } else {
+      TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
     }
 
-    if(balls[1] && !balls[2]){
-      TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speeds[0]);
+    if(!balls[2]){
+      TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speedsLoad[1]);
     } else {
       TALON_BALLS[1].set(ControlMode.PercentOutput, 0);
     }
 
-    if(balls[2] && !balls[3]){
-      TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speeds[0]);
+    if(!balls[1]){
+      TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speedsLoad[0]);
     } else {
-      TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
+      TALON_BALLS[0].set(ControlMode.PercentOutput, 0);
     }
 
   }
@@ -88,7 +97,7 @@ public class BallHandler extends SubsystemBase {
   public void unload(double speed){
 
     for(int i = 0; i < 3; i++){
-      TALON_BALLS[i].set(ControlMode.PercentOutput, speed  * speeds[i]);
+      TALON_BALLS[i].set(ControlMode.PercentOutput, speed  * speedsUnload[i]);
     }
 
   }

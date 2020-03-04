@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,11 +30,9 @@ public class Climber extends SubsystemBase {
   private CANEncoder encoderLift = new CANEncoder(SPARK_LIFT);
 
   private Relay SPIKE_RELAY = new Relay(0);
+  public Servo releaseServo = new Servo(1);
 
   private double encoderCal = 1;
-
-  //Max extend 100%
-  private double min = -1000000, max = 10000000; //Needs to be calibrated
   
   /**
    * Creates a new Climber.
@@ -49,11 +48,13 @@ public class Climber extends SubsystemBase {
    */
   public void lift(double speed){
    
-    if((getEncoder() <= min && speed < 0) || (getEncoder() >= max && speed > 0)){
+    if(getEncoder() <= 20 && speed > 0){
       SPARK_LIFT.set(0);
     } else {
       SPARK_LIFT.set(speed);
     }
+
+    SmartDashboard.putNumber("liftSpeedTele", speed);
 
   }
 
@@ -65,13 +66,25 @@ public class Climber extends SubsystemBase {
     SPIKE_RELAY.set(Value.kOff);
   }
 
+  public void releaseArms(){
+    releaseServo.set(0);
+  }
+
+  public void unreleaseArms(){
+    releaseServo.set(1);
+  }
+
+  public void servoSet(double set){
+    //releaseServo.setRaw((int)set*255);
+  }
+
   /**
    * Gets the encoder value of the lift motor
    * 
    * @return the calibrated encoder position
    */
   public double getEncoder(){
-    return encoderLift.getPosition() * encoderCal;
+    return -encoderLift.getPosition() * encoderCal;
   }
 
   public void resetEncoder(){
