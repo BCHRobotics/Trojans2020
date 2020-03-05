@@ -21,12 +21,11 @@ public class VisionTracking {
     private double range = 1.75;
     private double spin = 0.025;
     private double wheelRpmSet = 0;
-    private double rpmRange = 100;
-    private double[] handlerDelayMs = {2000, 500, 500};
-    private double[] handleTime = {0, 0, 0};
-    private int unloading = 0;
+    private double rpmRange = 100; 
 
     private double thorMulti = 158;
+
+    private int[] thorSpeeds = {0, 300};
 
     private boolean goodToShoot = false;
 
@@ -63,7 +62,13 @@ public class VisionTracking {
                 goodToShoot = false;
             }else{
 
-                wheelRpmSet = 1/thor*thorMulti*1000;
+                if((int)thor < thorSpeeds.length){
+                    wheelRpmSet = thorSpeeds[(int)thor];
+                } else {
+                    wheelRpmSet = thorSpeeds[thorSpeeds.length - 1];
+                }
+
+                //wheelRpmSet = 1/thor*thorMulti*1000;
                 SmartDashboard.putNumber("wheel rpm set", wheelRpmSet);
 
                 mShooter.turretSpeed(0);
@@ -76,9 +81,7 @@ public class VisionTracking {
                     
                 } else {
                     goodToShoot = false;
-                    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0];
-                    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1];
-                    handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
+                    mBallHandler.delayedUnloadSet();
                 }
             }
         }else{
@@ -97,18 +100,7 @@ public class VisionTracking {
             turretFun();
 
             if(goodToShoot){
-                if(handleTime[2] < System.currentTimeMillis()){
-                    mBallHandler.unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
-                    unloading = 3;
-                } else if(handleTime[1] < System.currentTimeMillis()){
-                    mBallHandler.unload(new double[]{0, unloadSpeed, unloadSpeed});
-                    unloading = 2;
-                } else if(handleTime[0] < System.currentTimeMillis()){
-                    mBallHandler.unload(new double[]{0, 0, unloadSpeed});
-                    unloading = 1;
-                } else {
-                    mBallHandler.unload(0);
-                }
+                mBallHandler.delayedUnload(unloadSpeed);
             }
             
         }
@@ -119,18 +111,7 @@ public class VisionTracking {
         turretFun();
 
         if(goodToShoot){
-            if(handleTime[2] < System.currentTimeMillis()){
-                mBallHandler.unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
-                unloading = 3;
-            } else if(handleTime[1] < System.currentTimeMillis()){
-                mBallHandler.unload(new double[]{0, unloadSpeed, unloadSpeed});
-                unloading = 2;
-            } else if(handleTime[0] < System.currentTimeMillis()){
-                mBallHandler.unload(new double[]{0, 0, unloadSpeed});
-                unloading = 1;
-            } else {
-                mBallHandler.unload(0);
-            }
+            mBallHandler.delayedUnload(unloadSpeed);
         }
 
     }
@@ -144,11 +125,6 @@ public class VisionTracking {
         SmartDashboard.putNumber("tv",tv);
         SmartDashboard.putNumber("tx",tx);
         SmartDashboard.putNumber("thor",thor);
-
-        SmartDashboard.putNumber("handleTime0", handleTime[0]);
-        SmartDashboard.putNumber("handleTime1", handleTime[1]);
-        SmartDashboard.putNumber("currentTime", System.currentTimeMillis());
-        SmartDashboard.putNumber("unloading", unloading);
         SmartDashboard.putBoolean("goodtoshoot", goodToShoot);
         //thorMulti = SmartDashboard.getNumber("thorMulti", 0);
     }

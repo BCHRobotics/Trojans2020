@@ -203,10 +203,10 @@ public class Teleop {
                 } 
                 
                 if(mOi.buttonShoot.get()){
-                    mBallHandler.unload(0.75);
+                    //mBallHandler.unload(1);
                 } else if(intakeSpeed != 0){
                     // mBallHandler.unload(deadzone(mOi.drivestick.getRawAxis(5), 0.07, 0.07));
-                    mBallHandler.load(0.35);
+                    mBallHandler.load(0.40);
                 } else {
                     mBallHandler.load(0);
                 }
@@ -216,11 +216,13 @@ public class Teleop {
                 }
 
                 if(mOi.funstick.getRawButton(4)){
-                    mBallHandler.unload(1);
+                    mBallHandler.delayedUnload(1);
+                } else {
+                    mBallHandler.delayedUnloadSet();
                 }
 
                 if(mOi.funstick.getRawButton(3)){
-                    mBallHandler.reverseUnload(0.2);
+                    mBallHandler.reverseUnload(0.6);
                 }
 
                 

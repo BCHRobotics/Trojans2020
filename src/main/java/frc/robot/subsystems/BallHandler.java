@@ -41,6 +41,10 @@ public class BallHandler extends SubsystemBase {
   private double[] speedsLoad = {1, 1, 1.20};
   private double[] speedsUnload = {1, 1, 1};
 
+  private double[] handlerDelayMs = {500, 1000, 500};
+  private double[] handleTime = {0, 0, 0};
+  private int unloading = 0;
+
   /**
    * Creates a new BallHandler
    */
@@ -61,30 +65,22 @@ public class BallHandler extends SubsystemBase {
 
     periodic();
 
-    /*
-    if(!balls[4]){
-      TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speeds[2]);
-    } else {
+    if(balls[4]){
       TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
-    }
-    */
-
-    if(!balls[3]){
+    } else {
       TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speedsLoad[2]);
-    } else {
-      TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
     }
 
-    if(!balls[2]){
-      TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speedsLoad[1]);
-    } else {
+    if(balls[2] && balls[4]){
       TALON_BALLS[1].set(ControlMode.PercentOutput, 0);
+    } else {
+      TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speedsLoad[1]);
     }
 
-    if(!balls[1]){
-      TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speedsLoad[0]);
-    } else {
+    if(balls[1] && balls[2] && balls[4]){
       TALON_BALLS[0].set(ControlMode.PercentOutput, 0);
+    } else {
+      TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speedsLoad[0]);
     }
 
   }
@@ -123,6 +119,27 @@ public class BallHandler extends SubsystemBase {
 
   }
 
+  public void delayedUnloadSet(){
+    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0];
+    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1];
+    handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
+  }
+
+  public void delayedUnload(double unloadSpeed){
+    if(handleTime[2] < System.currentTimeMillis()){
+      unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
+      unloading = 3;
+    } else if(handleTime[1] < System.currentTimeMillis()){
+      unload(new double[]{0, unloadSpeed, unloadSpeed});
+      unloading = 2;
+    } else if(handleTime[0] < System.currentTimeMillis()){
+      unload(new double[]{0, 0, unloadSpeed});
+      unloading = 1;
+    } else {
+      unload(0);
+    }
+  }
+
 
 
   /**
@@ -132,9 +149,12 @@ public class BallHandler extends SubsystemBase {
    */
   public void reverseUnload(double speed){
 
+    /*
     for(int i = 0; i < 3; i++){
       TALON_BALLS[i].set(ControlMode.PercentOutput, -speed);
-    }
+    }*/
+
+    TALON_BALLS[1].set(ControlMode.PercentOutput, -speed);
 
   }
 
@@ -144,5 +164,10 @@ public class BallHandler extends SubsystemBase {
       balls[i] = !BALLSENSE[i].get();
       SmartDashboard.putBoolean("Ball Handler: Ball " + i, this.balls[i]);
     }
+    SmartDashboard.putNumber("unloading", unloading);
+    SmartDashboard.putNumber("handleTime0", handleTime[0]);
+    SmartDashboard.putNumber("handleTime1", handleTime[1]);
+    SmartDashboard.putNumber("handleTime0", handleTime[2]);
+    SmartDashboard.putNumber("currentTime", System.currentTimeMillis());
   }
 }

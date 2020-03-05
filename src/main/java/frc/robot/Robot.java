@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -38,13 +40,14 @@ public class Robot extends TimedRobot {
   // public static ColorWheel mColorWheel = new ColorWheel();
 
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
-  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber,
-      mRetriever);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, mBallHandler, mRetriever);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
 
   @Override
   public void robotInit() {
+
+    CameraServer.getInstance().startAutomaticCapture();
 
     SmartDashboard.putNumber("DrivePSet", 0);
     SmartDashboard.putNumber("DriveISet", 0);

@@ -45,8 +45,8 @@ public class RobotMap {
     //SENSORS
    
     //Ballhandler
-    public static int DIO_BALLSENSE0 = 2;
-    public static int DIO_BALLSENSE1 = 0;
+    public static int DIO_BALLSENSE0 = 0;
+    public static int DIO_BALLSENSE1 = 2;
     public static int DIO_BALLSENSE2 = 4;
     public static int DIO_BALLSENSE3 = 3;
     public static int DIO_BALLSENSE4 = 1;
@@ -114,7 +114,7 @@ public class RobotMap {
 
     //funstick buttons regular
     public static int BTN_FUNSTICK_VISION = 1; //A
-    public static int BTN_FUNSTICK_SHOOT = 3; //X
+    public static int BTN_FUNSTICK_SHOOT = 4; //Y
     public static int BTN_FUNSTICK_STOP_SHOOTER = 9; //Left Stick
 
     public static int BTN_FUNSTICK_AUTOWHEEL = 10; //Right Stick
