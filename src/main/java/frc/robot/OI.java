@@ -41,6 +41,7 @@ public class OI {
     public JoystickButton buttonChangeModeB = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CHANGEMODEB);
 
     public JoystickButton buttonClimberLock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_CLIMBLOCK);
+    public JoystickButton buttonRatchetLock = new JoystickButton(funstick, RobotMap.BTN_FUNSTICK_RATCHETLOCK);
 
     // prostick buttons
     public JoystickButton buttonUnload = new JoystickButton(prostick, RobotMap.BTN_PROSTICK_UNLOAD);

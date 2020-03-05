@@ -106,11 +106,15 @@ public class Teleop {
 
             //Lock Climber
             if(mOi.buttonClimberLock.get()){
-                mClimber.lock();
                 mClimber.releaseArms();
             } else {
-                mClimber.unlock();
                 mClimber.unreleaseArms();
+            }
+
+            if(mOi.buttonRatchetLock.get()){
+                mClimber.lock();
+            } else {
+                mClimber.unlock();
             }
 
             //Sets the speed of the lift winch motor
@@ -206,6 +210,19 @@ public class Teleop {
                 } else {
                     mBallHandler.load(0);
                 }
+
+                if(mOi.funstick.getRawButton(2)){
+                    mVisionTracking.justTurret();
+                }
+
+                if(mOi.funstick.getRawButton(4)){
+                    mBallHandler.unload(1);
+                }
+
+                if(mOi.funstick.getRawButton(3)){
+                    mBallHandler.reverseUnload(0.2);
+                }
+
                 
             }
 
@@ -239,7 +256,7 @@ public class Teleop {
     public void teststick(){
 
        //mRetriever.arm(mOi.teststick.getRawAxis(1) * 0.25);
-       mClimber.servoSet(mOi.teststick.getRawAxis(1));
+       //mClimber.servoSet(mOi.teststick.getRawAxis(1));
 
     }
 

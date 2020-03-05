@@ -128,7 +128,8 @@ public class RobotMap {
     public static int BTN_FUNSTICK_CHANGEMODEA = 7; //Back
     public static int BTN_FUNSTICK_CHANGEMODEB = 8; //Start
 
-    public static int BTN_FUNSTICK_CLIMBLOCK = 1; //A
+    public static int BTN_FUNSTICK_CLIMBLOCK = 3; //X
+    public static int BTN_FUNSTICK_RATCHETLOCK = 1; //A
 
     //prostick button
     public static int BTN_PROSTICK_UNLOAD = 1; //Temp mapped 

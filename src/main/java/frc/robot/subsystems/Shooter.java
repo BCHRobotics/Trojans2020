@@ -112,7 +112,7 @@ public class Shooter extends SubsystemBase {
    */
   public void setWheelSpeed(double rpm){
 
-    wheelPIDcontroller.setReference(1000, ControlType.kVelocity);
+    wheelPIDcontroller.setReference(rpm, ControlType.kVelocity);
 
   }
 

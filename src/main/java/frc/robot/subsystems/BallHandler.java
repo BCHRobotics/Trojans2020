@@ -39,7 +39,7 @@ public class BallHandler extends SubsystemBase {
   //Ball sensor states
   private boolean[] balls = {false, false, false, false, false};
   private double[] speedsLoad = {1, 1, 1.20};
-  private double[] speedsUnload = {0.25, 0.4, 1};
+  private double[] speedsUnload = {1, 1, 1};
 
   /**
    * Creates a new BallHandler

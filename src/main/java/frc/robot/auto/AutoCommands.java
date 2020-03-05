@@ -40,13 +40,15 @@ public class AutoCommands {
      * @param speed speed of the robot [0-1]
      */
     public void forwardDrive(double setpoint, double speed){
+
+        mDrivetrain.resetEncoders();
         
-        if(speed <= 0 || setpoint >= mDrivetrain.getEncoderBL()) speed = 0;
+        if(setpoint >= mDrivetrain.getEncoderBL()) speed = 0;
 
         while(mDrivetrain.getEncoderBL() < setpoint){
             mDrivetrain.arcade(speed, 0);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 
@@ -59,6 +61,8 @@ public class AutoCommands {
      * @param speed speed of the robot [0-1]
      */
     public void backwardDrive(double setpoint, double speed){
+
+        mDrivetrain.resetEncoders();
 
         if(speed <= 0 || setpoint <= mDrivetrain.getEncoderBL()) speed = 0;
 
@@ -73,6 +77,8 @@ public class AutoCommands {
 
     public void straightForwardDrive(double enocderSetpoint, double gyroSetpoint, double encoderSpeed, double gyroSpeed){
 
+        mDrivetrain.resetEncoders();
+        
         if(encoderSpeed <= 0 || enocderSetpoint >= mDrivetrain.getEncoderBL()) encoderSpeed = 0;
 
         while(mDrivetrain.getEncoderBL() < enocderSetpoint){
@@ -85,6 +91,8 @@ public class AutoCommands {
     }
 
     public void striaghtBackDrive(double enocderSetpoint, double gyroSetpoint, double encoderSpeed, double gyroSpeed){
+
+        mDrivetrain.resetEncoders();
 
         if(encoderSpeed <= 0 || enocderSetpoint <= mDrivetrain.getEncoderBL()) encoderSpeed = 0;
 

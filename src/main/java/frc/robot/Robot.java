@@ -23,12 +23,11 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.vision.VisionTracking;
 
 /**
- * This is FRC team 2386 code
- * 2500
+ * This is FRC team 2386 code 2500
  */
 public class Robot extends TimedRobot {
 
-  public static AHRS ahrs = new AHRS(Port.kUSB); //NavX Gyro
+  public static AHRS ahrs = new AHRS(Port.kUSB); // NavX Gyro
 
   public static Drivetrain mDrivetrain = new Drivetrain();
   public static OI mOi = new OI();
@@ -36,20 +35,20 @@ public class Robot extends TimedRobot {
   public static Shooter mShooter = new Shooter();
   public static Retriever mRetriever = new Retriever();
   public static Climber mClimber = new Climber();
-  //public static ColorWheel mColorWheel = new ColorWheel();
+  // public static ColorWheel mColorWheel = new ColorWheel();
 
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
-  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
+  public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber,
+      mRetriever);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, mBallHandler, mRetriever);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
-
 
   @Override
   public void robotInit() {
 
     SmartDashboard.putNumber("DrivePSet", 0);
     SmartDashboard.putNumber("DriveISet", 0);
-    SmartDashboard.putNumber("DriveDSet", 0); 
+    SmartDashboard.putNumber("DriveDSet", 0);
 
     SmartDashboard.putNumber("GyroPSet", 0);
     SmartDashboard.putNumber("GyroISet", 0);
@@ -60,11 +59,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("INTAKE:", -1);
     SmartDashboard.putNumber("Shooter speed:", -1);
     SmartDashboard.putNumber("liftSpeedTele", -1);
+    SmartDashboard.putNumber("wheel rpm set", -1);
+    SmartDashboard.putNumber("unloading", -1);
+    SmartDashboard.putNumber("thorMulti", 0);
 
-    //Resets all devices
+    // Resets all devices
     mClimber.resetEncoder();
-    //mColorWheel.resetEncoderExtend();
-    //mColorWheel.resetEncoderSpinner();
+    // mColorWheel.resetEncoderExtend();
+    // mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     mShooter.resetEncoderTurret();
@@ -76,10 +78,10 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    //Resets all devices
-    //mClimber.resetEncoder();
-    //mColorWheel.resetEncoderExtend();
-    //mColorWheel.resetEncoderSpinner();
+    // Resets all devices
+    // mClimber.resetEncoder();
+    // mColorWheel.resetEncoderExtend();
+    // mColorWheel.resetEncoderSpinner();
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
@@ -88,36 +90,35 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("ENDLOOP", false);
   }
 
-
   @Override
   public void robotPeriodic() {
 
     SmartDashboard.putNumber("gyro", ahrs.getAngle());
 
-    if(SmartDashboard.getBoolean("resetEncoders", false)) mDrivetrain.resetEncoders();
-    if(SmartDashboard.getBoolean("resetNavX", false)) ahrs.reset();
+    if (SmartDashboard.getBoolean("resetEncoders", false))
+      mDrivetrain.resetEncoders();
+    if (SmartDashboard.getBoolean("resetNavX", false))
+      ahrs.reset();
 
     mBallHandler.periodic();
     mDrivetrain.periodic();
     mShooter.periodic();
     mRetriever.periodic();
     mClimber.periodic();
-    //mColorWheel.periodic();
+    // mColorWheel.periodic();
     mVisionTracking.periodic();
   }
-
 
   @Override
   public void autonomousInit() {
     mAutonomous.init();
   }
 
-
   @Override
   public void autonomousPeriodic() {
-    mAutonomous.periodic();
+    //mAutonomous.periodic();
+    //mAutoCommands.forwardDrive(120, 0.5);
   }
-
 
   @Override
   public void teleopPeriodic() {
@@ -129,7 +130,12 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    mClimber.releaseServo.set(0);
-
+    if(mOi.teststick.getRawButton(1)){
+      mBallHandler.unload(new double[]{1,1,1});
+    } else {
+      mBallHandler.unload(0);
+    }
+    
+    
   }
 }

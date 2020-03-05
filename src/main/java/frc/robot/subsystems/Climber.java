@@ -51,7 +51,7 @@ public class Climber extends SubsystemBase {
     if(getEncoder() <= 20 && speed > 0){
       SPARK_LIFT.set(0);
     } else {
-      SPARK_LIFT.set(speed);
+      SPARK_LIFT.set(-speed);
     }
 
     SmartDashboard.putNumber("liftSpeedTele", speed);
@@ -67,11 +67,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void releaseArms(){
-    releaseServo.set(0);
+    releaseServo.set(0.25);
   }
 
   public void unreleaseArms(){
-    releaseServo.set(1);
+    releaseServo.set(0.75);
   }
 
   public void servoSet(double set){
@@ -84,7 +84,7 @@ public class Climber extends SubsystemBase {
    * @return the calibrated encoder position
    */
   public double getEncoder(){
-    return -encoderLift.getPosition() * encoderCal;
+    return encoderLift.getPosition() * encoderCal;
   }
 
   public void resetEncoder(){
