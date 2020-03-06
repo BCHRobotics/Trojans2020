@@ -88,6 +88,8 @@ public class Shooter extends SubsystemBase {
 
     SmartDashboard.putNumber("Shooter speed:", speed);
 
+    
+
   }
 
  
@@ -163,6 +165,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Shooter: encoderTurret", getEncoderTurret());
     SmartDashboard.putNumber("Shooter: encoderWheel", getEncoderWheel());
     SmartDashboard.putNumber("Shooter: rpmWheel", getWheelRpm());
+    SmartDashboard.putNumber("Shooter: voltage", SPARK_SHOOTERWHEEL.getAppliedOutput());
 
   }
 }

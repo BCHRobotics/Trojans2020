@@ -77,6 +77,7 @@ public class Retriever extends SubsystemBase {
   public void periodic() {
 
     SmartDashboard.putNumber("Retriever: Arm Encoder", getEncoder());
+    SmartDashboard.putNumber("intakeMotor", TALON_BAR.getMotorOutputPercent());
 
   }
 }

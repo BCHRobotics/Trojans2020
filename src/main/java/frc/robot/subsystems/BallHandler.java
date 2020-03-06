@@ -36,12 +36,14 @@ public class BallHandler extends SubsystemBase {
     new DigitalInput(RobotMap.DIO_BALLSENSE4)
   };
 
+  private boolean latch = false;
+
   //Ball sensor states
   private boolean[] balls = {false, false, false, false, false};
-  private double[] speedsLoad = {1, 1, 1.20};
+  private double[] speedsLoad = {0.6, 0.6, 1};
   private double[] speedsUnload = {1, 1, 1};
 
-  private double[] handlerDelayMs = {500, 1000, 500};
+  private double[] handlerDelayMs = {500, 500, 500};
   private double[] handleTime = {0, 0, 0};
   private int unloading = 0;
 
@@ -56,6 +58,10 @@ public class BallHandler extends SubsystemBase {
 
   }
 
+  public void unlatch(){
+    latch = false;
+  }
+
   /**
    * intakes the ball into the ball handler
    * 
@@ -65,19 +71,23 @@ public class BallHandler extends SubsystemBase {
 
     periodic();
 
-    if(balls[4]){
+    if((balls[3] || balls[4])){
+      latch = true;
+    }
+
+    if(latch){
       TALON_BALLS[2].set(ControlMode.PercentOutput, 0);
     } else {
       TALON_BALLS[2].set(ControlMode.PercentOutput, speed * speedsLoad[2]);
     }
 
-    if(balls[2] && balls[4]){
+    if(balls[2] && balls[3]){
       TALON_BALLS[1].set(ControlMode.PercentOutput, 0);
     } else {
       TALON_BALLS[1].set(ControlMode.PercentOutput, speed * speedsLoad[1]);
     }
 
-    if(balls[1] && balls[2] && balls[4]){
+    if(balls[1] && balls[2] && balls[3]){
       TALON_BALLS[0].set(ControlMode.PercentOutput, 0);
     } else {
       TALON_BALLS[0].set(ControlMode.PercentOutput, speed * speedsLoad[0]);
@@ -125,6 +135,12 @@ public class BallHandler extends SubsystemBase {
     handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
   }
 
+  public void delayedUnloadSet(int delay){
+    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0] + delay;
+    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + delay;
+    handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2] + delay;
+  }
+
   public void delayedUnload(double unloadSpeed){
     if(handleTime[2] < System.currentTimeMillis()){
       unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
@@ -149,12 +165,10 @@ public class BallHandler extends SubsystemBase {
    */
   public void reverseUnload(double speed){
 
-    /*
+    
     for(int i = 0; i < 3; i++){
       TALON_BALLS[i].set(ControlMode.PercentOutput, -speed);
-    }*/
-
-    TALON_BALLS[1].set(ControlMode.PercentOutput, -speed);
+    }
 
   }
 
@@ -169,5 +183,11 @@ public class BallHandler extends SubsystemBase {
     SmartDashboard.putNumber("handleTime1", handleTime[1]);
     SmartDashboard.putNumber("handleTime0", handleTime[2]);
     SmartDashboard.putNumber("currentTime", System.currentTimeMillis());
+
+    SmartDashboard.putNumber("motor0", TALON_BALLS[0].getMotorOutputPercent());
+    SmartDashboard.putNumber("motor1", TALON_BALLS[1].getMotorOutputPercent());
+    SmartDashboard.putNumber("motor2", TALON_BALLS[2].getMotorOutputPercent());
+
+    SmartDashboard.putBoolean("latch", latch);
   }
 }

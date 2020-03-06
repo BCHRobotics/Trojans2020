@@ -65,6 +65,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("wheel rpm set", -1);
     SmartDashboard.putNumber("unloading", -1);
     SmartDashboard.putNumber("thorMulti", 0);
+    SmartDashboard.putNumber("tuneWheelSpeedTest", 0);
+    SmartDashboard.putBoolean("WHEEELLLELLELELEL", false);
 
     // Resets all devices
     mClimber.resetEncoder();
@@ -124,6 +126,11 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void teleopInit() {
+    mShooter.wheelSpeed(0.5);
+  }
+
+  @Override
   public void teleopPeriodic() {
     mTeleop.drivestick();
     mTeleop.funstick();
@@ -135,8 +142,10 @@ public class Robot extends TimedRobot {
 
     if(mOi.teststick.getRawButton(1)){
       mBallHandler.unload(new double[]{1,1,1});
+      mShooter.setWheelSpeed(SmartDashboard.getNumber("tuneWheelSpeedTest", 0));
     } else {
       mBallHandler.unload(0);
+      mShooter.wheelSpeed(0.5);
     }
     
     

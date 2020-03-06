@@ -126,6 +126,7 @@ public class Teleop {
             mShooter.wheelSpeed(0);
 
         } else {
+
             if(mOi.buttonChangeModeA.get() || mOi.buttonChangeModeB.get()){
 
                 mOi.funstick.setRumble(RumbleType.kLeftRumble, 1);
@@ -147,9 +148,10 @@ public class Teleop {
                 //Run vision code
                 NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
                 mVisionTracking.shoot(1);
-                if(mOi.buttonShoot.get()){
+                
+                /*if(mOi.buttonShoot.get()){
                     mBallHandler.unload(1);
-                }
+                }*/
 
                 
             } else {
@@ -162,51 +164,18 @@ public class Teleop {
 
                 mShooter.turretSpeed(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN), 0.2, 0.2));
 
-                if(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) <= 0.2){
-                    mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED));
+                if(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.3){
+                    mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED)*2);
                 } else {
-
-                    //Shooter speeds arround dpad
-                    switch(mOi.funstick.getPOV()){
-                        case 0:
-                            shooterSpeed = shooterSpeeds[0];
-                        break;
-                        case 45:
-                            shooterSpeed = shooterSpeeds[1];
-                        break;
-                        case 90:
-                            shooterSpeed = shooterSpeeds[2];
-                        break;
-                        case 135:
-                            shooterSpeed = shooterSpeeds[3];
-                        break;
-                        case 180:
-                            shooterSpeed = shooterSpeeds[4];
-                        break;
-                        case 225:
-                            shooterSpeed = shooterSpeeds[5];
-                        break;
-                        case 270:
-                            shooterSpeed = shooterSpeeds[6];
-                        break;
-                        case 315:
-                            shooterSpeed = shooterSpeeds[7];
-                        break;
-                    }
-
-                    if(mOi.buttonStopShooter.get()){
-                        shooterSpeed = 0;
-                    }
-    
-                    mShooter.wheelSpeed(shooterSpeed);
-
+                    SmartDashboard.putBoolean("WHEEELLLELLELELEL", true);
+                    mShooter.wheelSpeed(0.5);
                 } 
                 
                 if(mOi.buttonShoot.get()){
                     //mBallHandler.unload(1);
                 } else if(intakeSpeed != 0){
                     // mBallHandler.unload(deadzone(mOi.drivestick.getRawAxis(5), 0.07, 0.07));
-                    mBallHandler.load(0.40);
+                    mBallHandler.load(0.47);
                 } else {
                     mBallHandler.load(0);
                 }
@@ -217,14 +186,15 @@ public class Teleop {
 
                 if(mOi.funstick.getRawButton(4)){
                     mBallHandler.delayedUnload(1);
+                    mBallHandler.unlatch();
+                    mRetriever.intake(1);
                 } else {
                     mBallHandler.delayedUnloadSet();
                 }
 
                 if(mOi.funstick.getRawButton(3)){
-                    mBallHandler.reverseUnload(0.6);
+                    mBallHandler.reverseUnload(1);
                 }
-
                 
             }
 
