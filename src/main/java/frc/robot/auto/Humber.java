@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Retriever;
 import frc.robot.subsystems.Shooter;
@@ -25,16 +26,19 @@ public class Humber {
     private VisionTracking mVisionTracking;
     private Retriever mRetriever;
     private Shooter mShooter;
+    private BallHandler mBallHandler;
 
-    private long endTime = 0;
+    private long startTime = 0;
 
-    public Humber(Drivetrain mDrivetrain, VisionTracking mVisionTracking, Retriever mRetriever, Shooter mShooter) {
+    public Humber(Drivetrain mDrivetrain, VisionTracking mVisionTracking, Retriever mRetriever, Shooter mShooter, BallHandler mBallHandler) {
         this.mDrivetrain = mDrivetrain;
         this.mVisionTracking = mVisionTracking;
         this.mRetriever = mRetriever;
         this.mShooter = mShooter;
+        this.mBallHandler = mBallHandler;
     }
 
+    /*
     public void initDrive() {
 
         endTime = System.currentTimeMillis() + 1250;
@@ -67,12 +71,69 @@ public class Humber {
             SmartDashboard.putBoolean("loop3", true);
         }
 
+    }*/
+
+    public void init(){
+        startTime = System.currentTimeMillis();
     }
 
     public void sixBall() {
 
-        //NEED TO ADD DELAYED UPLOAD INSTEAD OF WITH AUTO VISION!!!!
+        if((System.currentTimeMillis() - startTime) < 1000 && (System.currentTimeMillis() - startTime) > 0){
+            mShooter.turretSpeed(0.2);
+            mShooter.wheelSpeed(0.90);
+            mRetriever.arm(0.1);
+            SmartDashboard.putBoolean("loop1", true);
+        }
 
+        if((System.currentTimeMillis() - startTime) < 3000 && (System.currentTimeMillis() - startTime) > 1000){
+            mShooter.wheelSpeed(0.90);
+            mRetriever.arm(0.1);
+            mVisionTracking.justTurret();
+            SmartDashboard.putBoolean("loop2", true);
+        }
+
+        if((System.currentTimeMillis() - startTime) < 4000 && (System.currentTimeMillis() - startTime) > 3000){
+            mShooter.wheelSpeed(0.90);
+            mRetriever.arm(0.1);
+            mRetriever.intake(-1);
+            mVisionTracking.justTurret();
+            mDrivetrain.arcade(-0.15,0);
+            SmartDashboard.putBoolean("loop3", true);
+        }
+
+        if((System.currentTimeMillis() - startTime) < 6000 && (System.currentTimeMillis() - startTime) > 4000){
+            mShooter.wheelSpeed(0.90);
+            mRetriever.arm(0.1);
+            mRetriever.intake(-1);
+            mVisionTracking.justTurret();
+            mDrivetrain.arcade(0,0);
+            mBallHandler.delayedUnloadSet();
+            SmartDashboard.putBoolean("loop4", true);
+        }
+
+        if((System.currentTimeMillis() - startTime) < 8500 && (System.currentTimeMillis() - startTime) > 6000){
+            mDrivetrain.arcade(-0.15,0);
+            mRetriever.intake(-1);
+            mVisionTracking.shoot(1);
+            mBallHandler.delayedUnload(1);
+            SmartDashboard.putBoolean("loop5", true);
+        }
+
+        if((System.currentTimeMillis() - startTime) > 8500){
+            mDrivetrain.arcade(0, 0);
+            mRetriever.intake(0);
+            mBallHandler.load(0);
+            mShooter.turretSpeed(0);
+            mShooter.wheelSpeed(0);
+        }
+
+        SmartDashboard.putNumber("HUMBER AUTO TIME", (System.currentTimeMillis() - startTime));
+    }
+
+    public void sixBallOLD(){
+
+        /*
         endTime = System.currentTimeMillis() + 1000;
         while (endTime > System.currentTimeMillis() && RobotState.isAutonomous()) {
             mShooter.turretSpeed(0.2);
@@ -105,6 +166,7 @@ public class Humber {
             mRetriever.intake(-1);
             mVisionTracking.justTurret();
             mDrivetrain.arcade(0,0);
+            mBallHandler.delayedUnloadSet();
         }
 
         endTime = System.currentTimeMillis() + 2500;
@@ -112,11 +174,10 @@ public class Humber {
             mDrivetrain.arcade(-0.15,0);
             mRetriever.intake(-1);
             mVisionTracking.shoot(1);
+            mBallHandler.delayedUnload(1);
             SmartDashboard.putBoolean("loop3", true);
         }
-
-        
-
+        */
     }
 
 }

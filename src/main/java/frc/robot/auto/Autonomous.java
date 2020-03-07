@@ -65,10 +65,10 @@ public class Autonomous {
         mAyrton = new Ayrton(mAutoCommands, mVisionTracking);
         mMatthew = new Matthew(mAutoCommands);
         mKamren = new Kamren(mAutoCommands);
-        mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter);
+        //mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter);
 
         mChooser.setDefaultOption("Default Auto", kDefaultAuto);
-        mChooser.addObject("6 ball", kSixBallAuto);
+        //mChooser.addObject("6 ball", kSixBallAuto);
 
         /*
         mChooser.addOption("Start 1, Shoot High, End Rendez-vous", kstart1HighRDV);
@@ -117,7 +117,7 @@ public class Autonomous {
                 break;
             case kDefaultAuto:
             default:
-                mHumber.initDrive();
+                //mHumber.initDrive();
                 break;
             
         }

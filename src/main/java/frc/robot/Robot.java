@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, mBallHandler, mRetriever);
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking, mRetriever, mShooter);
-  public static Humber mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter);
+  public static Humber mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter, mBallHandler);
 
 
   @Override
@@ -74,6 +74,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("loop1", false);
     SmartDashboard.putBoolean("loop2", false);
     SmartDashboard.putBoolean("loop3", false);
+    SmartDashboard.putBoolean("loop4", false);
+    SmartDashboard.putBoolean("loop5", false);
+    SmartDashboard.putNumber("HUMBER AUTO TIME", -1);
 
     // Resets all devices
     mClimber.resetEncoder();
@@ -128,20 +131,16 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //mAutonomous.init();
+
+    mHumber.init();
   }
 
   @Override
   public void autonomousPeriodic() {
     //mAutonomous.periodic();
     //mAutoCommands.forwardDrive(120, 0.5);
-    boolean ranAuto = false;
-    SmartDashboard.putBoolean("ranAuto", ranAuto);  
-
-    if(!ranAuto){
-      mHumber.sixBall();
-      ranAuto = true;
-    }
-    SmartDashboard.putBoolean("ranAuto", ranAuto);
+    
+    mHumber.sixBall();
   }
 
   @Override

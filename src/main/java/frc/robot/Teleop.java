@@ -62,7 +62,7 @@ public class Teleop {
     public void drivestick(){
 
         // sets the default speed to 75%
-        speed = 0.75;
+        speed = 1.0;
         
         // Change the speed depending on snail 50%, turbo 100%
         if(mOi.buttonSnail.get()) speed = 0.5;
@@ -72,7 +72,7 @@ public class Teleop {
         y = deadzone(mOi.drivestick.getRawAxis(RobotMap.OI_DRIVESTICK_MOVEY), 0.07, 0.07);
         turn = deadzone(mOi.drivestick.getRawAxis(RobotMap.OI_DRIVESTICK_TURN), 0.07, 0.07);
         
-        mDrivetrain.arcade(y * speed, turn * speed * 0.7);
+        mDrivetrain.arcade(y * speed, turn * speed);
 
     }
 
@@ -149,7 +149,7 @@ public class Teleop {
 
             if(mOi.buttonVision.get()){
                 //Run vision code
-                NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+                //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
                 mVisionTracking.shoot(1);
                 
                 /*if(mOi.buttonShoot.get()){
@@ -171,7 +171,7 @@ public class Teleop {
                     mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED)*2);
                 } else {
                     SmartDashboard.putBoolean("WHEEELLLELLELELEL", true);
-                    mShooter.wheelSpeed(0.5);
+                    mShooter.wheelSpeed(0.715);
                 } 
                 
                 if(mOi.buttonShoot.get()){

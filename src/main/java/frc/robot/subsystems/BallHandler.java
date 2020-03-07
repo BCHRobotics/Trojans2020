@@ -43,8 +43,8 @@ public class BallHandler extends SubsystemBase {
   private double[] speedsLoad = {0.6, 0.6, 1};
   private double[] speedsUnload = {1, 1, 1};
 
-  private double[] handlerDelayMs = {500, 500, 500};
-  private double[] handleTime = {0, 0, 0};
+  private long[] handlerDelayMs = {500, 500, 500};
+  private long[] handleTime = {0, 0, 0};
   private int unloading = 0;
 
   /**
@@ -130,15 +130,10 @@ public class BallHandler extends SubsystemBase {
   }
 
   public void delayedUnloadSet(){
-    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0];
-    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1];
-    handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
-  }
-
-  public void delayedUnloadSet(int delay){
-    handleTime[0] = System.currentTimeMillis() + handlerDelayMs[0] + delay;
-    handleTime[1] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + delay;
-    handleTime[2] = System.currentTimeMillis() + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2] + delay;
+    long sysTime = System.currentTimeMillis();
+    handleTime[0] = sysTime + handlerDelayMs[0];
+    handleTime[1] = sysTime + handlerDelayMs[0] + handlerDelayMs[1];
+    handleTime[2] = sysTime + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
   }
 
   public void delayedUnload(double unloadSpeed){
