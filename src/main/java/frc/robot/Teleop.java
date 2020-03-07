@@ -52,6 +52,7 @@ public class Teleop {
     private double y = 0, turn = 0, speed = 0;
     private double intakeSpeed = 0;
     private double shooterSpeed = 0;
+    private double liftSpeed = 0;
 
     private double[] shooterSpeeds = {0,0.50,0.55,0.60,0.65,0.70,0.75,0.80};
 
@@ -111,14 +112,16 @@ public class Teleop {
                 mClimber.unreleaseArms();
             }
 
+            //Sets the speed of the lift winch motor
+            liftSpeed = deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.15, 0.15);
+
             if(mOi.buttonRatchetLock.get()){
                 mClimber.lock();
             } else {
                 mClimber.unlock();
             }
 
-            //Sets the speed of the lift winch motor
-            mClimber.lift(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_LIFT), 0.15, 0.15));
+            mClimber.lift(liftSpeed);
 
             //Turn off eveything else
             mRetriever.intake(0);
@@ -184,18 +187,21 @@ public class Teleop {
                     mVisionTracking.justTurret();
                 }
 
-                if(mOi.funstick.getRawButton(4)){
-                    mBallHandler.delayedUnload(1);
-                    mBallHandler.unlatch();
-                    mRetriever.intake(1);
-                } else {
-                    mBallHandler.delayedUnloadSet();
-                }
+                
 
+                /*
                 if(mOi.funstick.getRawButton(3)){
                     mBallHandler.reverseUnload(1);
-                }
+                }*/
                 
+            }
+
+            if(mOi.funstick.getRawButton(4) || mOi.funstick.getRawButton(3)){
+                mBallHandler.delayedUnload(1);
+                mBallHandler.unlatch();
+                mRetriever.intake(1);
+            } else {
+                mBallHandler.delayedUnloadSet();
             }
 
             //Intake Control

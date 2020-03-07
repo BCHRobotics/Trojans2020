@@ -49,7 +49,7 @@ public class Climber extends SubsystemBase {
   public void lift(double speed){
    
     if(getEncoder() <= 20 && speed > 0){
-      SPARK_LIFT.set(0);
+      SPARK_LIFT.set(-speed*0.25);
     } else {
       SPARK_LIFT.set(-speed);
     }

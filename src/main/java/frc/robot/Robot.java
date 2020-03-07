@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.AutoCommands;
 import frc.robot.auto.Autonomous;
+import frc.robot.auto.Humber;
 import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -42,7 +43,9 @@ public class Robot extends TimedRobot {
   public static VisionTracking mVisionTracking = new VisionTracking(mShooter, mBallHandler);
   public static Teleop mTeleop = new Teleop(mOi, mDrivetrain, mShooter, mBallHandler, mVisionTracking, mClimber, mRetriever);
   public static AutoCommands mAutoCommands = new AutoCommands(ahrs, mDrivetrain, mBallHandler, mRetriever);
-  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking);
+  public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking, mRetriever, mShooter);
+  public static Humber mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter);
+
 
   @Override
   public void robotInit() {
@@ -67,6 +70,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("thorMulti", 0);
     SmartDashboard.putNumber("tuneWheelSpeedTest", 0);
     SmartDashboard.putBoolean("WHEEELLLELLELELEL", false);
+
+    SmartDashboard.putBoolean("loop1", false);
+    SmartDashboard.putBoolean("loop2", false);
+    SmartDashboard.putBoolean("loop3", false);
 
     // Resets all devices
     mClimber.resetEncoder();
@@ -93,6 +100,10 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
+
+    SmartDashboard.putBoolean("loop1", false);
+    SmartDashboard.putBoolean("loop2", false);
+    SmartDashboard.putBoolean("loop3", false);
   }
 
   @Override
@@ -116,13 +127,21 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    mAutonomous.init();
+    //mAutonomous.init();
   }
 
   @Override
   public void autonomousPeriodic() {
     //mAutonomous.periodic();
     //mAutoCommands.forwardDrive(120, 0.5);
+    boolean ranAuto = false;
+    SmartDashboard.putBoolean("ranAuto", ranAuto);  
+
+    if(!ranAuto){
+      mHumber.sixBall();
+      ranAuto = true;
+    }
+    SmartDashboard.putBoolean("ranAuto", ranAuto);
   }
 
   @Override

@@ -63,6 +63,9 @@ public class VisionTracking {
                 speed = thorMultiples[i][2];
             }
         }
+        if(thor < 80 || thor == 0){
+            speed = 4050;
+        }
 
         return speed;
     }
@@ -134,8 +137,8 @@ public class VisionTracking {
             turretFun();
 
             if(goodToShoot){
-                mBallHandler.delayedUnload(unloadSpeed);
-                mBallHandler.unlatch();
+                //mBallHandler.delayedUnload(unloadSpeed);
+                //mBallHandler.unlatch();
             }
             
         }
@@ -146,8 +149,8 @@ public class VisionTracking {
         turretFun();
 
         if(goodToShoot){
-            mBallHandler.delayedUnload(unloadSpeed);
-            mBallHandler.unlatch();
+            //delayedUnload(unloadSpeed);
+            //mBallHandler.unlatch();
         }
 
     }

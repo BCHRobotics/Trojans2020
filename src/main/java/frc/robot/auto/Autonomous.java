@@ -12,6 +12,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Retriever;
+import frc.robot.subsystems.Shooter;
 import frc.robot.vision.VisionTracking;
 
 /**
@@ -21,6 +23,9 @@ public class Autonomous {
 
     private static final String kDefaultAuto = "Default";
 
+    private static final String kSixBallAuto = "Six Ball Auto";
+
+    /*
     private static final String kstart1HighRDV = "Start 1, Shoot High, End Rendez-vous";
     private static final String kstart1HighTrench = "Start 1, Shoot High, End Trench";
     private static final String kstart1HighHome = "Start 1, Shoot High, End Home";
@@ -41,6 +46,7 @@ public class Autonomous {
     private static final String kstart3LowRDV = "Start 3, Shoot Low, End Rendez-vous";
     private static final String kstart3LowTrench = "Start 3, Shoot Low, End Trench";
     private static final String kstart3LowHome = "Start 3, Shoot Low, End Home";
+    */
 
     private String mAutoSelected;
     private final SendableChooser<String> mChooser = new SendableChooser<>();
@@ -50,17 +56,21 @@ public class Autonomous {
     private Ayrton mAyrton;
     private Matthew mMatthew;
     private Kamren mKamren;
+    private Humber mHumber;
 
-    public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs, VisionTracking mVisionTracking){
+    public Autonomous(Drivetrain mDrivetrain, AutoCommands mAutoCommands, AHRS ahrs, VisionTracking mVisionTracking, Retriever mRetriever, Shooter mShooter){
 
         mVohnPhillip = new VohnPhillip(mAutoCommands);
         mRyan = new Ryan(mAutoCommands);
         mAyrton = new Ayrton(mAutoCommands, mVisionTracking);
         mMatthew = new Matthew(mAutoCommands);
         mKamren = new Kamren(mAutoCommands);
+        mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter);
 
         mChooser.setDefaultOption("Default Auto", kDefaultAuto);
+        mChooser.addObject("6 ball", kSixBallAuto);
 
+        /*
         mChooser.addOption("Start 1, Shoot High, End Rendez-vous", kstart1HighRDV);
         mChooser.addOption("Start 1, Shoot High, End Trench", kstart1HighTrench);
         mChooser.addOption("Start 1, Shoot High, End Home", kstart1HighHome);
@@ -81,6 +91,7 @@ public class Autonomous {
         mChooser.addOption("Start 3, Shoot Low, End Rendez-vous", kstart3LowRDV);
         mChooser.addOption("Start 3, Shoot Low, End Trench", kstart3LowTrench);
         mChooser.addOption("Start 3, Shoot Low, End Home", kstart3LowHome);
+        */
 
         SmartDashboard.putData("Auto choices", mChooser);
         SmartDashboard.putNumber("gyro", -1);
@@ -99,6 +110,19 @@ public class Autonomous {
      * Start 3 High RDV
      */
     public void periodic(){
+
+        switch(mAutoSelected){
+            case kSixBallAuto:
+                mHumber.sixBall();
+                break;
+            case kDefaultAuto:
+            default:
+                mHumber.initDrive();
+                break;
+            
+        }
+
+        /*
         switch (mAutoSelected) {
             case kstart1HighRDV:
                 mRyan.S1highRendezvous();
@@ -161,6 +185,7 @@ public class Autonomous {
                 // Put default auto code here
                 break;
           }
+          */
     }
 
 }
