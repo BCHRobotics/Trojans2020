@@ -140,12 +140,14 @@ public class Robot extends TimedRobot {
     //mAutonomous.periodic();
     //mAutoCommands.forwardDrive(120, 0.5);
     
-    mHumber.sixBall();
+    mShooter.setWheelSpeed(5000);
+    //mHumber.sixBall();
+    mHumber.threeBallMiddle();
   }
 
   @Override
   public void teleopInit() {
-    mShooter.wheelSpeed(0.5);
+    
   }
 
   @Override

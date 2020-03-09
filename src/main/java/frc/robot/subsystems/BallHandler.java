@@ -44,7 +44,9 @@ public class BallHandler extends SubsystemBase {
   private double[] speedsUnload = {1, 1, 1};
 
   private long[] handlerDelayMs = {500, 500, 500};
+  private long[] handlerDelayMsAuto = {2000, 2000, 2000};
   private long[] handleTime = {0, 0, 0};
+  private long[] handleTimeAuto = {0, 0, 0};
   private int unloading = 0;
 
   /**
@@ -136,6 +138,13 @@ public class BallHandler extends SubsystemBase {
     handleTime[2] = sysTime + handlerDelayMs[0] + handlerDelayMs[1] + handlerDelayMs[2];
   }
 
+  public void delayedUnloadSetAuto(){
+    long sysTime = System.currentTimeMillis();
+    handleTimeAuto[0] = sysTime + handlerDelayMsAuto[0];
+    handleTimeAuto[1] = sysTime + handlerDelayMsAuto[0] + handlerDelayMsAuto[1];
+    handleTimeAuto[2] = sysTime + handlerDelayMsAuto[0] + handlerDelayMsAuto[1] + handlerDelayMsAuto[2];
+  }
+
   public void delayedUnload(double unloadSpeed){
     if(handleTime[2] < System.currentTimeMillis()){
       unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
@@ -151,6 +160,20 @@ public class BallHandler extends SubsystemBase {
     }
   }
 
+  public void delayedUnloadAuto(double unloadSpeed){
+    if(handleTimeAuto[2] < System.currentTimeMillis()){
+      unload(new double[]{unloadSpeed, unloadSpeed, unloadSpeed});
+      unloading = 3;
+    } else if(handleTimeAuto[1] < System.currentTimeMillis()){
+      unload(new double[]{0, unloadSpeed, unloadSpeed});
+      unloading = 2;
+    } else if(handleTimeAuto[0] < System.currentTimeMillis()){
+      unload(new double[]{0, 0, unloadSpeed});
+      unloading = 1;
+    } else {
+      unload(0);
+    }
+  }
 
 
   /**

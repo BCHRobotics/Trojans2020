@@ -32,7 +32,7 @@ public class VisionTracking {
     private double thorMulti = 158;
     private boolean goodToShoot = false;
 
-    private int[][] thorMultiples = {
+    private double[][] thorMultiples = {
         {190, 180, 4100},
         {180, 170, 4050},
         {170, 160, 4000},
@@ -47,6 +47,22 @@ public class VisionTracking {
     };
     //thor = 185, 140.5inches at 4050 ref rpm
 
+    /* HOMEISH CAL
+    private int[][] thorMultiples = {
+        {190, 180, 4100},
+        {180, 170, 4050},
+        {170, 160, 4000},
+        {160, 150, 4000},
+        {150, 140, 3985},
+        {140, 130, 3975},
+        {130, 120, 3985},
+        {120, 110, 4000},
+        {110, 100, 4000},
+        {100, 90, 4050},
+        {90, 80, 4100}
+    };
+    */
+
     private Shooter mShooter;
     private BallHandler mBallHandler;
 
@@ -57,16 +73,18 @@ public class VisionTracking {
 
     public int getOutputSpeed(){
         
+        /*
         for(int i = 0; i < thorMultiples.length; i++){
             if(thor >= thorMultiples[i][1] && thor < thorMultiples[i][0]){
-                speed = thorMultiples[i][2];
+                speed = (int)thorMultiples[i][2];
             }
         }
         if(thor < 80 || thor == 0){
             speed = 4150;
         }
+        */
 
-        return speed;
+        return 4150;
     }
 
     public void justTurret(){
@@ -86,6 +104,7 @@ public class VisionTracking {
         }
     }
     
+    /*
     public void turretFun(){
 
         periodic();
@@ -151,12 +170,15 @@ public class VisionTracking {
         }
 
     }
+    */
 
     public void periodic(){
+
 
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
         tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
         thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
+        //thor = 150;
         ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
 
         SmartDashboard.putNumber("tv",tv);

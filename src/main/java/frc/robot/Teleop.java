@@ -150,7 +150,7 @@ public class Teleop {
             if(mOi.buttonVision.get()){
                 //Run vision code
                 //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-                mVisionTracking.shoot(1);
+                mVisionTracking.justTurret();
                 
                 /*if(mOi.buttonShoot.get()){
                     mBallHandler.unload(1);
@@ -167,12 +167,7 @@ public class Teleop {
 
                 mShooter.turretSpeed(deadzone(mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_TURRETTURN), 0.2, 0.2));
 
-                if(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.3){
-                    mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED)*2);
-                } else {
-                    SmartDashboard.putBoolean("WHEEELLLELLELELEL", true);
-                    mShooter.wheelSpeed(0.715);
-                } 
+                
                 
                 if(mOi.buttonShoot.get()){
                     //mBallHandler.unload(1);
@@ -184,7 +179,10 @@ public class Teleop {
                 }
 
                 if(mOi.funstick.getRawButton(2)){
-                    mVisionTracking.justTurret();
+                    //mVisionTracking.justTurret();
+                    mClimber.lift(0.3);
+                } else{
+                    mClimber.lift(0);
                 }
 
                 
@@ -195,6 +193,13 @@ public class Teleop {
                 }*/
                 
             }
+
+            if(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED) >= 0.3){
+                mShooter.wheelSpeed(-mOi.funstick.getRawAxis(RobotMap.OI_FUNSTICK_SHOOTSPEED)*2);
+            } else {
+                SmartDashboard.putBoolean("WHEEELLLELLELELEL", true);
+                mShooter.setWheelSpeed(mVisionTracking.getOutputSpeed());
+            } 
 
             if(mOi.funstick.getRawButton(4) || mOi.funstick.getRawButton(3)){
                 mBallHandler.delayedUnload(1);
