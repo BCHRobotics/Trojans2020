@@ -72,7 +72,7 @@ public class Teleop {
         y = deadzone(mOi.drivestick.getRawAxis(RobotMap.OI_DRIVESTICK_MOVEY), 0.07, 0.07);
         turn = deadzone(mOi.drivestick.getRawAxis(RobotMap.OI_DRIVESTICK_TURN), 0.07, 0.07);
         
-        mDrivetrain.arcade(y * speed, turn * speed);
+        mDrivetrain.arcade(-y * speed, turn * speed);
 
     }
 

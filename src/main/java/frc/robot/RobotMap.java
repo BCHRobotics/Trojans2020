@@ -95,7 +95,7 @@ public class RobotMap {
 
     //DriveStick Axis
     public static int OI_DRIVESTICK_MOVEY = 1; //Left Y
-    public static int OI_DRIVESTICK_TURN = 0; //Left X
+    public static int OI_DRIVESTICK_TURN = 4; //Right X
 
     //DriveStick Buttons
     public static int BTN_DRIVESTICK_SNAIL = 5; //Left Trigger

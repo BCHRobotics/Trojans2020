@@ -30,6 +30,8 @@ public class AutoCommands {
 
         this.ahrs = ahrs;
         this.mDrivetrain = mDrivetrain;
+        this.mBallHandler = mBallHandler;
+        this.mRetriever = mRetriever;
 
     }
 
@@ -68,8 +70,8 @@ public class AutoCommands {
 
         while(mDrivetrain.getEncoderBL() > -setpoint){
             mDrivetrain.arcade(-speed, 0);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 
@@ -83,8 +85,8 @@ public class AutoCommands {
 
         while(mDrivetrain.getEncoderBL() < enocderSetpoint){
             mDrivetrain.arcade(encoderSpeed, (ahrs.getAngle() - gyroSetpoint) * gyroSpeed);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 
@@ -98,8 +100,8 @@ public class AutoCommands {
 
         while(mDrivetrain.getEncoderBL() > -enocderSetpoint){
             mDrivetrain.arcade(-encoderSpeed, (ahrs.getAngle() - gyroSetpoint) * gyroSpeed);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 
@@ -111,8 +113,8 @@ public class AutoCommands {
 
         while(ahrs.getAngle() > setpoint){
             mDrivetrain.arcade(0, -speed);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 
@@ -124,8 +126,8 @@ public class AutoCommands {
 
         while(mDrivetrain.getEncoderBL() > -setpoint){
             mDrivetrain.arcade(0, -speed);
-            mBallHandler.load(handleSpeed);
-            mRetriever.intake(intakeSpeed);
+            //mBallHandler.load(handleSpeed);
+            //mRetriever.intake(intakeSpeed);
         }
         mDrivetrain.arcade(0, 0);
 

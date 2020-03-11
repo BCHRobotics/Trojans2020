@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
   public static Autonomous mAutonomous = new Autonomous(mDrivetrain, mAutoCommands, ahrs, mVisionTracking, mRetriever, mShooter);
   public static Humber mHumber = new Humber(mDrivetrain, mVisionTracking, mRetriever, mShooter, mBallHandler);
 
+  private int autoStep = 0;
 
   @Override
   public void robotInit() {
@@ -78,6 +79,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("loop5", false);
     SmartDashboard.putNumber("HUMBER AUTO TIME", -1);
 
+    SmartDashboard.putNumber("autoStep", autoStep);
+
     // Resets all devices
     mClimber.resetEncoder();
     // mColorWheel.resetEncoderExtend();
@@ -100,7 +103,7 @@ public class Robot extends TimedRobot {
     mDrivetrain.resetEncoders();
     mShooter.resetEncoderWheel();
     ahrs.reset();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
 
     SmartDashboard.putBoolean("ENDLOOP", false);
 
@@ -132,7 +135,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //mAutonomous.init();
 
-    mHumber.init();
+    //mHumber.init();
+    autoStep = 0;
   }
 
   @Override
@@ -140,9 +144,91 @@ public class Robot extends TimedRobot {
     //mAutonomous.periodic();
     //mAutoCommands.forwardDrive(120, 0.5);
     
-    mShooter.setWheelSpeed(5000);
+    //mShooter.setWheelSpeed(5000);
     //mHumber.sixBall();
-    mHumber.threeBallMiddle();
+    //mHumber.threeBallMiddle();
+
+    /*Drive Forward
+    if(autoStep == 0){
+
+      mDrivetrain.arcade(-0.5, 0);
+
+      if(mDrivetrain.getEncoderBL() >= 120 - 24){
+        autoStep = 1;
+        mDrivetrain.arcade(0, 0);
+      }
+    }
+    */
+    
+    /*Turret Right
+    if(autoStep == 0){
+
+      mShooter.turretSpeed(0.5);
+
+      if(mShooter.getEncoderTurret() >= 90 - 15.5){
+        autoStep = 1;
+        mShooter.turretSpeed(0);
+      }
+    }
+    */
+
+    /*
+    if(autoStep == 0){
+
+      mShooter.turretSpeed(0.5);
+
+      if(mShooter.getEncoderTurret() >= 90 - 15.5){
+        autoStep = 1;
+        mShooter.turretSpeed(0);
+      }
+    }
+
+    if(autoStep == 1){
+
+      mDrivetrain.arcade(-0.5, 0);
+
+      if(mDrivetrain.getEncoderBL() >= 40){
+        autoStep = 2;
+        mDrivetrain.arcade(0, 0);
+      }
+    }
+    */
+
+    /*Turn 90ish
+    if(autoStep == 0){
+
+      mDrivetrain.arcade(0, 0.5);
+
+      if(ahrs.getAngle() >= (90 - 27.5)){
+        autoStep = 1;
+        mDrivetrain.arcade(0, 0);
+      }
+    }
+    */
+
+    if(autoStep == 0){
+
+      mShooter.turretSpeed(0.5);
+      mRetriever.arm(0.1);
+      mRetriever.intake(-1);
+
+      if(mShooter.getEncoderTurret() >= 100 - 15.5){
+        autoStep = 1;
+        mShooter.turretSpeed(0);
+      }
+    }
+
+    if(autoStep == 1){
+
+      mDrivetrain.arcade(-0.25, 0);
+      mRetriever.intake(-1);
+
+      if(mDrivetrain.getEncoderBL() >= 65 - 15){
+        autoStep = 2;
+        mDrivetrain.arcade(0, 0);
+      }
+    }
+
   }
 
   @Override

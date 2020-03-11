@@ -130,6 +130,9 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Drivetrain: rightSpeed", rightSpeed);
     SmartDashboard.putNumber("Drivetrain: leftSpeed", leftSpeed);
 
+    SmartDashboard.putNumber("Drivetrain: rightSpeedSPARK", SPARK_BACKRIGHT.getAppliedOutput());
+    SmartDashboard.putNumber("Drivetrain: leftSpeedSPARK", SPARK_BACKLEFT.getAppliedOutput());
+
     SmartDashboard.putNumber("Drivetrain: rightVelosity", encoderFR.getVelocity());
     SmartDashboard.putNumber("Drivetrain: leftVelosity", encoderFL.getVelocity());
 
