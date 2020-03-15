@@ -33,17 +33,16 @@ public class VisionTracking {
     private boolean goodToShoot = false;
 
     private double[][] thorMultiples = {
-        {190, 180, 4100},
-        {180, 170, 4050},
-        {170, 160, 4000},
-        {160, 150, 4000},
-        {150, 140, 3985},
-        {140, 130, 3975},
-        {130, 120, 3985},
-        {120, 110, 4000},
-        {110, 100, 4000},
-        {100, 90, 4050},
-        {90, 80, 4100}
+        {70, 67, 4100},
+        {67, 64, 4050},
+        {64, 61, 4000},
+        {61, 58, 4000},
+        {58, 55, 3985},
+        {55, 52, 3975},
+        {52, 49, 3985},
+        {49, 46, 4000},
+        {46, 43, 4000},
+        {43, 40, 4050}
     };
     //thor = 185, 140.5inches at 4050 ref rpm
 
@@ -73,18 +72,16 @@ public class VisionTracking {
 
     public int getOutputSpeed(){
         
-        /*
         for(int i = 0; i < thorMultiples.length; i++){
             if(thor >= thorMultiples[i][1] && thor < thorMultiples[i][0]){
                 speed = (int)thorMultiples[i][2];
             }
         }
-        if(thor < 80 || thor == 0){
+        if(thor < 40 || thor == 0){
             speed = 4150;
         }
-        */
 
-        return 4150;
+        return speed;
     }
 
     public void justTurret(){
